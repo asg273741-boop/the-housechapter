@@ -24,9 +24,9 @@ const { variant = 'full', class: className = '' } = Astro.props;
       <circle cx="32" cy="18" r="3" fill="#C29B53"/>
     </svg>
   ) : (
-    <div class="flex items-center gap-3 md:gap-3.5">
+    <div class={`flex items-center ${variant === 'compact' ? 'gap-2' : 'gap-3 md:gap-3.5'}`}>
       <!-- Architectural Arch & Olive Sprig Emblem -->
-      <svg class="w-8 h-8 md:w-9 md:h-9 shrink-0" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+      <svg class={variant === 'compact' ? 'w-7 h-7 shrink-0' : 'w-8 h-8 md:w-9 md:h-9 shrink-0'} viewBox="0 0 64 64" fill="none" aria-hidden="true">
         <path d="M12 56V26C12 14.9543 20.9543 6 32 6C43.0457 6 52 14.9543 52 26V56" stroke="#3B4734" stroke-width="2.5" stroke-linecap="round"/>
         <path d="M18 56V27C18 19.268 24.268 13 32 13C39.732 13 46 19.268 46 27V56" stroke="#DECFC0" stroke-width="1.5" stroke-linecap="round"/>
         <path d="M6 56H58" stroke="#3B4734" stroke-width="2.5" stroke-linecap="round"/>
@@ -39,10 +39,10 @@ const { variant = 'full', class: className = '' } = Astro.props;
       
       <!-- Wordmark -->
       <div class="flex flex-col text-left">
-        <span class="font-serif tracking-[0.16em] text-base md:text-[1.25rem] font-semibold text-ink-deep leading-none uppercase">
+        <span class={`font-serif font-semibold text-ink-deep leading-none uppercase whitespace-nowrap ${variant === 'compact' ? 'tracking-[0.12em] text-[0.82rem]' : 'tracking-[0.16em] text-base md:text-[1.25rem]'}`}>
           The House Chapter
         </span>
-        <span class="font-serif italic text-[0.6875rem] md:text-[0.75rem] text-clay font-normal tracking-wide mt-1 leading-tight hidden sm:block">
+        <span class={`font-serif italic text-clay font-normal tracking-wide mt-1 leading-tight ${variant === 'compact' ? 'hidden' : 'text-[0.6875rem] md:text-[0.75rem] hidden sm:block'}`}>
           Ideas for a home well lived.
         </span>
       </div>

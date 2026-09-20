@@ -243,7 +243,11 @@ const philosophyPoints = [
     .home-section { padding-block: 42px 28px; }
     .section-heading { align-items: start; }
     .section-heading > a { margin-top: 8px; }
-    .room-grid { display: flex; margin-right: -1rem; padding-right: 1rem; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; }
+    .room-grid { display: flex; margin-right: -1rem; padding: 0 1rem 12px 0; gap: 14px; overflow-x: auto; overscroll-behavior-inline: contain; scroll-snap-type: x mandatory; scrollbar-color: #737a63 #e7ded1; scrollbar-width: thin; }
+    .room-grid::-webkit-scrollbar { height: 6px; }
+    .room-grid::-webkit-scrollbar-track { border-radius: 999px; background: #e7ded1; }
+    .room-grid::-webkit-scrollbar-thumb { border: 0; border-radius: 999px; background: linear-gradient(90deg, #70785f, #a36b54); }
+    .room-grid::-webkit-scrollbar-thumb:hover { background: linear-gradient(90deg, #59614d, #8e503c); }
     .room-card { flex: 0 0 39%; scroll-snap-align: start; }
     .journal-grid { grid-template-columns: 1fr; gap: 32px; }
     .journal-card__image img { aspect-ratio: 1.6; }

@@ -3,230 +3,190 @@ import Logo from '../ui/Logo.astro';
 import { siteConfig } from '../../config/site';
 
 const currentPath = Astro.url.pathname;
+const desktopNavigation = [
+  { label: 'Decor', href: '/home-decor/' },
+  { label: 'Rooms', href: '/rooms/' },
+  { label: 'Styling', href: '/furniture-styling/' },
+  { label: 'Organization', href: '/organization-storage/' },
+  { label: 'Small Spaces', href: '/small-space-living/' },
+  { label: 'Apartments', href: '/apartments/' },
+  { label: 'Entryways', href: '/entryways-hallways/', specialty: true },
+];
+
+const mobileNavigation = [
+  { label: 'Home', href: '/' },
+  ...desktopNavigation,
+];
 ---
 
-<header class="w-full bg-ivory/95 backdrop-blur-md border-b border-editorial sticky top-0 z-40 transition-all">
-  <div class="max-w-wide mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex items-center justify-between h-16">
-      
-      <!-- 1. Brand Logo on Left -->
-      <div class="shrink-0">
-        <Logo />
-      </div>
+<header class="site-header sticky top-0 z-40 w-full border-b border-editorial bg-ivory/95 backdrop-blur-md">
+  <!-- Desktop header -->
+  <div class="hidden xl:grid header-shell h-[4.5rem] grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-5 xl:gap-7">
+    <Logo variant="compact" />
 
-      <!-- 2. Desktop Primary Navigation in Center -->
-      <nav class="hidden xl:flex items-center space-x-5 2xl:space-x-7" aria-label="Primary Editorial Navigation">
-        <a
-          href="/"
-          class={`text-[0.7rem] tracking-[0.12em] uppercase transition-colors relative py-1.5 group ${currentPath === '/' ? 'text-ink-deep font-semibold' : 'text-ink-lighter hover:text-ink-deep font-medium'}`}
-        >
-          <span>Home</span>
-          <span class={`absolute bottom-0 left-0 w-full h-px bg-olive transition-transform duration-300 origin-left ${currentPath === '/' ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`} />
-        </a>
-        {siteConfig.navigation.primary.map((item) => {
-          const isActive = currentPath === item.href || (item.href !== '/' && currentPath.startsWith(item.href));
-          return (
-            <a
-              href={item.href}
-              class={`text-[0.7rem] 2xl:text-[0.74rem] tracking-[0.11em] uppercase transition-colors relative py-1.5 group ${
-                isActive
-                  ? 'text-ink-deep font-semibold'
-                  : 'text-ink-lighter hover:text-ink-deep font-medium'
-              }`}
-            >
-              <span>{item.label}</span>
-              {item.isSpecialty && (
-                <span class="inline-block w-1.5 h-1.5 rounded-full bg-clay ml-1 align-middle" title="Editorial Pillar" />
-              )}
-              <span
-                class={`absolute bottom-0 left-0 w-full h-[1.5px] bg-olive transition-transform duration-300 origin-left ${
-                  isActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
-                }`}
-              />
-            </a>
-          );
-        })}
-      </nav>
+    <nav class="flex min-w-0 items-center justify-center gap-4 xl:gap-6 2xl:gap-8" aria-label="Primary navigation">
+      {desktopNavigation.map((item) => {
+        const isActive = currentPath === item.href || currentPath.startsWith(item.href);
+        return (
+          <a
+            href={item.href}
+            class={`group relative whitespace-nowrap py-2 text-[0.67rem] font-semibold uppercase tracking-[0.105em] transition-colors xl:text-[0.7rem] ${
+              isActive ? 'text-ink-deep' : 'text-ink-lighter hover:text-ink-deep'
+            }`}
+          >
+            {item.label}
+            {item.specialty && <span class="ml-1 inline-block h-1.5 w-1.5 rounded-full bg-clay align-middle" />}
+            <span class={`absolute inset-x-0 bottom-0 h-px origin-left bg-olive transition-transform duration-300 ${isActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`} />
+          </a>
+        );
+      })}
+    </nav>
 
-      <!-- Intermediate Screens (lg to xl): Compact Nav Dropdown or subset -->
-      <nav class="hidden lg:flex xl:hidden items-center space-x-5" aria-label="Compact Editorial Navigation">
-        {siteConfig.navigation.primary.slice(0, 5).map((item) => {
-          const isActive = currentPath === item.href || (item.href !== '/' && currentPath.startsWith(item.href));
-          return (
-            <a
-              href={item.href}
-              class={`text-[0.75rem] tracking-[0.12em] uppercase transition-colors relative py-1 ${
-                isActive
-                  ? 'text-ink-deep font-semibold'
-                  : 'text-ink-lighter hover:text-ink-deep font-medium'
-              }`}
-            >
-              <span>{item.label}</span>
-            </a>
-          );
-        })}
-        <a
-          href="/entryways-hallways/"
-          class="text-[0.75rem] tracking-[0.12em] uppercase transition-colors font-semibold text-clay hover:text-clay-dark flex items-center gap-1"
-        >
-          <span>Entryways</span>
-          <span class="w-1.5 h-1.5 rounded-full bg-clay" />
-        </a>
-      </nav>
-
-      <!-- 3. Actions on Right: Search & Pinterest Button -->
-      <div class="flex items-center space-x-3 sm:space-x-4">
-        
-        <!-- Search Trigger Button -->
-        <button
-          type="button"
-          id="search-trigger-btn"
-          class="inline-flex items-center gap-2 px-3 py-2 bg-parchment hover:bg-parchment-hover text-ink-light hover:text-ink-deep text-xs tracking-wider uppercase font-medium border border-editorial transition-colors rounded-none cursor-pointer focus-visible:ring-2 focus-visible:ring-olive"
-          aria-label="Open search (Press Ctrl+K)"
-          title="Search articles (Ctrl+K)"
-        >
-          <svg class="w-4 h-4 text-olive" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-          </svg>
-          <span class="hidden md:inline">Search</span>
-          <kbd class="hidden sm:inline font-sans text-[0.625rem] bg-ivory px-1.5 py-0.5 border border-editorial text-warmBrown-light">⌘K</kbd>
-        </button>
-
-        <!-- Pinterest Save Button (Desktop) -->
-        <a
-          href={siteConfig.socialLinks.pinterest}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="hidden sm:inline-flex items-center gap-1.5 px-3 py-2 bg-clay text-ivory hover:bg-clay-dark text-xs tracking-wider uppercase font-semibold transition-colors shadow-xs"
-          aria-label="Pinterest Discovery"
-        >
-          <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
-            <path d="M12 0C5.373 0 0 5.373 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738.098.119.112.224.083.345-.09.375-.291 1.199-.332 1.365-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.631-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12 0-6.628-5.373-12-12-12z"/>
-          </svg>
-          <span>Pins</span>
-        </a>
-
-        <!-- Mobile Menu Toggle Button -->
-        <button
-          type="button"
-          id="mobile-menu-btn"
-          class="lg:hidden p-2 text-ink hover:text-ink-deep hover:bg-parchment transition-colors focus-visible:ring-2 focus-visible:ring-olive"
-          aria-expanded="false"
-          aria-controls="mobile-nav-drawer"
-          aria-label="Toggle navigation menu"
-        >
-          <svg class="w-6 h-6 icon-menu" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-          </svg>
-          <svg class="w-6 h-6 icon-close hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
-
-      </div>
-
+    <div class="flex items-center gap-2">
+      <button
+        type="button"
+        data-search-trigger
+        class="header-action"
+        aria-label="Search articles"
+        title="Search articles (Ctrl+K)"
+      >
+        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.2-5.2m0 0A7.5 7.5 0 105.2 5.2a7.5 7.5 0 0010.6 10.6z" />
+        </svg>
+        <span class="hidden 2xl:inline">Search</span>
+      </button>
+      <a
+        href={siteConfig.socialLinks.pinterest}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="header-pinterest"
+        aria-label="Visit The House Chapter on Pinterest"
+        title="Pinterest"
+      >
+        <svg class="h-4 w-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 0C5.37 0 0 5.37 0 12c0 5.08 3.16 9.43 7.63 11.17-.11-.95-.2-2.41.04-3.44.22-.94 1.41-5.97 1.41-5.97s-.36-.72-.36-1.78c0-1.67.97-2.91 2.17-2.91 1.02 0 1.52.77 1.52 1.69 0 1.03-.66 2.57-.99 4-.28 1.19.6 2.17 1.78 2.17 2.13 0 3.77-2.25 3.77-5.5 0-2.87-2.06-4.88-5.01-4.88-3.41 0-5.42 2.56-5.42 5.21 0 1.03.4 2.14.89 2.74.1.12.11.22.08.35-.09.38-.29 1.2-.33 1.37-.05.22-.17.27-.4.16-1.5-.7-2.44-2.89-2.44-4.65 0-3.79 2.75-7.26 7.93-7.26 4.16 0 7.4 2.97 7.4 6.93 0 4.14-2.61 7.46-6.23 7.46-1.22 0-2.36-.63-2.75-1.38l-.75 2.85c-.27 1.04-1 2.35-1.49 3.15C9.57 23.81 10.76 24 12 24c6.63 0 12-5.37 12-12S18.63 0 12 0z" />
+        </svg>
+      </a>
     </div>
   </div>
 
-  <!-- Mobile Drawer -->
-  <div
-    id="mobile-nav-drawer"
-    class="lg:hidden hidden border-t border-editorial bg-ivory px-6 pt-5 pb-8 transition-all max-h-[85vh] overflow-y-auto"
-    aria-label="Mobile Navigation"
-  >
-    <div class="space-y-6">
-      
-      <!-- Primary Categories -->
-      <div>
-        <h3 class="text-[0.6875rem] font-semibold tracking-[0.16em] uppercase text-warmBrown-light mb-3 pb-1 border-b border-editorial-subtle">
-          The Editorial Chapters
-        </h3>
-        <ul class="space-y-2.5">
-          {siteConfig.navigation.primary.map((item) => (
-            <li>
-              <a
-                href={item.href}
-                class="flex items-center justify-between py-1.5 text-base font-medium text-ink hover:text-clay transition-colors"
-              >
+  <!-- Mobile header -->
+  <div class="header-shell flex h-16 items-center justify-between gap-3 xl:hidden">
+    <Logo variant="compact" />
+    <div class="flex shrink-0 items-center gap-1.5">
+      <button type="button" data-search-trigger class="mobile-action" aria-label="Search articles">
+        <svg class="h-[1.15rem] w-[1.15rem]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.2-5.2m0 0A7.5 7.5 0 105.2 5.2a7.5 7.5 0 0010.6 10.6z" />
+        </svg>
+      </button>
+      <button
+        type="button"
+        id="mobile-menu-btn"
+        class="mobile-action"
+        aria-expanded="false"
+        aria-controls="mobile-nav-drawer"
+        aria-label="Open navigation menu"
+      >
+        <svg class="icon-menu h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+          <path stroke-linecap="round" d="M5 7h14M5 12h14M5 17h14" />
+        </svg>
+        <svg class="icon-close hidden h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+          <path stroke-linecap="round" d="M6 6l12 12M18 6L6 18" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <button id="mobile-nav-scrim" class="mobile-nav-scrim hidden xl:hidden" aria-label="Close navigation menu"></button>
+
+  <div id="mobile-nav-drawer" class="mobile-drawer hidden xl:hidden" aria-label="Mobile navigation">
+    <div class="header-shell py-6">
+      <button type="button" data-search-trigger data-mobile-search class="mobile-search-row">
+        <svg class="h-4 w-4 text-olive" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.2-5.2m0 0A7.5 7.5 0 105.2 5.2a7.5 7.5 0 0010.6 10.6z" />
+        </svg>
+        <span>Search ideas, rooms and guides</span>
+        <span aria-hidden="true">→</span>
+      </button>
+
+      <div class="mt-6">
+        <p class="menu-kicker">Explore the house</p>
+        <nav class="mt-2 grid grid-cols-2 gap-x-5" aria-label="Mobile primary navigation">
+          {mobileNavigation.map((item) => {
+            const isActive = currentPath === item.href || (item.href !== '/' && currentPath.startsWith(item.href));
+            return (
+              <a href={item.href} class={`mobile-nav-link ${isActive ? 'is-active' : ''}`}>
                 <span>{item.label}</span>
-                {item.isSpecialty && (
-                  <span class="text-[0.625rem] uppercase tracking-wider font-semibold px-2 py-0.5 bg-clay/15 text-clay-dark border border-clay/30">
-                    Pillar
-                  </span>
-                )}
+                {'specialty' in item && item.specialty && <span class="h-1.5 w-1.5 rounded-full bg-clay" />}
               </a>
-            </li>
-          ))}
-        </ul>
+            );
+          })}
+        </nav>
       </div>
 
-      <!-- Secondary Spaces -->
-      <div class="pt-4 border-t border-editorial">
-        <h3 class="text-[0.6875rem] font-semibold tracking-[0.16em] uppercase text-warmBrown-light mb-3 pb-1 border-b border-editorial-subtle">
-          More Spaces & Ideas
-        </h3>
-        <ul class="space-y-2">
+      <div class="mt-6 border-t border-editorial pt-5">
+        <p class="menu-kicker">More inspiration</p>
+        <div class="mt-3 flex flex-wrap gap-x-5 gap-y-2.5">
           {siteConfig.navigation.secondary.map((item) => (
-            <li>
-              <a
-                href={item.href}
-                class="block py-1 text-sm text-ink-light hover:text-ink-deep transition-colors"
-              >
-                {item.label}
-              </a>
-            </li>
+            <a href={item.href} class="text-xs text-ink-light transition-colors hover:text-clay">{item.label}</a>
           ))}
-        </ul>
-      </div>
-
-      <!-- Publication Links -->
-      <div class="pt-4 border-t border-editorial flex items-center justify-between text-xs text-ink-lighter">
-        <div class="space-x-3">
-          <a href="/about/" class="hover:text-ink-deep underline underline-offset-2">About</a>
-          <a href="/contact/" class="hover:text-ink-deep underline underline-offset-2">Contact</a>
-          <a href="/rss.xml" class="hover:text-ink-deep underline underline-offset-2">RSS</a>
         </div>
-        <a
-          href={siteConfig.socialLinks.pinterest}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="inline-flex items-center gap-1 text-clay hover:text-clay-dark font-medium"
-        >
-          <span>Pinterest Boards &rarr;</span>
-        </a>
       </div>
 
+      <div class="mt-6 flex items-center justify-between border-t border-editorial pt-5 text-xs">
+        <div class="flex gap-5 text-ink-lighter">
+          <a href="/about/" class="hover:text-ink-deep">About</a>
+          <a href="/contact/" class="hover:text-ink-deep">Contact</a>
+        </div>
+        <a href={siteConfig.socialLinks.pinterest} target="_blank" rel="noopener noreferrer" class="font-semibold text-clay hover:text-clay-dark">Pinterest ↗</a>
+      </div>
     </div>
   </div>
 </header>
 
+<style>
+  .header-shell { width: min(100% - 2rem, 1360px); margin-inline: auto; }
+  .header-action, .header-pinterest, .mobile-action { display: inline-flex; align-items: center; justify-content: center; transition: background-color .2s ease, color .2s ease, border-color .2s ease; }
+  .header-action { min-width: 2.5rem; height: 2.5rem; gap: .45rem; padding-inline: .7rem; border: 1px solid rgba(35,32,29,.1); background: #f4ede3; color: #3d3732; font-size: .65rem; font-weight: 600; letter-spacing: .09em; text-transform: uppercase; }
+  .header-action:hover { background: #eae1d3; color: #191614; }
+  .header-pinterest { width: 2.5rem; height: 2.5rem; background: #b66348; color: #fffaf2; }
+  .header-pinterest:hover { background: #8e4630; }
+  .mobile-action { width: 2.4rem; height: 2.4rem; border: 1px solid rgba(35,32,29,.1); color: #29251f; }
+  .mobile-action:hover { background: #f3ece1; }
+  .mobile-nav-scrim { position: absolute; inset-inline: 0; top: 100%; z-index: 1; height: calc(100vh - 4rem); cursor: default; background: rgba(35,32,29,.28); backdrop-filter: blur(2px); }
+  .mobile-drawer { position: absolute; inset-inline: 0; top: 100%; z-index: 2; max-height: calc(100vh - 4rem); overflow-y: auto; border-top: 1px solid rgba(35,32,29,.08); background: #faf7f2; box-shadow: 0 24px 48px rgba(35,32,29,.14); }
+  .mobile-search-row { display: grid; width: 100%; grid-template-columns: auto 1fr auto; align-items: center; gap: .75rem; padding: .9rem 1rem; border: 1px solid rgba(35,32,29,.1); background: #f3ece1; color: #544e48; font-size: .75rem; text-align: left; }
+  .menu-kicker { margin: 0; color: #8a6e5e; font-size: .62rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
+  .mobile-nav-link { display: flex; min-height: 2.9rem; align-items: center; justify-content: space-between; gap: .5rem; border-bottom: 1px solid rgba(35,32,29,.08); color: #26221e; font-family: var(--font-serif); font-size: 1.08rem; font-weight: 600; transition: color .2s ease, padding-left .2s ease; }
+  .mobile-nav-link:hover, .mobile-nav-link.is-active { color: #8e4630; padding-left: .2rem; }
+  @media (min-width: 1280px) { .header-shell { width: min(100% - 3rem, 1360px); } }
+  @media (max-width: 370px) { .header-shell { width: min(100% - 1.25rem, 1360px); } }
+</style>
+
 <script>
-  // Setup search triggers
-  const dialog = document.getElementById('search-dialog');
-  const searchInput = document.getElementById('search-input') as HTMLInputElement | null;
-
-  function openSearchModal() {
-    if (!dialog || !searchInput) return;
-    dialog.classList.remove('hidden');
-    document.body.style.overflow = 'hidden';
-    searchInput.focus();
-  }
-
-  document.getElementById('search-trigger-btn')?.addEventListener('click', openSearchModal);
-
-  // Accessible mobile menu drawer toggle
   const menuBtn = document.getElementById('mobile-menu-btn');
   const drawer = document.getElementById('mobile-nav-drawer');
+  const scrim = document.getElementById('mobile-nav-scrim');
   const iconMenu = menuBtn?.querySelector('.icon-menu');
   const iconClose = menuBtn?.querySelector('.icon-close');
 
-  if (menuBtn && drawer && iconMenu && iconClose) {
-    menuBtn.addEventListener('click', () => {
-      const isExpanded = menuBtn.getAttribute('aria-expanded') === 'true';
-      menuBtn.setAttribute('aria-expanded', String(!isExpanded));
-      drawer.classList.toggle('hidden');
-      iconMenu.classList.toggle('hidden');
-      iconClose.classList.toggle('hidden');
-    });
+  function setMobileMenu(open: boolean) {
+    if (!menuBtn || !drawer || !scrim || !iconMenu || !iconClose) return;
+    menuBtn.setAttribute('aria-expanded', String(open));
+    menuBtn.setAttribute('aria-label', open ? 'Close navigation menu' : 'Open navigation menu');
+    drawer.classList.toggle('hidden', !open);
+    scrim.classList.toggle('hidden', !open);
+    iconMenu.classList.toggle('hidden', open);
+    iconClose.classList.toggle('hidden', !open);
+    document.body.style.overflow = open ? 'hidden' : '';
   }
+
+  menuBtn?.addEventListener('click', () => setMobileMenu(menuBtn.getAttribute('aria-expanded') !== 'true'));
+  scrim?.addEventListener('click', () => setMobileMenu(false));
+  drawer?.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => setMobileMenu(false)));
+  drawer?.querySelector('[data-mobile-search]')?.addEventListener('click', () => setMobileMenu(false));
+
+  window.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && menuBtn?.getAttribute('aria-expanded') === 'true') setMobileMenu(false);
+  });
 </script>

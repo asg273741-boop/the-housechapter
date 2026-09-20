@@ -81,7 +81,7 @@
 
   let searchIndex: SearchItem[] | null = null;
   const dialog = document.getElementById('search-dialog');
-  const triggerBtn = document.getElementById('search-trigger-btn');
+  const triggerBtns = document.querySelectorAll<HTMLElement>('[data-search-trigger]');
   const closeBtn = document.getElementById('search-close-btn');
   const searchInput = document.getElementById('search-input') as HTMLInputElement | null;
   const resultsContainer = document.getElementById('search-results-list');
@@ -186,7 +186,7 @@
   }
 
   // Event Listeners
-  triggerBtn?.addEventListener('click', openSearch);
+  triggerBtns.forEach((button) => button.addEventListener('click', openSearch));
   closeBtn?.addEventListener('click', closeSearch);
 
   // Close on backdrop click

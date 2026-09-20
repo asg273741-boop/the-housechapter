@@ -10,6 +10,8 @@
     color: var(--color-ink);
     font-family: var(--font-sans);
     scroll-behavior: smooth;
+    scrollbar-color: #6f765f #eee7dc;
+    scrollbar-width: thin;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -27,6 +29,35 @@
   ::selection {
     background-color: rgba(184, 147, 88, 0.25);
     color: #181C17;
+  }
+
+  /* Slim editorial scrollbars: warm paper track, muted olive handle. */
+  *::-webkit-scrollbar {
+    width: 10px;
+    height: 8px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: #eee7dc;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    min-height: 44px;
+    border: 2px solid #eee7dc;
+    border-radius: 999px;
+    background: linear-gradient(180deg, #7d836c, #59614d);
+  }
+
+  *::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #a7664e, #85503d);
+  }
+
+  *::-webkit-scrollbar-corner {
+    background: #eee7dc;
+  }
+
+  *::-webkit-scrollbar-button {
+    display: none;
   }
 
   /* Focus ring for accessibility */
