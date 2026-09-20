@@ -11,10 +11,30 @@ const currentYear = new Date().getFullYear();
       <Logo />
       <p>{siteConfig.description}</p>
       <div class="footer-social" aria-label="Social links">
-        <a href={siteConfig.socialLinks.pinterest} target="_blank" rel="noopener noreferrer" aria-label="Pinterest">p</a>
-        <a href={siteConfig.socialLinks.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram">◎</a>
-        <a href="/rss.xml" aria-label="RSS feed">◉</a>
-        <a href={`mailto:${siteConfig.socialLinks.email}`} aria-label="Email us">✉</a>
+        <a href={siteConfig.socialLinks.pinterest} target="_blank" rel="noopener noreferrer" aria-label="Pinterest">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="currentColor" d="M12 2a10 10 0 0 0-3.64 19.31c-.08-.79-.15-2 .03-2.86l1.29-5.47s-.33-.66-.33-1.64c0-1.53.89-2.68 2-2.68.94 0 1.4.71 1.4 1.56 0 .95-.61 2.36-.92 3.67-.26 1.1.55 2 1.64 2 1.97 0 3.48-2.08 3.48-5.08 0-2.66-1.91-4.52-4.64-4.52-3.16 0-5.02 2.37-5.02 4.82 0 .95.37 1.98.83 2.54.09.11.1.2.07.32l-.31 1.26c-.05.2-.16.25-.37.15-1.39-.65-2.26-2.67-2.26-4.3 0-3.5 2.54-6.71 7.33-6.71 3.85 0 6.85 2.74 6.85 6.41 0 3.83-2.41 6.91-5.76 6.91-1.12 0-2.18-.58-2.54-1.27l-.69 2.63c-.25.96-.93 2.17-1.38 2.91.9.28 1.85.43 2.84.43A10 10 0 0 0 12 2Z" />
+          </svg>
+        </a>
+        <a href={siteConfig.socialLinks.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <rect x="3.25" y="3.25" width="17.5" height="17.5" rx="5" stroke="currentColor" stroke-width="1.8" />
+            <circle cx="12" cy="12" r="4.1" stroke="currentColor" stroke-width="1.8" />
+            <circle cx="17.45" cy="6.7" r="1.1" fill="currentColor" />
+          </svg>
+        </a>
+        <a href="/rss.xml" aria-label="RSS feed">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx="6" cy="18" r="1.6" fill="currentColor" />
+            <path d="M5 11a8 8 0 0 1 8 8M5 5a14 14 0 0 1 14 14" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" />
+          </svg>
+        </a>
+        <a href={`mailto:${siteConfig.socialLinks.email}`} aria-label="Email us">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <rect x="3" y="5.25" width="18" height="13.5" rx="1.8" stroke="currentColor" stroke-width="1.8" />
+            <path d="m4.5 7 7.5 6 7.5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </a>
       </div>
     </div>
 
@@ -56,9 +76,10 @@ const currentYear = new Date().getFullYear();
   .footer-shell { width: min(100% - 3rem, 1280px); margin-inline: auto; }
   .footer-main { display: grid; grid-template-columns: 1.55fr .7fr .65fr 1fr; gap: 64px; padding-block: 60px 52px; }
   .footer-brand > p { max-width: 450px; margin: 27px 0 23px; color: #655e57; font-size: .72rem; line-height: 1.65; }
-  .footer-social { display: flex; gap: 20px; align-items: center; }
-  .footer-social a { display: grid; place-items: center; width: 22px; height: 22px; color: #30352d; font-family: Georgia, serif; font-size: 1rem; font-weight: 700; transition: color .2s ease, transform .2s ease; }
-  .footer-social a:hover { color: #b66348; transform: translateY(-2px); }
+  .footer-social { display: flex; gap: 7px; align-items: center; }
+  .footer-social a { display: grid; place-items: center; width: 36px; height: 36px; border: 1px solid transparent; border-radius: 50%; color: #30352d; transition: color .2s ease, transform .2s ease, border-color .2s ease, background-color .2s ease; }
+  .footer-social svg { width: 18px; height: 18px; }
+  .footer-social a:hover { border-color: rgba(182,99,72,.24); background: #f8efea; color: #b66348; transform: translateY(-2px); }
   .footer-main nav { display: flex; flex-direction: column; align-items: flex-start; gap: 7px; }
   .footer-main nav h2 { margin: 4px 0 10px; color: #4d4842; font-size: .63rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
   .footer-main nav a { color: #554f49; font-size: .68rem; line-height: 1.45; }
