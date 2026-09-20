@@ -1,0 +1,41 @@
+# Cloudflare Pages Headers Configuration
+# Documentation: https://developers.cloudflare.com/pages/configuration/headers/
+
+# Global headers for all HTML pages and assets
+/*
+  X-Frame-Options: SAMEORIGIN
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+
+# Immutable long-term caching for hashed Astro JavaScript and CSS bundles
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Editorial images cache (1 month with stale-while-revalidate)
+/images/*
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
+
+# Web fonts
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# RSS feed for feed readers (1 hour cache, must revalidate)
+/rss.xml
+  Cache-Control: public, max-age=3600, must-revalidate
+  Content-Type: application/xml; charset=utf-8
+
+# XML Sitemaps for Googlebot and search crawlers
+/sitemap-index.xml
+  Cache-Control: public, max-age=3600, must-revalidate
+  Content-Type: application/xml; charset=utf-8
+
+/sitemap-0.xml
+  Cache-Control: public, max-age=3600, must-revalidate
+  Content-Type: application/xml; charset=utf-8
+
+# Crawl rules
+/robots.txt
+  Cache-Control: public, max-age=86400, must-revalidate
+  Content-Type: text/plain; charset=utf-8

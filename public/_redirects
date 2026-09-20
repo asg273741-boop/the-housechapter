@@ -1,0 +1,6 @@
+# Cloudflare Pages Redirects and Rewrites
+# Documentation: https://developers.cloudflare.com/pages/configuration/redirects/
+
+# Custom 404 Error Page handling
+# Serves the custom 404 page with HTTP status 404 for any unmatched route
+/* /404/ 404
