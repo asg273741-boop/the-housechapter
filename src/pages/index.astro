@@ -1,410 +1,264 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import ArticleCard from '../components/cards/ArticleCard.astro';
-import SpecialtyCard from '../components/cards/SpecialtyCard.astro';
-import NewsletterSignup from '../components/editorial/NewsletterSignup.astro';
 import { getCollection } from 'astro:content';
 import { siteConfig } from '../config/site';
 
-// Query articles
 const allArticles = await getCollection('articles');
-
-// Sort by publishedAt desc
 const sortedArticles = [...allArticles].sort(
   (a, b) => new Date(b.data.publishedAt).getTime() - new Date(a.data.publishedAt).getTime()
 );
 
-// Lead Cover Story: Small Entryway Ideas
-const coverStory = sortedArticles.find((a) => a.slug === 'small-entryway-ideas') || sortedArticles[0];
+const articleOrder = ['apartment-entryway-ideas', 'small-living-room-ideas', 'entryway-storage-ideas'];
+const journalArticles = articleOrder
+  .map((slug) => sortedArticles.find((article) => article.slug === slug))
+  .filter(Boolean);
 
-// Supporting Editorial Features
-const secondaryFeatures = sortedArticles.filter((a) => a.slug !== coverStory?.slug);
+const journalImageBySlug: Record<string, string> = {
+  'apartment-entryway-ideas': '/images/home/apartment.jpg',
+  'small-living-room-ideas': '/images/home/hero-living-room.jpg',
+  'entryway-storage-ideas': '/images/home/storage.jpg',
+};
 
-// Entryway Specialty Articles
-const entrywayCollection = sortedArticles.filter((a) => a.data.category === 'entryways-hallways');
-
-// Tactile Material Palette
-const materialPalette = [
-  {
-    name: 'Belgian Linen',
-    role: 'Textiles & Drapery',
-    tone: 'Unbleached Oat',
-    notes: 'Softens acoustic echo in high-traffic hallways and brings timeless drape.',
-    border: '#DECFC0',
-    bg: '#F5EFE6',
-    tag: 'Soft Furnishings',
-  },
-  {
-    name: 'Antique Brass',
-    role: 'Lighting & Hardware',
-    tone: 'Living Gold',
-    notes: 'A living finish that patinas with hands; adds metallic warmth to neutral corridors.',
-    border: '#E0BE78',
-    bg: '#FAF4E6',
-    tag: 'Accents',
-  },
-  {
-    name: 'Terracotta Clay',
-    role: 'Vessels & Floor Tile',
-    tone: 'Sun-Baked Ochre',
-    notes: 'Earthy, grounding warmth that counteracts cold sterile white apartment walls.',
-    border: '#C77358',
-    bg: '#F8EFEA',
-    tag: 'Earthenware',
-  },
-  {
-    name: 'White Oak',
-    role: 'Benches & Floating Consoles',
-    tone: 'Natural Grain',
-    notes: 'Enduring architectural anchor for narrow thresholds without visual bulk.',
-    border: '#C2B09D',
-    bg: '#EFE8DC',
-    tag: 'Joinery',
-  },
+const roomCards = [
+  { label: 'Entryways', href: '/entryways-hallways/', image: '/images/home/entryway.jpg' },
+  { label: 'Living Room', href: '/rooms/', image: '/images/home/hero-living-room.jpg' },
+  { label: 'Bedroom', href: '/rooms/', image: '/images/home/bedroom-editorial.webp' },
+  { label: 'Kitchen', href: '/rooms/', image: '/images/home/kitchen.jpg' },
+  { label: 'Bathroom', href: '/rooms/', image: '/images/home/bathroom.jpg' },
+  { label: 'Small Spaces', href: '/small-space-living/', image: '/images/home/apartment.jpg' },
+  { label: 'Apartments', href: '/apartments/', image: '/images/home/storage.jpg' },
+  { label: 'Outdoor & Garden', href: '/outdoor-garden/', image: '/images/home/outdoor.jpg' },
 ];
 
-// 5 Core Principles for a Home Well Lived
-const editorialRules = [
-  {
-    num: '01',
-    rule: 'Honor the Threshold',
-    desc: 'The entryway sets the emotional frequency of your home. If the arrival is chaotic, the mind cannot rest.',
-  },
-  {
-    num: '02',
-    rule: 'Conceal the Daily Friction',
-    desc: 'Keep 80% of footwear, mail, and gear out of sight behind tailored doors; leave only the serene on display.',
-  },
-  {
-    num: '03',
-    rule: 'Scale Generously in Small Rooms',
-    desc: 'Never default to dollhouse proportions. A floor-to-ceiling drapery or wide runner visually expands the room.',
-  },
-  {
-    num: '04',
-    rule: 'Layer Light at Eye Level',
-    desc: 'Banish harsh center ceiling glare. Warm 2700K shaded sconces and small table lamps create intimacy.',
-  },
-  {
-    num: '05',
-    rule: 'Celebrate Living Imperfections',
-    desc: 'A home well lived is never sterile. Patinated brass, softened linen, and worn wood are badges of comfort.',
-  },
+const principles = [
+  'Real-Home Inspiration',
+  'Practical Solutions',
+  'Small-Space Friendly',
+  'Budget-Conscious Ideas',
+  'A Calmer, More Beautiful Life',
+];
+
+const philosophyPoints = [
+  ['Live With Intention', 'Design choices that support your lifestyle.'],
+  ['Find Beauty in the Everyday', 'Simple ideas with a big impact.'],
+  ['Create a Home That Grows With You', 'Practical, flexible, and timeless inspiration.'],
 ];
 ---
 
-<BaseLayout
-  title={`${siteConfig.siteName} — ${siteConfig.tagline}`}
-  description={siteConfig.description}
->
-  
-  <!-- 1. THE EDITORIAL COVER STORY SPREAD -->
-  <section class="border-b border-editorial bg-ivory pt-8 pb-16 lg:pt-12 lg:pb-20">
-    <div class="max-w-wide mx-auto px-4 sm:px-6 lg:px-8">
-      
-      <!-- Kicker Header -->
-      <div class="flex items-center justify-between border-b border-editorial-subtle pb-3 mb-8 text-xs">
-        <div class="flex items-center gap-2 font-semibold uppercase tracking-[0.16em]">
-          <span class="text-clay">The Cover Chapter</span>
-          <span class="text-beige-dark">&bull;</span>
-          <span class="text-olive">Specialty Authority</span>
-        </div>
-        <div class="hidden sm:flex items-center gap-2 text-warmBrown-light italic font-serif">
-          <span>Curated for Mindful Living</span>
-        </div>
-      </div>
-
-      <!-- Hero Spread: Asymmetric Magazine Layout -->
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-        
-        <!-- Left: Grand Magazine Copy Column (5 cols) -->
-        <div class="lg:col-span-5 space-y-6">
-          <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-clay/15 border border-clay/30 text-clay-dark text-[0.6875rem] font-semibold uppercase tracking-[0.14em]">
-            <span class="w-1.5 h-1.5 rounded-full bg-clay"></span>
-            <span>Signature Authority Pillar</span>
-          </div>
-
-          <h1 class="font-serif text-3xl sm:text-5xl lg:text-5xl xl:text-6xl font-semibold text-ink-deep leading-[1.10] tracking-tight">
-            <a href={`/${coverStory.slug}/`} class="hover:text-clay transition-colors">
-              {coverStory.data.title}
-            </a>
-          </h1>
-
-          <p class="font-serif italic text-lg sm:text-xl text-clay leading-relaxed border-l-2 border-clay/40 pl-4">
-            "{coverStory.data.description}"
-          </p>
-
-          <p class="text-sm text-ink-light leading-relaxed font-normal">
-            Turn cramped foyers, narrow drop zones, and awkward front doors into organized, welcoming thresholds. An in-depth guide on floating storage, light reflection, and the quiet daily ritual of stepping home.
-          </p>
-
-          <!-- Byline & Reading Metadata -->
-          <div class="pt-6 border-t border-editorial flex items-center justify-between text-xs text-warmBrown-light">
-            <div>
-              <span class="font-medium text-ink-deep block">{coverStory.data.author}</span>
-              <span class="text-[0.6875rem] text-warmBrown">{coverStory.data.authorRole}</span>
-            </div>
-            <a
-              href={`/${coverStory.slug}/`}
-              class="inline-flex items-center gap-2 px-6 py-3 bg-olive hover:bg-olive-dark text-ivory text-xs uppercase tracking-widest font-semibold transition-colors shadow-sm"
-            >
-              <span>Read the Full Guide</span>
-              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-              </svg>
-            </a>
-          </div>
-        </div>
-
-        <!-- Right: Photographic Artwork Spread (7 cols) -->
-        <div class="lg:col-span-7">
-          <div class="relative bg-parchment p-3 sm:p-4 border border-editorial shadow-sm group">
-            <a href={`/${coverStory.slug}/`} class="block overflow-hidden aspect-[4/3] sm:aspect-[16/11]">
-              <img
-                src={coverStory.data.heroImage}
-                alt={coverStory.data.heroImageAlt}
-                loading="eager"
-                decoding="sync"
-                class="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-[1.02]"
-              />
-            </a>
-            <!-- Caption Plate -->
-            <div class="mt-3 pt-2 flex flex-col sm:flex-row items-start sm:items-center justify-between text-[0.6875rem] text-warmBrown-light gap-1">
-              <span class="font-serif italic">Fig. 01 — Slender cantilevered oak console and round unlacquered brass pivot mirror.</span>
-              <span class="uppercase tracking-wider shrink-0 font-medium text-clay">Plate No. 21</span>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
-  <!-- 2. FROM THE EDITORS: A PERSONAL LETTER (Warm Terracotta Accent) -->
-  <section class="py-16 bg-clay-tint/70 border-b border-editorial">
-    <div class="max-w-editorial mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-        
-        <!-- Founder Portrait / Studio Vignette -->
-        <div class="lg:col-span-4">
-          <div class="relative p-2.5 bg-ivory border border-clay/30 shadow-sm">
-            <img
-              src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80"
-              alt="The House Chapter editorial studio workspace with natural materials and architectural blueprints"
-              loading="lazy"
-              class="w-full aspect-[4/5] object-cover"
-            />
-            <div class="p-3 text-center text-[0.6875rem] text-clay font-serif italic">
-              From our studio: testing clearances, authentic patinas, and living proportions.
-            </div>
-          </div>
-        </div>
-
-        <!-- Personal Letter Column -->
-        <div class="lg:col-span-8 space-y-4">
-          <div class="flex items-center gap-2">
-            <span class="w-6 h-[1.5px] bg-clay"></span>
-            <span class="text-xs uppercase tracking-[0.16em] font-semibold text-clay">
-              From the Desk of the Editors
-            </span>
-          </div>
-
-          <h2 class="font-serif text-2xl sm:text-4xl font-semibold text-ink-deep leading-snug">
-            Why We Founded The House Chapter
-          </h2>
-
-          <div class="text-sm sm:text-base text-ink-light leading-relaxed space-y-3 font-normal">
-            <p>
-              We started <em>The House Chapter</em> out of a quiet frustration with the extremes of modern home media. On one side are cold, multimillion-dollar showplaces detached from real life; on the other, generic listicles promoting disposable plastic organizers.
-            </p>
-            <p>
-              We believe a home well lived is shaped in the hardworking transitions: the narrow entryway where coats and shoes land each evening, the small bedroom arranged for deep rest, and the quiet corner given purpose with natural light and weathered wood.
-            </p>
-            <p>
-              Our promise: practical architectural principles, honest materials, and attainable inspiration for every room you inhabit.
-            </p>
-          </div>
-
-          <div class="pt-4 flex items-center justify-between border-t border-clay/20">
-            <div class="font-serif italic text-base text-clay-dark font-medium">
-              — The House Chapter Editorial Guild
-            </div>
-            <a href="/about/" class="text-xs uppercase tracking-wider text-olive hover:text-clay font-semibold underline underline-offset-4">
-              Our Full Philosophy &rarr;
-            </a>
-          </div>
-        </div>
-
+<BaseLayout title={`${siteConfig.siteName} — ${siteConfig.tagline}`} description={siteConfig.description}>
+  <section class="home-hero" aria-labelledby="home-hero-title">
+    <img class="home-hero__image" src="/images/home/hero-editorial.webp" alt="Warm, light-filled living room with a cream sofa, natural wood and olive accents" loading="eager" fetchpriority="high" />
+    <div class="home-hero__shade"></div>
+    <div class="home-shell home-hero__content">
+      <p class="eyebrow">Home decor ideas for real life</p>
+      <h1 id="home-hero-title">Beautiful Homes<br />Start With<br />Thoughtful Details</h1>
+      <p class="home-hero__dek">Practical ideas, styling inspiration, and real-home solutions for every corner of your space — no matter the size.</p>
+      <a class="primary-button" href="/home-decor/">Explore all ideas <span aria-hidden="true">→</span></a>
+      <div class="home-hero__proof" aria-label="Publication highlights">
+        <span><strong>1000+</strong>Decor Ideas</span>
+        <span><strong>Real Homes</strong>Real Solutions</span>
+        <span><strong>A More Intentional</strong>Everyday Life</span>
       </div>
     </div>
+    <p class="home-hero__script" aria-hidden="true">Small changes.<br />Big difference.</p>
   </section>
 
-  <!-- 3. THE SIGNATURE AUTHORITY: THE ENTRYWAY CHAPTER -->
-  <section class="py-16 lg:py-24 max-w-wide mx-auto px-4 sm:px-6 lg:px-8 border-b border-editorial">
-    
-    <!-- Section Masthead -->
-    <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 pb-6 border-b border-editorial gap-6">
-      <div class="max-w-2xl">
-        <div class="flex items-center gap-2 text-xs uppercase tracking-[0.16em] text-clay font-semibold mb-2">
-          <span class="inline-block w-2 h-2 rounded-full bg-clay"></span>
-          <span>Signature Editorial Authority Pillar</span>
-        </div>
-        <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold text-ink-deep">
-          The Entryway Chapter
-        </h2>
-        <p class="text-sm sm:text-base text-ink-light mt-2 leading-relaxed">
-          The threshold is where life transitions. Explore our focused collection of small entryway blueprints, narrow hallway rhythms, and clutter-free drop zone architectures.
-        </p>
-      </div>
-
-      <div class="shrink-0">
-        <a
-          href="/entryways-hallways/"
-          class="inline-flex items-center gap-2 px-5 py-2.5 bg-parchment hover:bg-parchment-hover text-ink-deep border border-editorial text-xs uppercase tracking-widest font-semibold transition-colors shadow-xs"
-        >
-          <span>All Entryway Solutions</span>
-          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-          </svg>
+  <section class="home-section home-shell" aria-labelledby="browse-heading">
+    <div class="section-heading">
+      <div><h2 id="browse-heading">Browse by Space</h2><p>Find inspiration for every corner of your home.</p></div>
+      <a href="/rooms/">Explore all rooms <span aria-hidden="true">→</span></a>
+    </div>
+    <div class="room-grid">
+      {roomCards.map((room) => (
+        <a class="room-card" href={room.href}>
+          <img src={room.image} alt={`${room.label} decorating inspiration`} loading="lazy" />
+          <span>{room.label} <b aria-hidden="true">→</b></span>
         </a>
-      </div>
-    </div>
-
-    <!-- Editorial Entryway Grid with Distinctive Specialty Cards -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      {entrywayCollection.map((art, idx) => (
-        <SpecialtyCard article={art} index={idx} />
-      ))}
-    </div>
-
-  </section>
-
-  <!-- 4. TACTILE EDITORIAL MOODBOARD: MATERIALS -->
-  <section class="py-16 lg:py-20 bg-ivory border-b border-editorial">
-    <div class="max-w-wide mx-auto px-4 sm:px-6 lg:px-8">
-      
-      <div class="text-center max-w-xl mx-auto mb-12">
-        <span class="text-xs uppercase tracking-[0.16em] text-olive font-semibold block mb-2">
-          The Sensory Foundation
-        </span>
-        <h2 class="font-serif text-3xl sm:text-4xl font-semibold text-ink-deep mb-3">
-          Materials of an Intentional Home
-        </h2>
-        <p class="text-xs sm:text-sm text-ink-light leading-relaxed">
-          Before selecting furniture, curate your material palette. Natural textures soften footsteps, age with character, and eliminate the chill of sterile rooms.
-        </p>
-      </div>
-
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {materialPalette.map((mat) => (
-          <div
-            class="p-6 border border-editorial flex flex-col justify-between transition-transform duration-300 hover:-translate-y-1 shadow-xs"
-            style={`background-color: ${mat.bg}; border-color: ${mat.border};`}
-          >
-            <div>
-              <div class="flex items-center justify-between mb-2">
-                <span class="text-[0.625rem] uppercase tracking-widest text-warmBrown-light font-semibold">
-                  {mat.role}
-                </span>
-                <span class="text-[0.625rem] px-2 py-0.5 rounded-none bg-ivory/80 text-ink-deep font-medium border border-editorial-subtle">
-                  {mat.tag}
-                </span>
-              </div>
-              <h3 class="font-serif text-2xl font-semibold text-ink-deep mb-2">
-                {mat.name}
-              </h3>
-              <p class="text-xs text-ink-light leading-relaxed">
-                {mat.notes}
-              </p>
-            </div>
-            <div class="mt-6 pt-4 border-t border-editorial-subtle flex items-center justify-between text-[0.6875rem] text-warmBrown font-medium">
-              <span>Natural Tone:</span>
-              <span class="font-serif italic text-ink-deep font-semibold">{mat.tone}</span>
-            </div>
-          </div>
-        ))}
-      </div>
-
-    </div>
-  </section>
-
-  <!-- 5. RECENT CHAPTERS: 3-COLUMN SPREAD -->
-  <section class="py-16 lg:py-24 max-w-wide mx-auto px-4 sm:px-6 lg:px-8 border-b border-editorial">
-    <div class="flex items-end justify-between mb-10 pb-4 border-b border-editorial">
-      <div>
-        <span class="text-xs uppercase tracking-[0.14em] text-warmBrown-light font-semibold block mb-1">
-          Recent Dispatches
-        </span>
-        <h2 class="font-serif text-3xl sm:text-4xl font-semibold text-ink-deep">
-          Fresh From The Journal
-        </h2>
-      </div>
-      <a
-        href="/rooms/"
-        class="text-xs uppercase tracking-wider text-olive hover:text-clay font-semibold underline underline-offset-4 hidden sm:block"
-      >
-        View All Room Studies &rarr;
-      </a>
-    </div>
-
-    <!-- 3-Column Magazine Spread -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      {secondaryFeatures.slice(0, 3).map((article) => (
-        <ArticleCard article={article} aspectRatio="landscape" />
       ))}
     </div>
   </section>
 
-  <!-- 6. THE EDITORIAL CODE: 5 RULES FOR A HOME WELL LIVED -->
-  <section class="py-16 lg:py-20 bg-parchment/60 border-b border-editorial">
-    <div class="max-w-wide mx-auto px-4 sm:px-6 lg:px-8">
-      
-      <div class="max-w-xl mb-12">
-        <span class="text-xs uppercase tracking-[0.16em] text-clay font-semibold block mb-1">
-          The Publication Doctrine
-        </span>
-        <h2 class="font-serif text-3xl sm:text-4xl font-semibold text-ink-deep">
-          Five Rules for a Home Well Lived
-        </h2>
-        <p class="text-xs sm:text-sm text-ink-light mt-2 leading-relaxed">
-          Timeless design standards that guide every guide, blueprint, and room study we publish.
-        </p>
+  <section class="home-section home-shell journal-section" aria-labelledby="journal-heading">
+    <div class="journal-main">
+      <div class="section-heading">
+        <div><h2 id="journal-heading">Latest From The Journal</h2><p>Fresh ideas, practical guides, and real-home inspiration.</p></div>
+        <a href="/search/">View all articles <span aria-hidden="true">→</span></a>
       </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-5 gap-6">
-        {editorialRules.map((rule) => (
-          <div class="p-6 bg-ivory border border-editorial flex flex-col justify-between hover:border-clay/40 transition-colors">
+      <div class="journal-grid">
+        {journalArticles.map((article) => article && (
+          <article class="journal-card">
+            <a href={`/${article.slug}/`} class="journal-card__image">
+              <img src={journalImageBySlug[article.slug] || article.data.heroImage} alt={article.data.heroImageAlt} loading="lazy" />
+              <span>{article.data.subcategory}</span>
+            </a>
+            <h3><a href={`/${article.slug}/`}>{article.data.title}</a></h3>
+            <p>{article.data.description}</p>
             <div>
-              <span class="font-serif font-bold text-3xl text-clay/80 block mb-3">
-                {rule.num}
-              </span>
-              <h3 class="font-serif text-lg font-semibold text-ink-deep mb-2 leading-snug">
-                {rule.rule}
-              </h3>
-              <p class="text-xs text-ink-light leading-relaxed font-normal">
-                {rule.desc}
-              </p>
+              <time datetime={article.data.publishedAt}>{new Date(article.data.publishedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</time>
+              <span>•</span><span>{article.data.readingTime}</span>
             </div>
-            <div class="mt-6 pt-3 border-t border-editorial-subtle">
-              <span class="text-[0.625rem] uppercase tracking-widest text-olive font-semibold">
-                Guideline
-              </span>
-            </div>
-          </div>
+          </article>
         ))}
       </div>
+    </div>
 
+    <aside class="intentional-panel" aria-labelledby="intentional-heading">
+      <img src="/images/home/entryway.jpg" alt="Warm interior with a wood console and leafy branches" loading="lazy" />
+      <div class="intentional-panel__shade"></div>
+      <div class="intentional-panel__content">
+        <p class="eyebrow">The House Chapter way</p>
+        <h2 id="intentional-heading">Make a More<br />Intentional Home</h2>
+        <ul>{principles.map((title) => (<li><span aria-hidden="true">⌂</span>{title}</li>))}</ul>
+        <p class="intentional-panel__script">Home should<br />feel like you.</p>
+      </div>
+    </aside>
+  </section>
+
+  <section class="philosophy" aria-labelledby="philosophy-heading">
+    <div class="philosophy__story">
+      <img src="/images/home/bedroom-editorial.webp" alt="Calm bedroom layered with natural linen and warm wood" loading="lazy" />
+      <div class="philosophy__shade"></div>
+      <div class="philosophy__copy">
+        <p class="eyebrow">The House Chapter philosophy</p>
+        <h2 id="philosophy-heading">More Home.<br />More You.</h2>
+        <p>We believe a well-lived home isn’t about perfection — it’s about spaces that support your real life. Thoughtful design, meaningful details, and a little everyday beauty can make all the difference.</p>
+        <a class="light-button" href="/about/">Our full philosophy <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+    <div class="philosophy__principles">
+      <blockquote>“A home is not a place.<br />It’s a feeling.”</blockquote>
+      <div class="philosophy__list">
+        {philosophyPoints.map(([title, description], index) => (
+          <div><span aria-hidden="true">{String(index + 1).padStart(2, '0')}</span><p><strong>{title}</strong>{description}</p></div>
+        ))}
+      </div>
     </div>
   </section>
 
-  <!-- 7. EDITORIAL NEWSLETTER INVITATION -->
-  <div class="max-w-wide mx-auto px-4 sm:px-6 lg:px-8 py-16">
-    <NewsletterSignup
-      variant="boxed"
-      headline="A little inspiration for your next chapter at home."
-      description="Receive curated decorating dispatches, practical hallway storage blueprints, and quiet design moments delivered straight to your inbox."
-    />
-  </div>
-
+  <section class="home-letter" aria-labelledby="newsletter-heading">
+    <div class="home-shell home-letter__inner">
+      <div><h2 id="newsletter-heading">Join Our Home Letter</h2><p>Get curated decor ideas, new guides, and quiet inspiration delivered to your inbox.</p></div>
+      <form action={siteConfig.newsletter.endpoint} method="POST" class="home-letter__form">
+        <label class="sr-only" for="home-email">Email address</label>
+        <input id="home-email" type="email" name="email" required placeholder="Enter your email address..." />
+        <button type="submit">Subscribe</button>
+        <small>No spam. No daily noise. Unsubscribe anytime.</small>
+      </form>
+    </div>
+  </section>
 </BaseLayout>
+
+<style>
+  :global(body) { background: #fbf8f2; }
+  .home-shell { width: min(100% - 3rem, 1360px); margin-inline: auto; }
+  .home-hero { position: relative; min-height: 570px; display: flex; align-items: stretch; overflow: hidden; color: #fffaf2; }
+  .home-hero__image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 66% center; }
+  .home-hero__shade { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(26,22,18,.93) 0%, rgba(31,26,21,.86) 31%, rgba(31,26,21,.36) 49%, rgba(31,26,21,.04) 72%); }
+  .home-hero__content { position: relative; z-index: 2; padding-block: 68px 42px; }
+  .eyebrow { margin: 0 0 15px; font-size: .72rem; line-height: 1.3; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; }
+  .home-hero h1 { max-width: 660px; margin: 0; font-family: var(--font-display); font-size: clamp(3.3rem, 5.1vw, 5.6rem); font-weight: 500; line-height: .99; letter-spacing: -.025em; }
+  .home-hero__dek { max-width: 520px; margin: 27px 0 29px; font-size: .98rem; line-height: 1.65; color: rgba(255,250,242,.91); }
+  .primary-button, .light-button { display: inline-flex; align-items: center; gap: 13px; padding: 15px 24px; background: #596449; color: #fff; font-size: .7rem; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; transition: transform .2s ease, background .2s ease; }
+  .primary-button:hover { background: #697655; transform: translateY(-2px); }
+  .home-hero__proof { display: flex; gap: 0; margin-top: 43px; font-size: .7rem; line-height: 1.4; }
+  .home-hero__proof span { display: flex; flex-direction: column; min-width: 140px; padding-right: 28px; margin-right: 28px; border-right: 1px solid rgba(255,255,255,.34); }
+  .home-hero__proof span:last-child { border: 0; }
+  .home-hero__proof strong { font-weight: 600; }
+  .home-hero__script { position: absolute; z-index: 2; right: 7%; bottom: 35px; margin: 0; font-family: var(--font-serif); font-size: 1.65rem; font-style: italic; line-height: 1.15; text-align: center; transform: rotate(-7deg); text-shadow: 0 2px 9px rgba(0,0,0,.45); }
+  .home-section { padding-block: 55px 36px; }
+  .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 22px; }
+  .section-heading h2 { margin: 0 0 2px; font-family: var(--font-display); font-size: clamp(2rem, 3vw, 2.6rem); font-weight: 500; line-height: 1.15; color: #211d19; }
+  .section-heading p { margin: 0; font-size: .77rem; color: #625b54; }
+  .section-heading > a { flex: none; padding-bottom: 5px; border-bottom: 1px solid #30362b; color: #25241f; font-size: .64rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+  .room-grid { display: grid; grid-template-columns: repeat(8, minmax(0,1fr)); gap: 18px; }
+  .room-card { color: #312d28; }
+  .room-card img { width: 100%; aspect-ratio: .87; object-fit: cover; border-radius: 6px; filter: saturate(.82) contrast(.95); transition: transform .35s ease, filter .35s ease; }
+  .room-card span { display: flex; gap: 7px; align-items: center; margin-top: 11px; font-size: .72rem; }
+  .room-card b { font-weight: 400; transition: transform .2s ease; }
+  .room-card:hover img { transform: translateY(-3px); filter: saturate(1) contrast(1); }
+  .room-card:hover b { transform: translateX(3px); }
+  .journal-section { display: grid; grid-template-columns: minmax(0, 3fr) minmax(300px, 1fr); gap: 30px; padding-top: 42px; padding-bottom: 52px; }
+  .journal-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 27px; }
+  .journal-card__image { position: relative; display: block; overflow: hidden; }
+  .journal-card__image img { width: 100%; aspect-ratio: 1.42; object-fit: cover; transition: transform .45s ease; }
+  .journal-card__image span { position: absolute; left: 0; bottom: 0; padding: 5px 9px; background: rgba(66,66,55,.84); color: #fff; font-size: .55rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+  .journal-card:hover img { transform: scale(1.025); }
+  .journal-card h3 { margin: 15px 0 7px; font-family: var(--font-display); font-size: 1.38rem; font-weight: 500; line-height: 1.08; }
+  .journal-card h3 a { color: #211d19; }
+  .journal-card > p { margin: 0; color: #625b54; font-size: .7rem; line-height: 1.55; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .journal-card > div:last-child { display: flex; gap: 8px; margin-top: 20px; color: #6d665f; font-size: .55rem; font-weight: 600; letter-spacing: .07em; text-transform: uppercase; }
+  .intentional-panel { position: relative; min-height: 485px; overflow: hidden; color: #fff; }
+  .intentional-panel > img, .intentional-panel__shade { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .intentional-panel__shade { background: linear-gradient(105deg, rgba(55,56,42,.94), rgba(61,61,45,.72) 60%, rgba(61,61,45,.2)); }
+  .intentional-panel__content { position: relative; z-index: 1; height: 100%; padding: 38px 32px; }
+  .intentional-panel h2 { margin: 0 0 26px; font-family: var(--font-display); font-size: 1.75rem; font-weight: 500; line-height: 1.15; text-transform: uppercase; letter-spacing: .09em; }
+  .intentional-panel ul { display: grid; gap: 14px; margin: 0; padding: 0; list-style: none; font-size: .72rem; }
+  .intentional-panel li { display: flex; align-items: center; gap: 10px; }
+  .intentional-panel li span { display: grid; place-items: center; width: 22px; height: 22px; border: 1px solid rgba(255,255,255,.65); border-radius: 50%; font-size: .68rem; }
+  .intentional-panel__script { position: absolute; right: 12px; bottom: 27px; font-family: var(--font-serif); font-size: 1.7rem; font-style: italic; line-height: 1.1; transform: rotate(-7deg); }
+  .philosophy { display: grid; grid-template-columns: minmax(0, 2fr) minmax(360px, 1fr); min-height: 500px; }
+  .philosophy__story { position: relative; min-height: 500px; overflow: hidden; color: #fff; }
+  .philosophy__story > img, .philosophy__shade { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 57%; }
+  .philosophy__shade { background: linear-gradient(90deg, rgba(34,28,23,.91), rgba(43,34,27,.65) 52%, rgba(43,34,27,.05)); }
+  .philosophy__copy { position: relative; z-index: 1; width: min(660px, 78%); padding: 62px max(6vw, 48px); }
+  .philosophy__copy h2 { margin: 0 0 22px; font-family: var(--font-display); font-size: clamp(3.1rem, 4.7vw, 5rem); font-weight: 500; line-height: 1.04; }
+  .philosophy__copy > p:not(.eyebrow) { max-width: 560px; margin: 0 0 28px; color: rgba(255,255,255,.9); font-size: .91rem; line-height: 1.6; }
+  .light-button { background: #f7f2e8; color: #26231f; }
+  .light-button:hover { background: #fff; transform: translateY(-2px); }
+  .philosophy__principles { display: flex; flex-direction: column; justify-content: center; padding: 54px 8%; background: #fdfbf7; }
+  .philosophy__principles blockquote { margin: 0 auto 44px; color: #3f3a34; font-family: var(--font-serif); font-size: 1.75rem; font-style: italic; line-height: 1.25; text-align: center; }
+  .philosophy__list { display: grid; gap: 24px; }
+  .philosophy__list > div { display: flex; align-items: center; gap: 15px; }
+  .philosophy__list > div > span { display: grid; flex: none; place-items: center; width: 41px; height: 41px; border-radius: 50%; background: #d9d8d3; color: #3a4037; font-family: var(--font-serif); font-weight: 700; }
+  .philosophy__list p { display: flex; flex-direction: column; margin: 0; color: #6d655e; font-size: .64rem; line-height: 1.45; }
+  .philosophy__list strong { margin-bottom: 2px; color: #28241f; font-family: var(--font-serif); font-size: 1rem; font-weight: 600; }
+  .home-letter { position: relative; overflow: hidden; border-bottom: 1px solid rgba(35,32,29,.08); background: linear-gradient(105deg, #f5ede1 0%, #fbf8f2 68%, #e8d8c6 100%); }
+  .home-letter::after { content: ''; position: absolute; right: -3%; top: -80%; width: 32%; height: 210%; background: radial-gradient(ellipse, rgba(102,116,76,.16), transparent 63%); transform: rotate(-20deg); }
+  .home-letter__inner { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(250px, .8fr) minmax(460px, 1.2fr); align-items: center; gap: 60px; padding-block: 42px; }
+  .home-letter h2 { margin: 0 0 5px; font-family: var(--font-display); font-size: 1.8rem; font-weight: 500; }
+  .home-letter p { max-width: 420px; margin: 0; color: #615a53; font-size: .72rem; line-height: 1.55; }
+  .home-letter__form { display: grid; grid-template-columns: 1fr auto; gap: 8px; }
+  .home-letter__form input { min-width: 0; padding: 14px 16px; border: 1px solid rgba(35,32,29,.08); background: #fff; color: #28231f; font-size: .72rem; outline: none; }
+  .home-letter__form input:focus { border-color: #596449; box-shadow: 0 0 0 1px #596449; }
+  .home-letter__form button { padding: 0 25px; background: #404c38; color: #fff; font-size: .64rem; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; }
+  .home-letter__form small { grid-column: 1 / -1; color: #8a8179; font-size: .53rem; text-align: center; }
+
+  @media (max-width: 1100px) {
+    .room-grid { grid-template-columns: repeat(4, minmax(0,1fr)); row-gap: 26px; }
+    .journal-section { grid-template-columns: 1fr; }
+    .intentional-panel { min-height: 390px; }
+    .philosophy { grid-template-columns: 1.4fr 1fr; }
+  }
+  @media (max-width: 760px) {
+    .home-shell { width: min(100% - 2rem, 1360px); }
+    .home-hero { min-height: 610px; }
+    .home-hero__image { object-position: 65% center; }
+    .home-hero__shade { background: linear-gradient(90deg, rgba(24,20,17,.91), rgba(27,23,20,.62)), linear-gradient(0deg, rgba(26,22,18,.75), transparent 50%); }
+    .home-hero__content { padding-top: 66px; }
+    .home-hero h1 { font-size: clamp(2.7rem, 13vw, 4rem); }
+    .home-hero__dek { max-width: 92%; }
+    .home-hero__proof { gap: 16px; margin-top: 38px; }
+    .home-hero__proof span { min-width: 0; padding-right: 13px; margin-right: 0; font-size: .58rem; }
+    .home-hero__script { display: none; }
+    .home-section { padding-block: 42px 28px; }
+    .section-heading { align-items: start; }
+    .section-heading > a { margin-top: 8px; }
+    .room-grid { display: flex; margin-right: -1rem; padding-right: 1rem; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; }
+    .room-card { flex: 0 0 39%; scroll-snap-align: start; }
+    .journal-grid { grid-template-columns: 1fr; gap: 32px; }
+    .journal-card__image img { aspect-ratio: 1.6; }
+    .intentional-panel { min-height: 430px; }
+    .philosophy { grid-template-columns: 1fr; }
+    .philosophy__story { min-height: 560px; }
+    .philosophy__copy { width: 100%; padding: 62px 32px; }
+    .philosophy__principles { padding: 54px 32px; }
+    .home-letter__inner { grid-template-columns: 1fr; gap: 22px; }
+  }
+  @media (max-width: 460px) {
+    .section-heading { display: block; }
+    .section-heading > a { display: inline-block; margin-top: 12px; }
+    .room-card { flex-basis: 47%; }
+    .home-letter__form { grid-template-columns: 1fr; }
+    .home-letter__form button { min-height: 46px; }
+  }
+</style>
