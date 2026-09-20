@@ -1,0 +1,16 @@
+# Build output
+dist/
+.astro/
+
+# Dependencies
+node_modules/
+
+# Environment secrets
+.env
+.env.production
+
+# System files
+.DS_Store
+Thumbs.db
+*.zip
+scratch/

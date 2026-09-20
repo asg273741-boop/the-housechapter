@@ -1,0 +1,95 @@
+@import './tokens.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    background-color: var(--color-ivory);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    scroll-behavior: smooth;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background-color: var(--color-ivory);
+    color: var(--color-ink);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background-color: rgba(184, 147, 88, 0.25);
+    color: #181C17;
+  }
+
+  /* Focus ring for accessibility */
+  :focus-visible {
+    outline: 2px solid var(--color-olive);
+    outline-offset: 2px;
+  }
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Custom Editorial Utilities */
+@layer utilities {
+  .font-serif-italic {
+    font-family: var(--font-serif);
+    font-style: italic;
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .text-pretty {
+    text-wrap: pretty;
+  }
+
+  .border-editorial {
+    border-color: rgba(34, 38, 32, 0.08);
+  }
+
+  .bg-subtle-pattern {
+    background-image: radial-gradient(rgba(34, 38, 32, 0.04) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  .border-double-editorial {
+    border-top: 3px double rgba(34, 38, 32, 0.16);
+    border-bottom: 1px solid rgba(34, 38, 32, 0.08);
+  }
+
+  .border-hairline {
+    border-color: rgba(34, 38, 32, 0.09);
+  }
+
+  .editorial-dropcap > p:first-of-type::first-letter {
+    font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+    float: left;
+    font-size: 4.25rem;
+    line-height: 0.78;
+    padding-top: 0.35rem;
+    padding-right: 0.65rem;
+    padding-bottom: 0.05rem;
+    color: #444F3C;
+    font-weight: 500;
+  }
+}

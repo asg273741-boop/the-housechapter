@@ -1,0 +1,13 @@
+---
+import CategoryLayout from '../../layouts/CategoryLayout.astro';
+import { siteConfig } from '../../config/site';
+import { getCollection } from 'astro:content';
+
+const categoryKey = 'home-decor';
+const category = siteConfig.categories[categoryKey];
+
+const allArticles = await getCollection('articles');
+const categoryArticles = allArticles.filter((art) => art.data.category === categoryKey);
+---
+
+<CategoryLayout category={category} articles={categoryArticles} />

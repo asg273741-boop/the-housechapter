@@ -1,0 +1,50 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/editorial/Breadcrumbs.astro';
+import { siteConfig } from '../config/site';
+
+const breadcrumbs = [
+  { label: 'Privacy Policy' },
+];
+---
+
+<BaseLayout
+  title={`Privacy Policy — ${siteConfig.siteName}`}
+  description="Privacy Policy and data practices for The House Chapter publication."
+>
+  <div class="max-w-wide mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
+    <Breadcrumbs items={breadcrumbs} />
+
+    <article class="max-w-reading mx-auto pt-6 pb-12 prose prose-lg prose-ink">
+      <h1 class="font-serif text-3xl sm:text-4xl font-semibold text-ink-deep mb-4">
+        Privacy Policy
+      </h1>
+      <p class="text-xs uppercase tracking-wider text-warmBrown-light font-medium">
+        Last Updated: September 2026
+      </p>
+
+      <p>
+        At <strong>The House Chapter</strong>, we value the trust you place in us when reading our publication and subscribing to our newsletters. This policy outlines our straightforward, privacy-conscious approach to data.
+      </p>
+
+      <h2>1. Information We Collect</h2>
+      <p>
+        We collect only the information necessary to deliver our publication:
+      </p>
+      <ul>
+        <li><strong>Newsletter Subscriptions:</strong> When you voluntarily subscribe, we collect your email address solely to send you editorial chapters and home inspiration. You may unsubscribe at any time using the link in any email.</li>
+        <li><strong>Anonymous Usage Metrics:</strong> We use privacy-friendly, cookieless analytics to monitor aggregate article engagement and Pinterest referral pathways to improve our content. We do not track individual users across the web.</li>
+      </ul>
+
+      <h2>2. Third-Party Links & Pinterest</h2>
+      <p>
+        Our articles contain links to external websites, home resources, and Pinterest boards. We are not responsible for the privacy practices or content of third-party platforms.
+      </p>
+
+      <h2>3. Contact Us</h2>
+      <p>
+        For any privacy questions or requests regarding your subscription data, please contact us at <a href="mailto:hello@thehousechapter.com">hello@thehousechapter.com</a>.
+      </p>
+    </article>
+  </div>
+</BaseLayout>

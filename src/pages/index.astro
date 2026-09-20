@@ -1,0 +1,410 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ArticleCard from '../components/cards/ArticleCard.astro';
+import SpecialtyCard from '../components/cards/SpecialtyCard.astro';
+import NewsletterSignup from '../components/editorial/NewsletterSignup.astro';
+import { getCollection } from 'astro:content';
+import { siteConfig } from '../config/site';
+
+// Query articles
+const allArticles = await getCollection('articles');
+
+// Sort by publishedAt desc
+const sortedArticles = [...allArticles].sort(
+  (a, b) => new Date(b.data.publishedAt).getTime() - new Date(a.data.publishedAt).getTime()
+);
+
+// Lead Cover Story: Small Entryway Ideas
+const coverStory = sortedArticles.find((a) => a.slug === 'small-entryway-ideas') || sortedArticles[0];
+
+// Supporting Editorial Features
+const secondaryFeatures = sortedArticles.filter((a) => a.slug !== coverStory?.slug);
+
+// Entryway Specialty Articles
+const entrywayCollection = sortedArticles.filter((a) => a.data.category === 'entryways-hallways');
+
+// Tactile Material Palette
+const materialPalette = [
+  {
+    name: 'Belgian Linen',
+    role: 'Textiles & Drapery',
+    tone: 'Unbleached Oat',
+    notes: 'Softens acoustic echo in high-traffic hallways and brings timeless drape.',
+    border: '#DECFC0',
+    bg: '#F5EFE6',
+    tag: 'Soft Furnishings',
+  },
+  {
+    name: 'Antique Brass',
+    role: 'Lighting & Hardware',
+    tone: 'Living Gold',
+    notes: 'A living finish that patinas with hands; adds metallic warmth to neutral corridors.',
+    border: '#E0BE78',
+    bg: '#FAF4E6',
+    tag: 'Accents',
+  },
+  {
+    name: 'Terracotta Clay',
+    role: 'Vessels & Floor Tile',
+    tone: 'Sun-Baked Ochre',
+    notes: 'Earthy, grounding warmth that counteracts cold sterile white apartment walls.',
+    border: '#C77358',
+    bg: '#F8EFEA',
+    tag: 'Earthenware',
+  },
+  {
+    name: 'White Oak',
+    role: 'Benches & Floating Consoles',
+    tone: 'Natural Grain',
+    notes: 'Enduring architectural anchor for narrow thresholds without visual bulk.',
+    border: '#C2B09D',
+    bg: '#EFE8DC',
+    tag: 'Joinery',
+  },
+];
+
+// 5 Core Principles for a Home Well Lived
+const editorialRules = [
+  {
+    num: '01',
+    rule: 'Honor the Threshold',
+    desc: 'The entryway sets the emotional frequency of your home. If the arrival is chaotic, the mind cannot rest.',
+  },
+  {
+    num: '02',
+    rule: 'Conceal the Daily Friction',
+    desc: 'Keep 80% of footwear, mail, and gear out of sight behind tailored doors; leave only the serene on display.',
+  },
+  {
+    num: '03',
+    rule: 'Scale Generously in Small Rooms',
+    desc: 'Never default to dollhouse proportions. A floor-to-ceiling drapery or wide runner visually expands the room.',
+  },
+  {
+    num: '04',
+    rule: 'Layer Light at Eye Level',
+    desc: 'Banish harsh center ceiling glare. Warm 2700K shaded sconces and small table lamps create intimacy.',
+  },
+  {
+    num: '05',
+    rule: 'Celebrate Living Imperfections',
+    desc: 'A home well lived is never sterile. Patinated brass, softened linen, and worn wood are badges of comfort.',
+  },
+];
+---
+
+<BaseLayout
+  title={`${siteConfig.siteName} — ${siteConfig.tagline}`}
+  description={siteConfig.description}
+>
+  
+  <!-- 1. THE EDITORIAL COVER STORY SPREAD -->
+  <section class="border-b border-editorial bg-ivory pt-8 pb-16 lg:pt-12 lg:pb-20">
+    <div class="max-w-wide mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Kicker Header -->
+      <div class="flex items-center justify-between border-b border-editorial-subtle pb-3 mb-8 text-xs">
+        <div class="flex items-center gap-2 font-semibold uppercase tracking-[0.16em]">
+          <span class="text-clay">The Cover Chapter</span>
+          <span class="text-beige-dark">&bull;</span>
+          <span class="text-olive">Specialty Authority</span>
+        </div>
+        <div class="hidden sm:flex items-center gap-2 text-warmBrown-light italic font-serif">
+          <span>Curated for Mindful Living</span>
+        </div>
+      </div>
+
+      <!-- Hero Spread: Asymmetric Magazine Layout -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+        
+        <!-- Left: Grand Magazine Copy Column (5 cols) -->
+        <div class="lg:col-span-5 space-y-6">
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-clay/15 border border-clay/30 text-clay-dark text-[0.6875rem] font-semibold uppercase tracking-[0.14em]">
+            <span class="w-1.5 h-1.5 rounded-full bg-clay"></span>
+            <span>Signature Authority Pillar</span>
+          </div>
+
+          <h1 class="font-serif text-3xl sm:text-5xl lg:text-5xl xl:text-6xl font-semibold text-ink-deep leading-[1.10] tracking-tight">
+            <a href={`/${coverStory.slug}/`} class="hover:text-clay transition-colors">
+              {coverStory.data.title}
+            </a>
+          </h1>
+
+          <p class="font-serif italic text-lg sm:text-xl text-clay leading-relaxed border-l-2 border-clay/40 pl-4">
+            "{coverStory.data.description}"
+          </p>
+
+          <p class="text-sm text-ink-light leading-relaxed font-normal">
+            Turn cramped foyers, narrow drop zones, and awkward front doors into organized, welcoming thresholds. An in-depth guide on floating storage, light reflection, and the quiet daily ritual of stepping home.
+          </p>
+
+          <!-- Byline & Reading Metadata -->
+          <div class="pt-6 border-t border-editorial flex items-center justify-between text-xs text-warmBrown-light">
+            <div>
+              <span class="font-medium text-ink-deep block">{coverStory.data.author}</span>
+              <span class="text-[0.6875rem] text-warmBrown">{coverStory.data.authorRole}</span>
+            </div>
+            <a
+              href={`/${coverStory.slug}/`}
+              class="inline-flex items-center gap-2 px-6 py-3 bg-olive hover:bg-olive-dark text-ivory text-xs uppercase tracking-widest font-semibold transition-colors shadow-sm"
+            >
+              <span>Read Chapter</span>
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Right: Photographic Artwork Spread (7 cols) -->
+        <div class="lg:col-span-7">
+          <div class="relative bg-parchment p-3 sm:p-4 border border-editorial shadow-sm group">
+            <a href={`/${coverStory.slug}/`} class="block overflow-hidden aspect-[4/3] sm:aspect-[16/11]">
+              <img
+                src={coverStory.data.heroImage}
+                alt={coverStory.data.heroImageAlt}
+                loading="eager"
+                decoding="sync"
+                class="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-[1.02]"
+              />
+            </a>
+            <!-- Caption Plate -->
+            <div class="mt-3 pt-2 flex flex-col sm:flex-row items-start sm:items-center justify-between text-[0.6875rem] text-warmBrown-light gap-1">
+              <span class="font-serif italic">Fig. 01 — Slender cantilevered oak console and round unlacquered brass pivot mirror.</span>
+              <span class="uppercase tracking-wider shrink-0 font-medium text-clay">Plate No. 21</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 2. FROM THE EDITORS: A PERSONAL LETTER (Warm Terracotta Accent) -->
+  <section class="py-16 bg-clay-tint/70 border-b border-editorial">
+    <div class="max-w-editorial mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+        
+        <!-- Founder Portrait / Studio Vignette -->
+        <div class="lg:col-span-4">
+          <div class="relative p-2.5 bg-ivory border border-clay/30 shadow-sm">
+            <img
+              src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80"
+              alt="The House Chapter editorial studio workspace with natural materials and architectural blueprints"
+              loading="lazy"
+              class="w-full aspect-[4/5] object-cover"
+            />
+            <div class="p-3 text-center text-[0.6875rem] text-clay font-serif italic">
+              From our studio: testing clearances, authentic patinas, and living proportions.
+            </div>
+          </div>
+        </div>
+
+        <!-- Personal Letter Column -->
+        <div class="lg:col-span-8 space-y-4">
+          <div class="flex items-center gap-2">
+            <span class="w-6 h-[1.5px] bg-clay"></span>
+            <span class="text-xs uppercase tracking-[0.16em] font-semibold text-clay">
+              From the Desk of the Editors
+            </span>
+          </div>
+
+          <h2 class="font-serif text-2xl sm:text-4xl font-semibold text-ink-deep leading-snug">
+            Why We Founded The House Chapter
+          </h2>
+
+          <div class="text-sm sm:text-base text-ink-light leading-relaxed space-y-3 font-normal">
+            <p>
+              We started <em>The House Chapter</em> out of a quiet frustration with the extremes of modern home media. On one side are cold, multimillion-dollar showplaces detached from real life; on the other, generic listicles promoting disposable plastic organizers.
+            </p>
+            <p>
+              We believe a home well lived is shaped in the hardworking transitions: the narrow entryway where coats and shoes land each evening, the small bedroom arranged for deep rest, and the quiet corner given purpose with natural light and weathered wood.
+            </p>
+            <p>
+              Our promise: practical architectural principles, honest materials, and attainable inspiration for every room you inhabit.
+            </p>
+          </div>
+
+          <div class="pt-4 flex items-center justify-between border-t border-clay/20">
+            <div class="font-serif italic text-base text-clay-dark font-medium">
+              — The House Chapter Editorial Guild
+            </div>
+            <a href="/about/" class="text-xs uppercase tracking-wider text-olive hover:text-clay font-semibold underline underline-offset-4">
+              Our Full Philosophy &rarr;
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. THE SIGNATURE AUTHORITY: THE ENTRYWAY CHAPTER -->
+  <section class="py-16 lg:py-24 max-w-wide mx-auto px-4 sm:px-6 lg:px-8 border-b border-editorial">
+    
+    <!-- Section Masthead -->
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 pb-6 border-b border-editorial gap-6">
+      <div class="max-w-2xl">
+        <div class="flex items-center gap-2 text-xs uppercase tracking-[0.16em] text-clay font-semibold mb-2">
+          <span class="inline-block w-2 h-2 rounded-full bg-clay"></span>
+          <span>Signature Editorial Authority Pillar</span>
+        </div>
+        <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold text-ink-deep">
+          The Entryway Chapter
+        </h2>
+        <p class="text-sm sm:text-base text-ink-light mt-2 leading-relaxed">
+          The threshold is where life transitions. Explore our focused collection of small entryway blueprints, narrow hallway rhythms, and clutter-free drop zone architectures.
+        </p>
+      </div>
+
+      <div class="shrink-0">
+        <a
+          href="/entryways-hallways/"
+          class="inline-flex items-center gap-2 px-5 py-2.5 bg-parchment hover:bg-parchment-hover text-ink-deep border border-editorial text-xs uppercase tracking-widest font-semibold transition-colors shadow-xs"
+        >
+          <span>All Entryway Solutions</span>
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Editorial Entryway Grid with Distinctive Specialty Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {entrywayCollection.map((art, idx) => (
+        <SpecialtyCard article={art} index={idx} />
+      ))}
+    </div>
+
+  </section>
+
+  <!-- 4. TACTILE EDITORIAL MOODBOARD: MATERIALS -->
+  <section class="py-16 lg:py-20 bg-ivory border-b border-editorial">
+    <div class="max-w-wide mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-xl mx-auto mb-12">
+        <span class="text-xs uppercase tracking-[0.16em] text-olive font-semibold block mb-2">
+          The Sensory Foundation
+        </span>
+        <h2 class="font-serif text-3xl sm:text-4xl font-semibold text-ink-deep mb-3">
+          Materials of an Intentional Home
+        </h2>
+        <p class="text-xs sm:text-sm text-ink-light leading-relaxed">
+          Before selecting furniture, curate your material palette. Natural textures soften footsteps, age with character, and eliminate the chill of sterile rooms.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {materialPalette.map((mat) => (
+          <div
+            class="p-6 border border-editorial flex flex-col justify-between transition-transform duration-300 hover:-translate-y-1 shadow-xs"
+            style={`background-color: ${mat.bg}; border-color: ${mat.border};`}
+          >
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-[0.625rem] uppercase tracking-widest text-warmBrown-light font-semibold">
+                  {mat.role}
+                </span>
+                <span class="text-[0.625rem] px-2 py-0.5 rounded-none bg-ivory/80 text-ink-deep font-medium border border-editorial-subtle">
+                  {mat.tag}
+                </span>
+              </div>
+              <h3 class="font-serif text-2xl font-semibold text-ink-deep mb-2">
+                {mat.name}
+              </h3>
+              <p class="text-xs text-ink-light leading-relaxed">
+                {mat.notes}
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-editorial-subtle flex items-center justify-between text-[0.6875rem] text-warmBrown font-medium">
+              <span>Natural Tone:</span>
+              <span class="font-serif italic text-ink-deep font-semibold">{mat.tone}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 5. RECENT CHAPTERS: 3-COLUMN SPREAD -->
+  <section class="py-16 lg:py-24 max-w-wide mx-auto px-4 sm:px-6 lg:px-8 border-b border-editorial">
+    <div class="flex items-end justify-between mb-10 pb-4 border-b border-editorial">
+      <div>
+        <span class="text-xs uppercase tracking-[0.14em] text-warmBrown-light font-semibold block mb-1">
+          Recent Dispatches
+        </span>
+        <h2 class="font-serif text-3xl sm:text-4xl font-semibold text-ink-deep">
+          Fresh From The Journal
+        </h2>
+      </div>
+      <a
+        href="/rooms/"
+        class="text-xs uppercase tracking-wider text-olive hover:text-clay font-semibold underline underline-offset-4 hidden sm:block"
+      >
+        View All Room Studies &rarr;
+      </a>
+    </div>
+
+    <!-- 3-Column Magazine Spread -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {secondaryFeatures.slice(0, 3).map((article) => (
+        <ArticleCard article={article} aspectRatio="landscape" />
+      ))}
+    </div>
+  </section>
+
+  <!-- 6. THE EDITORIAL CODE: 5 RULES FOR A HOME WELL LIVED -->
+  <section class="py-16 lg:py-20 bg-parchment/60 border-b border-editorial">
+    <div class="max-w-wide mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="max-w-xl mb-12">
+        <span class="text-xs uppercase tracking-[0.16em] text-clay font-semibold block mb-1">
+          The Publication Doctrine
+        </span>
+        <h2 class="font-serif text-3xl sm:text-4xl font-semibold text-ink-deep">
+          Five Rules for a Home Well Lived
+        </h2>
+        <p class="text-xs sm:text-sm text-ink-light mt-2 leading-relaxed">
+          Timeless design standards that guide every guide, blueprint, and room study we publish.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-5 gap-6">
+        {editorialRules.map((rule) => (
+          <div class="p-6 bg-ivory border border-editorial flex flex-col justify-between hover:border-clay/40 transition-colors">
+            <div>
+              <span class="font-serif font-bold text-3xl text-clay/80 block mb-3">
+                {rule.num}
+              </span>
+              <h3 class="font-serif text-lg font-semibold text-ink-deep mb-2 leading-snug">
+                {rule.rule}
+              </h3>
+              <p class="text-xs text-ink-light leading-relaxed font-normal">
+                {rule.desc}
+              </p>
+            </div>
+            <div class="mt-6 pt-3 border-t border-editorial-subtle">
+              <span class="text-[0.625rem] uppercase tracking-widest text-olive font-semibold">
+                Guideline
+              </span>
+            </div>
+          </div>
+        ))}
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 7. EDITORIAL NEWSLETTER INVITATION -->
+  <div class="max-w-wide mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <NewsletterSignup
+      variant="boxed"
+      headline="A little inspiration for your next chapter at home."
+      description="Receive curated decorating dispatches, practical hallway storage blueprints, and quiet design moments delivered straight to your inbox."
+    />
+  </div>
+
+</BaseLayout>

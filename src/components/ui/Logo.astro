@@ -1,0 +1,51 @@
+---
+interface Props {
+  variant?: 'full' | 'compact' | 'mark-only';
+  class?: string;
+}
+
+const { variant = 'full', class: className = '' } = Astro.props;
+---
+
+<a
+  href="/"
+  class={`inline-flex items-center group transition-opacity hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-olive ${className}`}
+  aria-label="The House Chapter — Home"
+>
+  {variant === 'mark-only' ? (
+    <svg class="w-9 h-9" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+      <path d="M12 56V26C12 14.9543 20.9543 6 32 6C43.0457 6 52 14.9543 52 26V56" stroke="#3B4734" stroke-width="2.5" stroke-linecap="round"/>
+      <path d="M18 56V27C18 19.268 24.268 13 32 13C39.732 13 46 19.268 46 27V56" stroke="#DECFC0" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M6 56H58" stroke="#3B4734" stroke-width="2.5" stroke-linecap="round"/>
+      <path d="M22 42C24 36 29 33 32 30" stroke="#B66348" stroke-width="1.8" stroke-linecap="round"/>
+      <path d="M22 38C19 35 21 31 25 33C27 34 26 37 22 38Z" fill="#73876E"/>
+      <path d="M32 30C35 27 38 23 40 18" stroke="#73876E" stroke-width="1.8" stroke-linecap="round"/>
+      <path d="M35 27C38 25 41 27 39 30C37 32 35 30 35 27Z" fill="#73876E"/>
+      <circle cx="32" cy="18" r="3" fill="#C29B53"/>
+    </svg>
+  ) : (
+    <div class="flex items-center gap-3 md:gap-3.5">
+      <!-- Architectural Arch & Olive Sprig Emblem -->
+      <svg class="w-8 h-8 md:w-9 md:h-9 shrink-0" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+        <path d="M12 56V26C12 14.9543 20.9543 6 32 6C43.0457 6 52 14.9543 52 26V56" stroke="#3B4734" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M18 56V27C18 19.268 24.268 13 32 13C39.732 13 46 19.268 46 27V56" stroke="#DECFC0" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M6 56H58" stroke="#3B4734" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M22 42C24 36 29 33 32 30" stroke="#B66348" stroke-width="1.8" stroke-linecap="round"/>
+        <path d="M22 38C19 35 21 31 25 33C27 34 26 37 22 38Z" fill="#73876E"/>
+        <path d="M32 30C35 27 38 23 40 18" stroke="#73876E" stroke-width="1.8" stroke-linecap="round"/>
+        <path d="M35 27C38 25 41 27 39 30C37 32 35 30 35 27Z" fill="#73876E"/>
+        <circle cx="32" cy="18" r="3" fill="#C29B53"/>
+      </svg>
+      
+      <!-- Wordmark -->
+      <div class="flex flex-col text-left">
+        <span class="font-serif tracking-[0.16em] text-base md:text-[1.25rem] font-semibold text-ink-deep leading-none uppercase">
+          The House Chapter
+        </span>
+        <span class="font-serif italic text-[0.6875rem] md:text-[0.75rem] text-clay font-normal tracking-wide mt-1 leading-tight hidden sm:block">
+          Ideas for a home well lived.
+        </span>
+      </div>
+    </div>
+  )}
+</a>

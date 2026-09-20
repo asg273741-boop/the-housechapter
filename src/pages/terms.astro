@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/editorial/Breadcrumbs.astro';
+import { siteConfig } from '../config/site';
+
+const breadcrumbs = [
+  { label: 'Terms of Use & Disclaimer' },
+];
+---
+
+<BaseLayout
+  title={`Terms & Editorial Disclaimer — ${siteConfig.siteName}`}
+  description="Terms of Use and editorial disclosure for The House Chapter publication."
+>
+  <div class="max-w-wide mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
+    <Breadcrumbs items={breadcrumbs} />
+
+    <article class="max-w-reading mx-auto pt-6 pb-12 prose prose-lg prose-ink">
+      <h1 class="font-serif text-3xl sm:text-4xl font-semibold text-ink-deep mb-4">
+        Terms of Use & Editorial Disclaimer
+      </h1>
+      <p class="text-xs uppercase tracking-wider text-warmBrown-light font-medium">
+        Last Updated: September 2026
+      </p>
+
+      <p>
+        Welcome to <strong>The House Chapter</strong>. By accessing and reading our website, you agree to comply with the following terms.
+      </p>
+
+      <h2>1. Editorial Independence & Advice</h2>
+      <p>
+        The content on <em>The House Chapter</em> is published for general inspiration, design ideas, and informational purposes. While our editors strive for practical accuracy, structural modifications, electrical work, and architectural changes should always be performed in consultation with qualified local contractors and building authorities.
+      </p>
+
+      <h2>2. Intellectual Property & Image Rights</h2>
+      <p>
+        All written articles, brand identity marks, and editorial layouts are the intellectual property of The House Chapter. Editorial photography is licensed and credited to respective creators or property owners. You may share excerpts and Pins provided proper attribution and link-backs are maintained.
+      </p>
+
+      <h2>3. Product Recommendations & Disclosures</h2>
+      <p>
+        Our editorial curation remains independent. If we ever recommend specific furnishings, hardware, or organizational products, any affiliate relationships will be transparently disclosed in accordance with FTC guidelines.
+      </p>
+    </article>
+  </div>
+</BaseLayout>

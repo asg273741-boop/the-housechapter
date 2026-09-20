@@ -1,0 +1,93 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  article: CollectionEntry<'articles'>;
+  badge?: string;
+  eager?: boolean;
+}
+
+const { article, badge = 'Featured Story', eager = true } = Astro.props;
+const { title, description, category, subcategory, heroImage, heroImageAlt, readingTime, publishedAt, specialty } = article.data;
+
+const formattedDate = new Date(publishedAt).toLocaleDateString('en-US', {
+  month: 'long',
+  day: 'numeric',
+  year: 'numeric',
+});
+---
+
+<article class="group relative bg-parchment/60 border border-editorial overflow-hidden">
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-0 items-stretch">
+    
+    <!-- Image Side (7 cols) -->
+    <div class="lg:col-span-7 relative overflow-hidden bg-parchment min-h-[320px] lg:min-h-[460px]">
+      <a
+        href={`/${article.slug}/`}
+        class="block w-full h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-olive"
+        tabindex="-1"
+        aria-hidden="true"
+      >
+        <img
+          src={heroImage}
+          alt={heroImageAlt}
+          loading={eager ? 'eager' : 'lazy'}
+          decoding={eager ? 'sync' : 'async'}
+          class="w-full h-full object-cover object-center transition-transform duration-1000 ease-out group-hover:scale-[1.02]"
+        />
+      </a>
+      
+      <div class="absolute top-4 left-4 flex items-center gap-2">
+        <span class="text-xs font-semibold tracking-wider uppercase px-3 py-1.5 bg-ivory text-ink-deep border border-editorial shadow-sm">
+          {badge}
+        </span>
+        {specialty && (
+          <span class="text-xs font-semibold tracking-wider uppercase px-2.5 py-1.5 bg-brass text-ivory shadow-sm">
+            Specialty
+          </span>
+        )}
+      </div>
+    </div>
+
+    <!-- Text Side (5 cols) -->
+    <div class="lg:col-span-5 p-6 sm:p-8 lg:p-12 flex flex-col justify-between bg-ivory">
+      <div>
+        <div class="flex items-center gap-2 text-xs uppercase tracking-widest text-warmBrown font-medium mb-3">
+          <a href={`/${category}/`} class="hover:text-olive underline underline-offset-4">
+            {subcategory || category.replace('-', ' ')}
+          </a>
+          <span>&bull;</span>
+          <span>{readingTime}</span>
+        </div>
+
+        <h2 class="font-serif text-2xl sm:text-3xl lg:text-3xl xl:text-4xl font-semibold text-ink-deep leading-tight group-hover:text-olive transition-colors mb-4">
+          <a href={`/${article.slug}/`} class="focus-visible:outline-none focus-visible:underline">
+            {title}
+          </a>
+        </h2>
+
+        <p class="text-base text-ink-light leading-relaxed font-normal">
+          {description}
+        </p>
+      </div>
+
+      <div class="pt-8 mt-6 border-t border-editorial flex items-center justify-between">
+        <span class="text-xs text-warmBrown-light">
+          Published {formattedDate}
+        </span>
+        
+        <a
+          href={`/${article.slug}/`}
+          class="inline-flex items-center gap-2 text-xs font-semibold tracking-widest uppercase text-olive group-hover:text-ink-deep transition-colors"
+        >
+          <span>Read Story</span>
+          <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </a>
+      </div>
+
+    </div>
+
+  </div>
+</article>

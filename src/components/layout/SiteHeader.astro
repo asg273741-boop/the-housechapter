@@ -1,0 +1,225 @@
+---
+import Logo from '../ui/Logo.astro';
+import { siteConfig } from '../../config/site';
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="w-full bg-ivory/95 backdrop-blur-md border-b border-editorial sticky top-0 z-40 transition-all">
+  <div class="max-w-wide mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-20">
+      
+      <!-- 1. Brand Logo on Left -->
+      <div class="shrink-0">
+        <Logo />
+      </div>
+
+      <!-- 2. Desktop Primary Navigation in Center -->
+      <nav class="hidden xl:flex items-center space-x-6 2xl:space-x-8" aria-label="Primary Editorial Navigation">
+        {siteConfig.navigation.primary.map((item) => {
+          const isActive = currentPath === item.href || (item.href !== '/' && currentPath.startsWith(item.href));
+          return (
+            <a
+              href={item.href}
+              class={`text-[0.78125rem] 2xl:text-[0.8125rem] tracking-[0.14em] uppercase transition-colors relative py-1.5 group ${
+                isActive
+                  ? 'text-ink-deep font-semibold'
+                  : 'text-ink-lighter hover:text-ink-deep font-medium'
+              }`}
+            >
+              <span>{item.label}</span>
+              {item.isSpecialty && (
+                <span class="inline-block w-1.5 h-1.5 rounded-full bg-clay ml-1 align-middle" title="Editorial Pillar" />
+              )}
+              <span
+                class={`absolute bottom-0 left-0 w-full h-[1.5px] bg-olive transition-transform duration-300 origin-left ${
+                  isActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
+                }`}
+              />
+            </a>
+          );
+        })}
+      </nav>
+
+      <!-- Intermediate Screens (lg to xl): Compact Nav Dropdown or subset -->
+      <nav class="hidden lg:flex xl:hidden items-center space-x-5" aria-label="Compact Editorial Navigation">
+        {siteConfig.navigation.primary.slice(0, 5).map((item) => {
+          const isActive = currentPath === item.href || (item.href !== '/' && currentPath.startsWith(item.href));
+          return (
+            <a
+              href={item.href}
+              class={`text-[0.75rem] tracking-[0.12em] uppercase transition-colors relative py-1 ${
+                isActive
+                  ? 'text-ink-deep font-semibold'
+                  : 'text-ink-lighter hover:text-ink-deep font-medium'
+              }`}
+            >
+              <span>{item.label}</span>
+            </a>
+          );
+        })}
+        <a
+          href="/entryways-hallways/"
+          class="text-[0.75rem] tracking-[0.12em] uppercase transition-colors font-semibold text-clay hover:text-clay-dark flex items-center gap-1"
+        >
+          <span>Entryways</span>
+          <span class="w-1.5 h-1.5 rounded-full bg-clay" />
+        </a>
+      </nav>
+
+      <!-- 3. Actions on Right: Search & Pinterest Button -->
+      <div class="flex items-center space-x-3 sm:space-x-4">
+        
+        <!-- Search Trigger Button -->
+        <button
+          type="button"
+          id="search-trigger-btn"
+          class="inline-flex items-center gap-2 px-3 py-2 bg-parchment hover:bg-parchment-hover text-ink-light hover:text-ink-deep text-xs tracking-wider uppercase font-medium border border-editorial transition-colors rounded-none cursor-pointer focus-visible:ring-2 focus-visible:ring-olive"
+          aria-label="Open search (Press Ctrl+K)"
+          title="Search articles (Ctrl+K)"
+        >
+          <svg class="w-4 h-4 text-olive" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+          </svg>
+          <span class="hidden md:inline">Search</span>
+          <kbd class="hidden sm:inline font-sans text-[0.625rem] bg-ivory px-1.5 py-0.5 border border-editorial text-warmBrown-light">⌘K</kbd>
+        </button>
+
+        <!-- Pinterest Save Button (Desktop) -->
+        <a
+          href={siteConfig.socialLinks.pinterest}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="hidden sm:inline-flex items-center gap-1.5 px-3 py-2 bg-clay text-ivory hover:bg-clay-dark text-xs tracking-wider uppercase font-semibold transition-colors shadow-xs"
+          aria-label="Pinterest Discovery"
+        >
+          <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+            <path d="M12 0C5.373 0 0 5.373 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738.098.119.112.224.083.345-.09.375-.291 1.199-.332 1.365-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.631-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12 0-6.628-5.373-12-12-12z"/>
+          </svg>
+          <span>Pins</span>
+        </a>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button
+          type="button"
+          id="mobile-menu-btn"
+          class="lg:hidden p-2 text-ink hover:text-ink-deep hover:bg-parchment transition-colors focus-visible:ring-2 focus-visible:ring-olive"
+          aria-expanded="false"
+          aria-controls="mobile-nav-drawer"
+          aria-label="Toggle navigation menu"
+        >
+          <svg class="w-6 h-6 icon-menu" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+          <svg class="w-6 h-6 icon-close hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Mobile Drawer -->
+  <div
+    id="mobile-nav-drawer"
+    class="lg:hidden hidden border-t border-editorial bg-ivory px-6 pt-5 pb-8 transition-all max-h-[85vh] overflow-y-auto"
+    aria-label="Mobile Navigation"
+  >
+    <div class="space-y-6">
+      
+      <!-- Primary Categories -->
+      <div>
+        <h3 class="text-[0.6875rem] font-semibold tracking-[0.16em] uppercase text-warmBrown-light mb-3 pb-1 border-b border-editorial-subtle">
+          The Editorial Chapters
+        </h3>
+        <ul class="space-y-2.5">
+          {siteConfig.navigation.primary.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                class="flex items-center justify-between py-1.5 text-base font-medium text-ink hover:text-clay transition-colors"
+              >
+                <span>{item.label}</span>
+                {item.isSpecialty && (
+                  <span class="text-[0.625rem] uppercase tracking-wider font-semibold px-2 py-0.5 bg-clay/15 text-clay-dark border border-clay/30">
+                    Pillar
+                  </span>
+                )}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Secondary Spaces -->
+      <div class="pt-4 border-t border-editorial">
+        <h3 class="text-[0.6875rem] font-semibold tracking-[0.16em] uppercase text-warmBrown-light mb-3 pb-1 border-b border-editorial-subtle">
+          More Spaces & Ideas
+        </h3>
+        <ul class="space-y-2">
+          {siteConfig.navigation.secondary.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                class="block py-1 text-sm text-ink-light hover:text-ink-deep transition-colors"
+              >
+                {item.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Publication Links -->
+      <div class="pt-4 border-t border-editorial flex items-center justify-between text-xs text-ink-lighter">
+        <div class="space-x-3">
+          <a href="/about/" class="hover:text-ink-deep underline underline-offset-2">About</a>
+          <a href="/contact/" class="hover:text-ink-deep underline underline-offset-2">Contact</a>
+          <a href="/rss.xml" class="hover:text-ink-deep underline underline-offset-2">RSS</a>
+        </div>
+        <a
+          href={siteConfig.socialLinks.pinterest}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-1 text-clay hover:text-clay-dark font-medium"
+        >
+          <span>Pinterest Boards &rarr;</span>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</header>
+
+<script>
+  // Setup search triggers
+  const dialog = document.getElementById('search-dialog');
+  const searchInput = document.getElementById('search-input') as HTMLInputElement | null;
+
+  function openSearchModal() {
+    if (!dialog || !searchInput) return;
+    dialog.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+    searchInput.focus();
+  }
+
+  document.getElementById('search-trigger-btn')?.addEventListener('click', openSearchModal);
+
+  // Accessible mobile menu drawer toggle
+  const menuBtn = document.getElementById('mobile-menu-btn');
+  const drawer = document.getElementById('mobile-nav-drawer');
+  const iconMenu = menuBtn?.querySelector('.icon-menu');
+  const iconClose = menuBtn?.querySelector('.icon-close');
+
+  if (menuBtn && drawer && iconMenu && iconClose) {
+    menuBtn.addEventListener('click', () => {
+      const isExpanded = menuBtn.getAttribute('aria-expanded') === 'true';
+      menuBtn.setAttribute('aria-expanded', String(!isExpanded));
+      drawer.classList.toggle('hidden');
+      iconMenu.classList.toggle('hidden');
+      iconClose.classList.toggle('hidden');
+    });
+  }
+</script>

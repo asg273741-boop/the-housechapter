@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Architectural Arch Outer -->
+  <path d="M12 56V26C12 14.9543 20.9543 6 32 6C43.0457 6 52 14.9543 52 26V56" stroke="#444F3C" stroke-width="3" stroke-linecap="round"/>
+  <!-- Inner Arch Detail -->
+  <path d="M18 56V27C18 19.268 24.268 13 32 13C39.732 13 46 19.268 46 27V56" stroke="#DECFC0" stroke-width="2" stroke-linecap="round"/>
+  <!-- Threshold Base -->
+  <path d="M6 56H58" stroke="#444F3C" stroke-width="3" stroke-linecap="round"/>
+  
+  <!-- Botanical Olive Foliage -->
+  <path d="M22 42C24 36 29 33 32 30" stroke="#82917E" stroke-width="2" stroke-linecap="round"/>
+  <path d="M22 38C19 35 21 31 25 33C27 34 26 37 22 38Z" fill="#82917E"/>
+  <path d="M26 31C24 27 27 24 30 26C31 28 29 30 26 31Z" fill="#82917E"/>
+  <path d="M32 30C35 27 38 23 40 18" stroke="#82917E" stroke-width="2" stroke-linecap="round"/>
+  <path d="M35 27C38 25 41 27 39 30C37 32 35 30 35 27Z" fill="#82917E"/>
+  <path d="M38 21C42 19 44 22 42 24C40 26 38 24 38 21Z" fill="#82917E"/>
+  
+  <!-- Keystone Accent -->
+  <circle cx="32" cy="18" r="3.5" fill="#B89358"/>
+</svg>

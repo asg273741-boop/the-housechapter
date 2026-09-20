@@ -1,0 +1,146 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/editorial/Breadcrumbs.astro';
+import { siteConfig } from '../config/site';
+
+const breadcrumbs = [
+  { label: 'Contact' },
+];
+---
+
+<BaseLayout
+  title={`Contact & Editorial Submissions — ${siteConfig.siteName}`}
+  description="Get in touch with The House Chapter editorial team for inquiries, home submissions, photography credits, and partnerships."
+>
+  <div class="max-w-wide mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
+    
+    <Breadcrumbs items={breadcrumbs} />
+
+    <header class="max-w-reading mx-auto pt-6 pb-10 text-center sm:text-left">
+      <span class="text-xs uppercase tracking-[0.16em] text-warmBrown-light font-semibold block mb-2">
+        Get In Touch
+      </span>
+      <h1 class="font-serif text-3xl sm:text-5xl font-semibold text-ink-deep tracking-tight mb-4">
+        Contact & Editorial
+      </h1>
+      <p class="text-base sm:text-lg text-ink-light leading-relaxed font-normal">
+        We welcome thoughtful editorial feedback, home project submissions, photography questions, and reader correspondence.
+      </p>
+    </header>
+
+    <div class="max-w-reading mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 py-4">
+      
+      <!-- Editorial Inquiries Box -->
+      <div class="p-6 sm:p-8 bg-parchment/60 border border-editorial">
+        <h2 class="font-serif text-xl font-semibold text-ink-deep mb-2">
+          Editorial & Pitches
+        </h2>
+        <p class="text-xs sm:text-sm text-ink-light leading-relaxed mb-4">
+          Are you an interior designer, architect, or homeowner with a lived-in space or clever entryway transformation to share?
+        </p>
+        <a
+          href="mailto:editorial@thehousechapter.com"
+          class="text-xs uppercase tracking-wider text-olive hover:text-ink-deep font-semibold underline underline-offset-4"
+        >
+          editorial@thehousechapter.com
+        </a>
+      </div>
+
+      <!-- General Inquiries Box -->
+      <div class="p-6 sm:p-8 bg-parchment/60 border border-editorial">
+        <h2 class="font-serif text-xl font-semibold text-ink-deep mb-2">
+          General Inquiries
+        </h2>
+        <p class="text-xs sm:text-sm text-ink-light leading-relaxed mb-4">
+          For publishing queries, image rights, syndication, or general reader notes:
+        </p>
+        <a
+          href="mailto:hello@thehousechapter.com"
+          class="text-xs uppercase tracking-wider text-olive hover:text-ink-deep font-semibold underline underline-offset-4"
+        >
+          hello@thehousechapter.com
+        </a>
+      </div>
+
+    </div>
+
+    <!-- Contact Form -->
+    <div class="max-w-reading mx-auto my-12 p-8 sm:p-10 bg-ivory border border-editorial shadow-sm">
+      <h3 class="font-serif text-2xl font-semibold text-ink-deep mb-2">
+        Send a Message
+      </h3>
+      <p class="text-xs sm:text-sm text-ink-light mb-6">
+        Fill out the form below and an editor will be in touch within 2 to 3 business days.
+      </p>
+
+      <form
+        class="space-y-4"
+        onsubmit="event.preventDefault(); const s = this.querySelector('.form-success'); if (s) s.classList.remove('hidden');"
+      >
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label for="contact-name" class="block text-xs uppercase tracking-wider text-warmBrown-light font-medium mb-1.5">
+              Your Name
+            </label>
+            <input
+              type="text"
+              id="contact-name"
+              required
+              class="w-full px-3.5 py-2.5 bg-parchment/50 border border-editorial text-sm text-ink focus:border-olive focus:ring-1 focus:ring-olive outline-none"
+            />
+          </div>
+          <div>
+            <label for="contact-email" class="block text-xs uppercase tracking-wider text-warmBrown-light font-medium mb-1.5">
+              Email Address
+            </label>
+            <input
+              type="email"
+              id="contact-email"
+              required
+              class="w-full px-3.5 py-2.5 bg-parchment/50 border border-editorial text-sm text-ink focus:border-olive focus:ring-1 focus:ring-olive outline-none"
+            />
+          </div>
+        </div>
+
+        <div>
+          <label for="contact-subject" class="block text-xs uppercase tracking-wider text-warmBrown-light font-medium mb-1.5">
+            Subject / Topic
+          </label>
+          <select
+            id="contact-subject"
+            class="w-full px-3.5 py-2.5 bg-parchment/50 border border-editorial text-sm text-ink focus:border-olive focus:ring-1 focus:ring-olive outline-none"
+          >
+            <option>Editorial Submission or Home Tour</option>
+            <option>Reader Question on Entryways or Storage</option>
+            <option>Press or Media Inquiry</option>
+            <option>Other</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="contact-message" class="block text-xs uppercase tracking-wider text-warmBrown-light font-medium mb-1.5">
+            Message
+          </label>
+          <textarea
+            id="contact-message"
+            rows="5"
+            required
+            class="w-full px-3.5 py-2.5 bg-parchment/50 border border-editorial text-sm text-ink focus:border-olive focus:ring-1 focus:ring-olive outline-none"
+          ></textarea>
+        </div>
+
+        <button
+          type="submit"
+          class="px-8 py-3 bg-olive hover:bg-olive-dark text-ivory text-xs uppercase tracking-widest font-semibold transition-colors shadow-sm"
+        >
+          Send Message
+        </button>
+
+        <p class="form-success hidden text-xs text-olive font-semibold mt-3">
+          Your message has been sent. Thank you for connecting with The House Chapter.
+        </p>
+      </form>
+    </div>
+
+  </div>
+</BaseLayout>

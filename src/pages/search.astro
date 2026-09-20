@@ -1,0 +1,187 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/editorial/Breadcrumbs.astro';
+import { siteConfig } from '../config/site';
+
+const breadcrumbs = [
+  { label: 'Search' },
+];
+---
+
+<BaseLayout
+  title={`Search All Chapters — ${siteConfig.siteName}`}
+  description="Search decorating guides, entryway solutions, room layouts, and organization ideas across The House Chapter."
+>
+  <div class="max-w-wide mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
+    
+    <Breadcrumbs items={breadcrumbs} />
+
+    <header class="max-w-reading mx-auto pt-6 pb-10 text-center sm:text-left">
+      <span class="text-xs uppercase tracking-[0.16em] text-warmBrown-light font-semibold block mb-2">
+        Archive Search
+      </span>
+      <h1 class="font-serif text-3xl sm:text-5xl font-semibold text-ink-deep tracking-tight mb-4">
+        Search The House Chapter
+      </h1>
+      <p class="text-base sm:text-lg text-ink-light leading-relaxed font-normal">
+        Explore our collection of articles, design ideas, and practical home solutions.
+      </p>
+
+      <!-- Search Input -->
+      <div class="mt-8 flex gap-3">
+        <div class="relative flex-grow">
+          <input
+            type="search"
+            id="page-search-input"
+            placeholder="Type a room, idea, or keyword (e.g. small entryway, shoe storage)..."
+            class="w-full px-5 py-3.5 bg-ivory text-ink border border-editorial focus:border-olive focus:ring-1 focus:ring-olive text-base outline-none transition-colors shadow-sm"
+          />
+        </div>
+      </div>
+
+      <!-- Quick Topics -->
+      <div class="mt-4 flex flex-wrap items-center gap-2 text-xs">
+        <span class="text-warmBrown-light font-medium">Quick Topics:</span>
+        {['Entryways', 'Shoe Storage', 'Narrow Hallway', 'Living Room', 'Small Spaces', 'Rental'].map((tag) => (
+          <button
+            type="button"
+            class="page-quick-tag px-2.5 py-1 bg-parchment hover:bg-parchment-hover text-ink-light border border-editorial transition-colors"
+            data-tag={tag.toLowerCase()}
+          >
+            {tag}
+          </button>
+        ))}
+      </div>
+    </header>
+
+    <!-- Search Results Container -->
+    <div class="max-w-wide mx-auto py-6">
+      <div id="page-search-status" class="text-xs uppercase tracking-wider text-warmBrown-light mb-6">
+        Showing all available chapters
+      </div>
+
+      <div id="page-search-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Dynamic results populated via client script -->
+      </div>
+
+      <div id="page-empty-state" class="hidden text-center py-16 bg-parchment/50 border border-editorial">
+        <p class="font-serif text-2xl text-ink-deep mb-2">No chapters found</p>
+        <p class="text-sm text-ink-light max-w-md mx-auto">
+          We couldn't find any articles matching your search. Try searching for "entryway", "bedroom", or "storage".
+        </p>
+      </div>
+    </div>
+
+  </div>
+</BaseLayout>
+
+<script>
+  interface ArticleIndex {
+    title: string;
+    description: string;
+    slug: string;
+    category: string;
+    subcategory: string;
+    readingTime: string;
+    heroImage: string;
+    specialty: boolean;
+  }
+
+  let index: ArticleIndex[] = [];
+  const searchInput = document.getElementById('page-search-input') as HTMLInputElement | null;
+  const grid = document.getElementById('page-search-grid');
+  const emptyState = document.getElementById('page-empty-state');
+  const statusEl = document.getElementById('page-search-status');
+  const quickTags = document.querySelectorAll('.page-quick-tag');
+
+  async function init() {
+    try {
+      const res = await fetch('/api/search-index.json');
+      index = await res.json();
+      
+      // Check URL query param ?q=...
+      const params = new URLSearchParams(window.location.search);
+      const initialQuery = params.get('q') || '';
+      if (searchInput && initialQuery) {
+        searchInput.value = initialQuery;
+        filterAndRender(initialQuery);
+      } else {
+        renderArticles(index);
+      }
+    } catch (e) {
+      console.error('Failed to load search data', e);
+    }
+  }
+
+  function renderArticles(list: ArticleIndex[]) {
+    if (!grid || !emptyState || !statusEl) return;
+    grid.innerHTML = '';
+
+    if (list.length === 0) {
+      emptyState.classList.remove('hidden');
+      statusEl.textContent = 'No matching chapters';
+      return;
+    }
+
+    emptyState.classList.add('hidden');
+    statusEl.textContent = `Showing ${list.length} chapter${list.length === 1 ? '' : 's'}`;
+
+    list.forEach((art) => {
+      const card = document.createElement('article');
+      card.className = 'flex flex-col bg-ivory border border-editorial overflow-hidden group hover:border-brass/50 transition-colors shadow-sm';
+      card.innerHTML = `
+        <a href="/${art.slug}/" class="block aspect-[16/10] overflow-hidden bg-parchment">
+          <img src="${art.heroImage}" alt="${art.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+        </a>
+        <div class="p-5 flex flex-col flex-grow">
+          <div class="flex items-center gap-2 text-xs uppercase tracking-wider text-warmBrown-light mb-2">
+            <span class="text-olive font-semibold">${art.subcategory || art.category}</span>
+            <span>&bull;</span>
+            <span>${art.readingTime}</span>
+          </div>
+          <h3 class="font-serif text-lg font-semibold text-ink-deep leading-snug group-hover:text-olive transition-colors mb-2">
+            <a href="/${art.slug}/">${art.title}</a>
+          </h3>
+          <p class="text-xs text-ink-light leading-relaxed line-clamp-2 mt-auto">
+            ${art.description}
+          </p>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+  }
+
+  function filterAndRender(query: string) {
+    const q = query.toLowerCase().trim();
+    if (!q) {
+      renderArticles(index);
+      return;
+    }
+    const filtered = index.filter((item) => {
+      return (
+        item.title.toLowerCase().includes(q) ||
+        item.description.toLowerCase().includes(q) ||
+        item.subcategory.toLowerCase().includes(q) ||
+        item.category.toLowerCase().includes(q)
+      );
+    });
+    renderArticles(filtered);
+  }
+
+  searchInput?.addEventListener('input', (e) => {
+    const val = (e.target as HTMLInputElement).value;
+    filterAndRender(val);
+  });
+
+  quickTags.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const tag = btn.getAttribute('data-tag') || '';
+      if (searchInput) {
+        searchInput.value = tag;
+        filterAndRender(tag);
+      }
+    });
+  });
+
+  init();
+</script>

@@ -1,0 +1,76 @@
+:root {
+  /* Rich Editorial Color Palette */
+  --color-ivory: #FAF7F2;
+  --color-ivory-light: #FFFCF7;
+  --color-ivory-dark: #F2ECE1;
+  
+  --color-parchment: #F3ECE1;
+  --color-parchment-hover: #EAE1D3;
+  --color-parchment-dark: #DECFC0;
+  
+  --color-beige-light: #ECE2D5;
+  --color-beige: #DECFC0;
+  --color-beige-dark: #C2B09D;
+  
+  /* Rich Terracotta & Warm Clay Accent */
+  --color-clay: #B66348;
+  --color-clay-light: #C77358;
+  --color-clay-dark: #8E4630;
+  --color-clay-tint: #F8EFEA;
+  
+  /* Botanical Forest Olive */
+  --color-olive-light: #526349;
+  --color-olive: #3B4734;
+  --color-olive-dark: #2A3325;
+  --color-olive-tint: #EEF3EB;
+  
+  /* Meadow Sage */
+  --color-sage-light: #9BB096;
+  --color-sage: #73876E;
+  --color-sage-dark: #586B54;
+  --color-sage-tint: #E2EBE0;
+  
+  /* Deep Espresso Ink */
+  --color-ink-lighter: #544E48;
+  --color-ink-light: #3D3732;
+  --color-ink: #23201D;
+  --color-ink-deep: #191614;
+  
+  /* Warm Umber & Saddle Brown */
+  --color-warm-brown-light: #8A6E5E;
+  --color-warm-brown: #664E40;
+  --color-warm-brown-dark: #47352B;
+  
+  /* Antique Brushed Brass */
+  --color-brass-light: #E0BE78;
+  --color-brass: #C29B53;
+  --color-brass-dark: #9E7B35;
+  --color-brass-tint: #FAF4E6;
+
+  /* Typography */
+  --font-serif: "Cormorant Garamond", "Playfair Display", Georgia, serif;
+  --font-display: "Playfair Display", "Cormorant Garamond", Georgia, serif;
+  --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  /* Layout Spacing */
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2.25rem;
+  --space-2xl: 3.5rem;
+  --space-3xl: 5rem;
+
+  /* Content Widths */
+  --max-width-reading: 720px;
+  --max-width-editorial: 1180px;
+  --max-width-wide: 1360px;
+
+  /* Editorial Borders & Shadows */
+  --border-editorial: 1px solid rgba(35, 32, 29, 0.12);
+  --border-editorial-subtle: 1px solid rgba(35, 32, 29, 0.06);
+  --border-brass: 1px solid rgba(194, 155, 83, 0.4);
+  --border-clay: 1px solid rgba(182, 99, 72, 0.35);
+  --shadow-editorial: 0 4px 20px -2px rgba(35, 32, 29, 0.06);
+  --shadow-card-hover: 0 14px 34px -4px rgba(35, 32, 29, 0.10);
+}

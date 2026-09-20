@@ -1,0 +1,181 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Breadcrumbs from '../components/editorial/Breadcrumbs.astro';
+import FeaturedHeroCard from '../components/cards/FeaturedHeroCard.astro';
+import ArticleCard from '../components/cards/ArticleCard.astro';
+import SpecialtyCard from '../components/cards/SpecialtyCard.astro';
+import NewsletterSignup from '../components/editorial/NewsletterSignup.astro';
+import { siteConfig, type CategoryConfig } from '../config/site';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  category: CategoryConfig;
+  articles: CollectionEntry<'articles'>[];
+}
+
+const { category, articles } = Astro.props;
+
+// Sort articles by published date descending
+const sortedArticles = [...articles].sort(
+  (a, b) => new Date(b.data.publishedAt).getTime() - new Date(a.data.publishedAt).getTime()
+);
+
+const featuredArticle = sortedArticles.find((a) => a.data.featured) || sortedArticles[0];
+const remainingArticles = sortedArticles.filter((a) => a.slug !== featuredArticle?.slug);
+
+const breadcrumbs = [
+  { label: category.name },
+];
+
+const collectionPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: `${category.name} | ${siteConfig.siteName}`,
+  description: category.editorialDeck,
+  url: `${siteConfig.siteUrl}/${category.slug}/`,
+  hasPart: sortedArticles.map((art) => ({
+    '@type': 'BlogPosting',
+    headline: art.data.title,
+    url: `${siteConfig.siteUrl}/${art.slug}/`,
+  })),
+};
+---
+
+<BaseLayout
+  title={`${category.name} — Decor & Styling Ideas`}
+  description={category.shortDescription}
+  structuredData={collectionPageSchema}
+>
+  <div class="max-w-wide mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-14">
+    
+    <!-- Breadcrumbs -->
+    <Breadcrumbs items={breadcrumbs} />
+
+    <!-- Editorial Header & Standfirst -->
+    <header class="py-8 sm:py-12 border-b border-editorial mb-12 max-w-editorial">
+      <div class="flex items-center gap-2.5 mb-3">
+        <span class="text-[0.6875rem] uppercase tracking-[0.2em] text-warmBrown-light font-semibold">
+          The House Chapter Journal
+        </span>
+        <span class="text-beige-dark">&bull;</span>
+        <span class="text-[0.6875rem] uppercase tracking-[0.16em] text-olive font-semibold">
+          Chapter Archive
+        </span>
+        {category.isSpecialty && (
+          <span class="ml-2 px-2.5 py-0.5 rounded-none bg-brass text-ivory text-[0.625rem] font-semibold uppercase tracking-widest shadow-xs">
+            Signature Pillar
+          </span>
+        )}
+      </div>
+
+      <h1 class="font-serif text-4xl sm:text-6xl lg:text-6xl font-semibold text-ink-deep tracking-tight mb-6 text-balance">
+        {category.name}
+      </h1>
+
+      <p class="font-serif italic text-xl sm:text-2xl text-warmBrown leading-relaxed max-w-3xl text-pretty border-l-2 border-brass/50 pl-4 sm:pl-5 mb-8">
+        "{category.editorialDeck}"
+      </p>
+
+      <!-- Subcategory Navigation Topic Chips -->
+      {category.subcategories && category.subcategories.length > 0 && (
+        <div class="pt-6 border-t border-editorial-subtle">
+          <span class="text-xs uppercase tracking-[0.14em] text-warmBrown-light font-semibold block mb-3">
+            Explore Topics in {category.name}:
+          </span>
+          <div class="flex flex-wrap gap-2">
+            {category.subcategories.map((sub) => (
+              <span class="text-xs font-medium px-3.5 py-1.5 bg-parchment hover:bg-parchment-hover text-ink-deep border border-editorial transition-colors cursor-default shadow-xs">
+                {sub}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+    </header>
+
+    <!-- Lead Featured Article -->
+    {featuredArticle && (
+      <section class="mb-16">
+        <div class="mb-6 flex items-center justify-between border-b border-editorial-subtle pb-3">
+          <span class="text-xs uppercase tracking-[0.16em] text-olive font-semibold">
+            Curator's Lead Story in {category.name}
+          </span>
+          <span class="text-xs text-warmBrown-light font-serif italic">
+            Essential Reading
+          </span>
+        </div>
+        <FeaturedHeroCard article={featuredArticle} badge={`Lead Story &bull; ${category.name}`} />
+      </section>
+    )}
+
+    <!-- Category Specialty / Story Grid -->
+    {category.isSpecialty ? (
+      <section class="my-16">
+        <div class="mb-8 pb-3 border-b border-editorial flex items-end justify-between">
+          <div>
+            <span class="text-xs uppercase tracking-[0.14em] text-warmBrown-light font-semibold block mb-1">
+              Curated Portfolio
+            </span>
+            <h2 class="font-serif text-3xl sm:text-4xl font-semibold text-ink-deep">
+              Specialty Guides & Blueprint Solutions
+            </h2>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {remainingArticles.map((art, idx) => (
+            <SpecialtyCard article={art} index={idx} />
+          ))}
+        </div>
+      </section>
+    ) : (
+      <section class="my-16">
+        <div class="mb-8 pb-3 border-b border-editorial flex items-end justify-between">
+          <div>
+            <span class="text-xs uppercase tracking-[0.14em] text-warmBrown-light font-semibold block mb-1">
+              All Dispatches
+            </span>
+            <h2 class="font-serif text-3xl sm:text-4xl font-semibold text-ink-deep">
+              Latest {category.name} Chapters
+            </h2>
+          </div>
+        </div>
+        
+        {remainingArticles.length > 0 ? (
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {remainingArticles.map((art) => (
+              <ArticleCard article={art} />
+            ))}
+          </div>
+        ) : (
+          <div class="p-12 text-center bg-parchment border border-editorial">
+            <p class="font-serif text-xl text-ink-deep mb-2">More chapters in curation</p>
+            <p class="text-xs text-ink-light">Our studio is actively documenting new spaces for this chapter.</p>
+          </div>
+        )}
+      </section>
+    )}
+
+    <!-- Editorial Doctrine & Designer Guidance Section -->
+    <section class="my-16 p-8 sm:p-12 bg-parchment/60 border border-editorial max-w-editorial mx-auto shadow-xs">
+      <div class="flex items-center gap-2 text-xs uppercase tracking-[0.16em] text-olive font-semibold mb-3">
+        <span class="w-6 h-[1px] bg-olive"></span>
+        <span>The Editorial Philosophy for {category.name}</span>
+      </div>
+      <h2 class="font-serif text-2xl sm:text-3xl font-semibold text-ink-deep mb-4">
+        Designing with Intent: Spatial Truths
+      </h2>
+      <div class="text-sm sm:text-base text-ink-light leading-relaxed space-y-4 font-normal max-w-3xl">
+        <p>
+          At <em>The House Chapter</em>, we view {category.name.toLowerCase()} as an ongoing conversation between architecture and daily rituals. We avoid the hollow chase of seasonal micro-trends, focusing instead on honest proportions, natural daylight, and materials that grow more alluring with use.
+        </p>
+        <p>
+          Whether navigating an awkward floorplan, tight rental limitations, or a grand renovation, grounding the space in warm neutrals, layered light, and functional concealment unlocks a lasting sense of calm.
+        </p>
+      </div>
+    </section>
+
+    <!-- Newsletter -->
+    <NewsletterSignup variant="boxed" />
+
+  </div>
+</BaseLayout>

@@ -1,0 +1,54 @@
+---
+import { siteConfig } from '../../config/site';
+
+interface Crumb {
+  label: string;
+  href?: string;
+}
+
+interface Props {
+  items: Crumb[];
+}
+
+const { items } = Astro.props;
+---
+
+<nav aria-label="Breadcrumb" class="py-3 text-xs text-warmBrown-light">
+  <ol class="flex items-center flex-wrap gap-1.5" itemscope itemtype="https://schema.org/BreadcrumbList">
+    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" class="flex items-center">
+      <a href="/" itemprop="item" class="hover:text-ink-deep hover:underline transition-colors">
+        <span itemprop="name">Home</span>
+      </a>
+      <meta itemprop="position" content="1" />
+      <span class="mx-1.5 text-beige-dark" aria-hidden="true">/</span>
+    </li>
+
+    {items.map((crumb, idx) => {
+      const isLast = idx === items.length - 1;
+      const position = idx + 2;
+
+      return (
+        <li
+          itemprop="itemListElement"
+          itemscope
+          itemtype="https://schema.org/ListItem"
+          class="flex items-center"
+        >
+          {isLast || !crumb.href ? (
+            <span itemprop="name" class="text-ink-deep font-medium line-clamp-1" aria-current="page">
+              {crumb.label}
+            </span>
+          ) : (
+            <>
+              <a href={crumb.href} itemprop="item" class="hover:text-ink-deep hover:underline transition-colors">
+                <span itemprop="name">{crumb.label}</span>
+              </a>
+              <span class="mx-1.5 text-beige-dark" aria-hidden="true">/</span>
+            </>
+          )}
+          <meta itemprop="position" content={String(position)} />
+        </li>
+      );
+    })}
+  </ol>
+</nav>

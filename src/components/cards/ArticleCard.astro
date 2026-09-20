@@ -1,0 +1,89 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  article: CollectionEntry<'articles'>;
+  aspectRatio?: 'landscape' | 'portrait' | 'square';
+  priority?: boolean;
+}
+
+const { article, aspectRatio = 'landscape', priority = false } = Astro.props;
+const { title, description, category, subcategory, heroImage, heroImageAlt, readingTime, publishedAt, specialty } = article.data;
+
+const aspectClasses = {
+  landscape: 'aspect-[16/11]',
+  portrait: 'aspect-[4/5]',
+  square: 'aspect-square',
+}[aspectRatio];
+
+// Format date nicely
+const formattedDate = new Date(publishedAt).toLocaleDateString('en-US', {
+  month: 'short',
+  day: 'numeric',
+  year: 'numeric',
+});
+---
+
+<article class="group flex flex-col h-full bg-ivory border border-editorial p-3 sm:p-3.5 transition-all duration-300 hover:shadow-editorial hover:border-brass/50">
+  
+  <!-- Photographic Plate with Border Padding -->
+  <a
+    href={`/${article.slug}/`}
+    class="block relative overflow-hidden bg-parchment focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-olive"
+    tabindex="-1"
+    aria-hidden="true"
+  >
+    <div class={`${aspectClasses} w-full overflow-hidden`}>
+      <img
+        src={heroImage}
+        alt={heroImageAlt}
+        loading={priority ? 'eager' : 'lazy'}
+        decoding={priority ? 'sync' : 'async'}
+        class="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+      />
+    </div>
+    
+    <!-- Editorial Kicker Badge -->
+    <div class="absolute top-2.5 left-2.5 flex items-center gap-1.5">
+      <span class="text-[0.625rem] font-semibold tracking-[0.14em] uppercase px-2 py-0.5 bg-ivory/95 backdrop-blur-sm text-ink-deep border border-editorial shadow-xs">
+        {subcategory || category.replace('-', ' ')}
+      </span>
+      {specialty && (
+        <span class="text-[0.625rem] font-semibold tracking-[0.12em] uppercase px-2 py-0.5 bg-brass text-ivory shadow-xs">
+          Specialty
+        </span>
+      )}
+    </div>
+  </a>
+
+  <!-- Editorial Typography & Standfirst -->
+  <div class="flex flex-col flex-grow pt-4 pb-1">
+    
+    <div class="flex items-center gap-2 text-[0.6875rem] uppercase tracking-wider text-warmBrown-light mb-1.5 font-medium">
+      <time datetime={publishedAt}>{formattedDate}</time>
+      <span class="text-beige-dark">&bull;</span>
+      <span>{readingTime}</span>
+    </div>
+
+    <h3 class="font-serif text-xl sm:text-2xl font-semibold text-ink-deep leading-snug group-hover:text-olive transition-colors mb-2.5">
+      <a href={`/${article.slug}/`} class="focus-visible:outline-none focus-visible:underline">
+        {title}
+      </a>
+    </h3>
+
+    <p class="text-xs sm:text-sm text-ink-light leading-relaxed line-clamp-2 mt-auto font-normal">
+      {description}
+    </p>
+
+    <!-- Refined Read Link with Editorial Arrow -->
+    <div class="pt-3.5 mt-3 border-t border-editorial-subtle flex items-center justify-between">
+      <span class="text-[0.6875rem] uppercase tracking-[0.14em] text-olive font-semibold group-hover:text-ink-deep transition-colors inline-flex items-center gap-1.5">
+        <span>Read Chapter</span>
+        <svg class="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+        </svg>
+      </span>
+    </div>
+
+  </div>
+</article>

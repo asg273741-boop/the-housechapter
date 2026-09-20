@@ -1,0 +1,74 @@
+---
+import { siteConfig } from '../../config/site';
+
+interface Props {
+  variant?: 'inline' | 'boxed' | 'footer';
+  headline?: string;
+  description?: string;
+}
+
+const {
+  variant = 'boxed',
+  headline = siteConfig.newsletter.headline,
+  description = siteConfig.newsletter.description,
+} = Astro.props;
+---
+
+<section
+  class={`not-prose ${
+    variant === 'boxed'
+      ? 'my-14 p-8 sm:p-10 bg-parchment border border-editorial text-center max-w-2xl mx-auto shadow-sm'
+      : variant === 'inline'
+      ? 'my-10 p-6 sm:p-8 bg-ivory-dark border-l-4 border-brass'
+      : 'p-6 bg-transparent'
+  }`}
+  aria-label="Newsletter Subscription"
+>
+  <div class="max-w-xl mx-auto space-y-3">
+    <!-- Brand sprig icon -->
+    <div class="flex justify-center text-olive mb-1">
+      <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14h-2v-2h2v2zm0-4h-2V7h2v5z" opacity="0"/>
+        <path d="M12 4c-4.41 0-8 3.59-8 8s3.59 8 8 8 8-3.59 8-8-3.59-8-8-8zm-1 4h2v2h-2V8zm0 4h2v5h-2v-5z" opacity="0"/>
+        <path d="M12 3v3m0 12v3M4.22 4.22l2.12 2.12m11.32 11.32l2.12 2.12M3 12h3m12 0h3M4.22 19.78l2.12-2.12m11.32-11.32l2.12-2.12" stroke="#82917E" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </div>
+
+    <h3 class="font-serif text-2xl sm:text-2xl font-semibold text-ink-deep tracking-tight">
+      {headline}
+    </h3>
+    
+    <p class="text-xs sm:text-sm text-ink-light leading-relaxed font-normal">
+      {description}
+    </p>
+
+    <form
+      class="mt-6 flex flex-col sm:flex-row gap-2.5 justify-center max-w-md mx-auto"
+      action={siteConfig.newsletter.endpoint}
+      method="POST"
+      onsubmit="event.preventDefault(); const msg = this.querySelector('.sub-msg'); if(msg) msg.classList.remove('hidden');"
+    >
+      <input
+        type="email"
+        name="email"
+        required
+        placeholder={siteConfig.newsletter.placeholder}
+        class="flex-grow px-4 py-3 bg-ivory text-ink text-sm border border-editorial focus:border-olive focus:ring-1 focus:ring-olive outline-none transition-colors"
+        aria-label="Email address for publication newsletter"
+      />
+      <button
+        type="submit"
+        class="px-6 py-3 bg-olive text-ivory text-xs uppercase tracking-widest font-semibold hover:bg-olive-dark transition-colors shrink-0 shadow-sm"
+      >
+        {siteConfig.newsletter.buttonText}
+      </button>
+      <p class="sub-msg hidden text-xs text-olive font-medium w-full text-center mt-2">
+        Thank you for joining. Look forward to our next chapter in your inbox.
+      </p>
+    </form>
+
+    <p class="text-[0.6875rem] text-warmBrown-light pt-2">
+      No spam. No daily noise. Unsubscribe at any time with one click.
+    </p>
+  </div>
+</section>

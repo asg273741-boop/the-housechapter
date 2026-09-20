@@ -1,0 +1,90 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/editorial/Breadcrumbs.astro';
+import NewsletterSignup from '../components/editorial/NewsletterSignup.astro';
+import { siteConfig } from '../config/site';
+
+const breadcrumbs = [
+  { label: 'About' },
+];
+---
+
+<BaseLayout
+  title={`About Us — ${siteConfig.siteName}`}
+  description="The House Chapter is an independent home-decor and interiors publication for people who want a home that feels beautiful, practical, personal, and lived in."
+>
+  <div class="max-w-wide mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
+    
+    <Breadcrumbs items={breadcrumbs} />
+
+    <header class="max-w-reading mx-auto pt-6 pb-12 text-center sm:text-left">
+      <span class="text-xs uppercase tracking-[0.16em] text-warmBrown-light font-semibold block mb-3">
+        Our Editorial Story
+      </span>
+      <h1 class="font-serif text-3xl sm:text-5xl lg:text-6xl font-semibold text-ink-deep tracking-tight mb-6">
+        Ideas for a home well lived.
+      </h1>
+      <p class="font-serif italic text-xl sm:text-2xl text-warmBrown leading-relaxed">
+        The House Chapter is a home inspiration publication for people who want a home that feels beautiful, practical, personal, and lived in.
+      </p>
+    </header>
+
+    <!-- Editorial Essay -->
+    <div class="max-w-reading mx-auto space-y-8 text-base sm:text-lg text-ink-light leading-relaxed font-normal">
+      <p>
+        Too often, modern interior media presents an extreme dichotomy: either cold, unattainable multimillion-dollar showpieces with two-story ceilings, or disposable, trend-chasing consumerism that leaves rooms feeling temporary and cluttered.
+      </p>
+
+      <p>
+        <strong>The House Chapter</strong> was founded on a different belief: that genuine home design is a grounded, thoughtful practice. A home should serve the rhythms of real life—where coats have a logical landing place, small corners are given purpose, and natural materials grow more beautiful with age and use.
+      </p>
+
+      <div class="my-10 p-6 sm:p-8 bg-parchment border-l-4 border-olive">
+        <h3 class="font-serif text-xl font-semibold text-ink-deep mb-2">
+          Our Core Principle
+        </h3>
+        <p class="font-serif italic text-base sm:text-lg text-ink-deep">
+          Broad brand. Focused editorial authority.
+        </p>
+        <p class="text-xs sm:text-sm text-ink-light mt-2">
+          We cover the entire home with approachable rigor, while developing singular, unmatched depth in transitional spaces—especially entryways, hallways, and functional drop zones.
+        </p>
+      </div>
+
+      <h2 class="font-serif text-2xl sm:text-3xl font-semibold text-ink-deep pt-4">
+        What We Explore
+      </h2>
+
+      <p>
+        Every week, our editors investigate solutions across nine primary chapters:
+      </p>
+
+      <ul class="space-y-3 pl-4 border-l-2 border-editorial text-sm sm:text-base">
+        <li><strong>Home Decor:</strong> Warm color theory, layered textiles, and decorative details that bring personality to blank rooms.</li>
+        <li><strong>Rooms:</strong> Dedicated guides for living rooms, restful bedrooms, functional kitchens, and peaceful bathrooms.</li>
+        <li><strong>Furniture & Styling:</strong> Choosing console tables, arranging seating, and placing pieces that offer both utility and sculptural balance.</li>
+        <li><strong>Organization & Storage:</strong> Real-life systems, linen closet overhauls, concealed shoe storage, and peaceful decluttering.</li>
+        <li><strong>Small-Space Living:</strong> Intelligent scaling, multi-use layouts, and optical illusions that make modest footprints feel generous.</li>
+        <li><strong>Apartments:</strong> Rental-friendly upgrades, non-damaging lighting, and studio partition solutions.</li>
+        <li><strong>Awkward & Underused Spaces:</strong> Dead corners, narrow recesses, and under-stair alcoves turned into purposeful moments.</li>
+        <li><strong>Outdoor & Garden:</strong> Balcony retreats, container herb gardening, and urban patio styling.</li>
+        <li><strong>Entryways & Hallways:</strong> Our signature specialty—mastering the thresholds that shape your daily arrival home.</li>
+      </ul>
+
+      <h2 class="font-serif text-2xl sm:text-3xl font-semibold text-ink-deep pt-6">
+        Our Photography & Curation Standard
+      </h2>
+
+      <p>
+        You will not find sterile render galleries or impossible floorplans in our pages. We prioritize natural daylight, believable proportions, warm woods, textured ceramics, honest patina, and spaces where people genuinely live, read, cook, and rest.
+      </p>
+
+      <!-- Newsletter -->
+      <div class="pt-8">
+        <NewsletterSignup variant="boxed" />
+      </div>
+
+    </div>
+
+  </div>
+</BaseLayout>

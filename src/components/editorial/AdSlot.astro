@@ -1,0 +1,31 @@
+---
+import { siteConfig } from '../../config/site';
+
+interface Props {
+  slotId?: string;
+  format?: 'banner' | 'rectangle' | 'in-article';
+  class?: string;
+}
+
+const { slotId = 'default', format = 'in-article', class: className = '' } = Astro.props;
+const isEnabled = siteConfig.ads.enabled;
+---
+
+{isEnabled && (
+  <aside
+    class={`ad-slot-container my-8 flex flex-col items-center justify-center bg-parchment/40 border border-editorial text-center not-prose ${
+      format === 'banner'
+        ? 'min-h-[90px] w-full max-w-4xl mx-auto'
+        : format === 'rectangle'
+        ? 'min-h-[250px] w-[300px] mx-auto'
+        : 'min-h-[120px] w-full my-10'
+    } ${className}`}
+    aria-label="Advertisement"
+    data-ad-slot={slotId}
+  >
+    <span class="text-[0.625rem] uppercase tracking-widest text-warmBrown-light mb-1">
+      Advertisement
+    </span>
+    <div class="ad-placeholder" />
+  </aside>
+)}

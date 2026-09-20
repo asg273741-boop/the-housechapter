@@ -1,0 +1,76 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  article: CollectionEntry<'articles'>;
+  reverse?: boolean;
+}
+
+const { article, reverse = false } = Astro.props;
+const { title, description, category, subcategory, heroImage, heroImageAlt, readingTime, publishedAt, specialty } = article.data;
+
+const formattedDate = new Date(publishedAt).toLocaleDateString('en-US', {
+  month: 'short',
+  day: 'numeric',
+  year: 'numeric',
+});
+---
+
+<article class={`group flex flex-col sm:flex-row gap-5 items-stretch bg-ivory border border-editorial p-4 sm:p-5 transition-all duration-300 hover:shadow-editorial hover:border-brass/40 ${reverse ? 'sm:flex-row-reverse' : ''}`}>
+  <!-- Image -->
+  <div class="sm:w-5/12 shrink-0 relative overflow-hidden bg-parchment aspect-[16/10] sm:aspect-auto sm:min-h-[190px]">
+    <a
+      href={`/${article.slug}/`}
+      class="block w-full h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-olive"
+      tabindex="-1"
+      aria-hidden="true"
+    >
+      <img
+        src={heroImage}
+        alt={heroImageAlt}
+        loading="lazy"
+        decoding="async"
+        class="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+      />
+    </a>
+    {specialty && (
+      <span class="absolute top-2.5 left-2.5 text-[0.625rem] font-semibold tracking-wider uppercase px-2 py-0.5 bg-brass text-ivory">
+        Specialty
+      </span>
+    )}
+  </div>
+
+  <!-- Content -->
+  <div class="sm:w-7/12 flex flex-col justify-between">
+    <div>
+      <div class="flex items-center gap-2 text-xs uppercase tracking-wider text-warmBrown-light font-medium mb-1.5">
+        <span>{subcategory || category.replace('-', ' ')}</span>
+        <span>&bull;</span>
+        <span>{readingTime}</span>
+      </div>
+
+      <h3 class="font-serif text-lg sm:text-xl font-semibold text-ink-deep leading-snug group-hover:text-olive transition-colors mb-2">
+        <a href={`/${article.slug}/`} class="focus-visible:outline-none focus-visible:underline">
+          {title}
+        </a>
+      </h3>
+
+      <p class="text-xs sm:text-sm text-ink-light leading-relaxed line-clamp-2">
+        {description}
+      </p>
+    </div>
+
+    <div class="pt-3 mt-3 border-t border-editorial-subtle flex items-center justify-between text-xs">
+      <time datetime={publishedAt} class="text-warmBrown-light">{formattedDate}</time>
+      <a
+        href={`/${article.slug}/`}
+        class="text-olive font-semibold uppercase tracking-wider group-hover:text-ink-deep transition-colors inline-flex items-center gap-1"
+      >
+        <span>Read</span>
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </a>
+    </div>
+  </div>
+</article>
