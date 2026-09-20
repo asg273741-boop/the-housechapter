@@ -1,34 +1,26 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Breadcrumbs from '../components/editorial/Breadcrumbs.astro';
+import EditorialMasthead from '../components/editorial/EditorialMasthead.astro';
 import { siteConfig } from '../config/site';
 
-const breadcrumbs = [
-  { label: 'Search' },
-];
 ---
 
 <BaseLayout
   title={`Search All Chapters — ${siteConfig.siteName}`}
   description="Search decorating guides, entryway solutions, room layouts, and organization ideas across The House Chapter."
 >
-  <div class="max-w-wide mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
-    
-    <Breadcrumbs items={breadcrumbs} />
+  <EditorialMasthead
+    eyebrow="Archive search"
+    title="Search The House Chapter"
+    description="Explore our collection of articles, design ideas, and practical home solutions."
+    image="/images/home/storage.jpg"
+    imageAlt="Considered storage and styling details in a warm interior"
+    compact={true}
+  />
 
-    <header class="max-w-reading mx-auto pt-6 pb-10 text-center sm:text-left">
-      <span class="text-xs uppercase tracking-[0.16em] text-warmBrown-light font-semibold block mb-2">
-        Archive Search
-      </span>
-      <h1 class="font-serif text-3xl sm:text-5xl font-semibold text-ink-deep tracking-tight mb-4">
-        Search The House Chapter
-      </h1>
-      <p class="text-base sm:text-lg text-ink-light leading-relaxed font-normal">
-        Explore our collection of articles, design ideas, and practical home solutions.
-      </p>
-
-      <!-- Search Input -->
-      <div class="mt-8 flex gap-3">
+  <div class="max-w-wide mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
+    <section class="max-w-reading mx-auto pb-10">
+      <div class="flex gap-3">
         <div class="relative flex-grow">
           <input
             type="search"
@@ -52,7 +44,7 @@ const breadcrumbs = [
           </button>
         ))}
       </div>
-    </header>
+    </section>
 
     <!-- Search Results Container -->
     <div class="max-w-wide mx-auto py-6">

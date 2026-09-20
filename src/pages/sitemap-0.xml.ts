@@ -28,7 +28,7 @@ export const GET: APIRoute = async () => {
   const articlePages = articles.map((article) => ({
     loc: `${siteConfig.siteUrl}/${article.slug}/`,
     changefreq: 'weekly',
-    priority: article.data.isFeatured ? '0.9' : '0.8',
+    priority: article.data.featured ? '0.9' : '0.8',
     lastmod: new Date(article.data.updatedAt || article.data.publishedAt).toISOString(),
   }));
 

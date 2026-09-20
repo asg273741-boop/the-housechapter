@@ -1,6 +1,6 @@
 ---
 import BaseLayout from './BaseLayout.astro';
-import Breadcrumbs from '../components/editorial/Breadcrumbs.astro';
+import EditorialMasthead from '../components/editorial/EditorialMasthead.astro';
 import FeaturedHeroCard from '../components/cards/FeaturedHeroCard.astro';
 import ArticleCard from '../components/cards/ArticleCard.astro';
 import SpecialtyCard from '../components/cards/SpecialtyCard.astro';
@@ -14,18 +14,27 @@ interface Props {
 }
 
 const { category, articles } = Astro.props;
-
-// Sort articles by published date descending
 const sortedArticles = [...articles].sort(
   (a, b) => new Date(b.data.publishedAt).getTime() - new Date(a.data.publishedAt).getTime()
 );
-
 const featuredArticle = sortedArticles.find((a) => a.data.featured) || sortedArticles[0];
-const remainingArticles = sortedArticles.filter((a) => a.slug !== featuredArticle?.slug);
+const remainingArticles = featuredArticle
+  ? sortedArticles.filter((a) => a.slug !== featuredArticle.slug)
+  : [];
 
-const breadcrumbs = [
-  { label: category.name },
-];
+const categoryImages: Record<string, string> = {
+  'home-decor': '/images/home/hero-editorial.webp',
+  rooms: '/images/home/hero-living-room.jpg',
+  'furniture-styling': '/images/home/storage.jpg',
+  'organization-storage': '/images/home/kitchen.jpg',
+  'small-space-living': '/images/home/apartment.jpg',
+  apartments: '/images/home/apartment.jpg',
+  'entryways-hallways': '/images/home/entryway.jpg',
+  'awkward-spaces': '/images/home/bathroom.jpg',
+  'outdoor-garden': '/images/home/outdoor.jpg',
+  'seasonal-home': '/images/home/bedroom-editorial.webp',
+};
+const heroImage = categoryImages[category.slug] || '/images/home/hero-editorial.webp';
 
 const collectionPageSchema = {
   '@context': 'https://schema.org',
@@ -46,136 +55,131 @@ const collectionPageSchema = {
   description={category.shortDescription}
   structuredData={collectionPageSchema}
 >
-  <div class="max-w-wide mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-14">
-    
-    <!-- Breadcrumbs -->
-    <Breadcrumbs items={breadcrumbs} />
+  <EditorialMasthead
+    eyebrow={category.isSpecialty ? 'The Signature Chapter' : 'The House Chapter Journal'}
+    title={category.name}
+    description={category.editorialDeck}
+    image={heroImage}
+    imageAlt={`${category.name} inspiration from The House Chapter`}
+  >
+    <div class="editorial-masthead__actions">
+      <a class="editorial-masthead__action" href="#chapter-stories">Explore the chapter →</a>
+    </div>
+  </EditorialMasthead>
 
-    <!-- Editorial Header & Standfirst -->
-    <header class="py-8 sm:py-12 border-b border-editorial mb-12 max-w-editorial">
-      <div class="flex items-center gap-2.5 mb-3">
-        <span class="text-[0.6875rem] uppercase tracking-[0.2em] text-warmBrown-light font-semibold">
-          The House Chapter Journal
-        </span>
-        <span class="text-beige-dark">&bull;</span>
-        <span class="text-[0.6875rem] uppercase tracking-[0.16em] text-olive font-semibold">
-          Chapter Archive
-        </span>
-        {category.isSpecialty && (
-          <span class="ml-2 px-2.5 py-0.5 rounded-none bg-brass text-ivory text-[0.625rem] font-semibold uppercase tracking-widest shadow-xs">
-            Signature Pillar
-          </span>
-        )}
+  <section class="category-topics" aria-label={`Topics in ${category.name}`}>
+    <div class="category-shell">
+      <p>Browse by detail</p>
+      <div class="category-topics__rail">
+        {category.subcategories.map((sub) => (
+          <a href={`/search/?q=${encodeURIComponent(sub)}`}>{sub}</a>
+        ))}
       </div>
+    </div>
+  </section>
 
-      <h1 class="font-serif text-4xl sm:text-6xl lg:text-6xl font-semibold text-ink-deep tracking-tight mb-6 text-balance">
-        {category.name}
-      </h1>
-
-      <p class="font-serif italic text-xl sm:text-2xl text-warmBrown leading-relaxed max-w-3xl text-pretty border-l-2 border-brass/50 pl-4 sm:pl-5 mb-8">
-        "{category.editorialDeck}"
-      </p>
-
-      <!-- Subcategory Navigation Topic Chips -->
-      {category.subcategories && category.subcategories.length > 0 && (
-        <div class="pt-6 border-t border-editorial-subtle">
-          <span class="text-xs uppercase tracking-[0.14em] text-warmBrown-light font-semibold block mb-3">
-            Explore Topics in {category.name}:
-          </span>
-          <div class="flex flex-wrap gap-2">
-            {category.subcategories.map((sub) => (
-              <span class="text-xs font-medium px-3.5 py-1.5 bg-parchment hover:bg-parchment-hover text-ink-deep border border-editorial transition-colors cursor-default shadow-xs">
-                {sub}
-              </span>
-            ))}
-          </div>
-        </div>
-      )}
-    </header>
-
-    <!-- Lead Featured Article -->
-    {featuredArticle && (
-      <section class="mb-16">
-        <div class="mb-6 flex items-center justify-between border-b border-editorial-subtle pb-3">
-          <span class="text-xs uppercase tracking-[0.16em] text-olive font-semibold">
-            Curator's Lead Story in {category.name}
-          </span>
-          <span class="text-xs text-warmBrown-light font-serif italic">
-            Essential Reading
-          </span>
-        </div>
-        <FeaturedHeroCard article={featuredArticle} badge={`Lead Story &bull; ${category.name}`} />
-      </section>
-    )}
-
-    <!-- Category Specialty / Story Grid -->
-    {category.isSpecialty ? (
-      <section class="my-16">
-        <div class="mb-8 pb-3 border-b border-editorial flex items-end justify-between">
+  <div id="chapter-stories" class="category-shell category-content">
+    {featuredArticle ? (
+      <section class="category-section">
+        <div class="category-heading">
           <div>
-            <span class="text-xs uppercase tracking-[0.14em] text-warmBrown-light font-semibold block mb-1">
-              Curated Portfolio
-            </span>
-            <h2 class="font-serif text-3xl sm:text-4xl font-semibold text-ink-deep">
-              Specialty Guides & Blueprint Solutions
-            </h2>
+            <span>Editor's selection</span>
+            <h2>Begin with this story</h2>
           </div>
+          <p>Thoughtful, practical, and made for real life.</p>
         </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {remainingArticles.map((art, idx) => (
-            <SpecialtyCard article={art} index={idx} />
+        <FeaturedHeroCard article={featuredArticle} badge={`The ${category.name} Edit`} />
+      </section>
+    ) : (
+      <section class="category-section category-intro-grid">
+        <div class="category-heading category-heading--stacked">
+          <span>New stories are being prepared</span>
+          <h2>A considered guide to {category.name.toLowerCase()}</h2>
+          <p>While our editors finish the first features in this chapter, explore the ideas and details shaping the collection.</p>
+        </div>
+        <div class="topic-card-grid">
+          {category.subcategories.slice(0, 6).map((sub, index) => (
+            <a href={`/search/?q=${encodeURIComponent(sub)}`} class="topic-card">
+              <span>0{index + 1}</span>
+              <strong>{sub}</strong>
+              <i aria-hidden="true">↗</i>
+            </a>
           ))}
         </div>
       </section>
-    ) : (
-      <section class="my-16">
-        <div class="mb-8 pb-3 border-b border-editorial flex items-end justify-between">
+    )}
+
+    {remainingArticles.length > 0 && (
+      <section class="category-section">
+        <div class="category-heading">
           <div>
-            <span class="text-xs uppercase tracking-[0.14em] text-warmBrown-light font-semibold block mb-1">
-              All Dispatches
-            </span>
-            <h2 class="font-serif text-3xl sm:text-4xl font-semibold text-ink-deep">
-              Latest {category.name} Chapters
-            </h2>
+            <span>{category.isSpecialty ? 'Curated portfolio' : 'Latest from the journal'}</span>
+            <h2>{category.isSpecialty ? 'Specialty guides & solutions' : `More ${category.name} chapters`}</h2>
           </div>
+          <p>{remainingArticles.length} more {remainingArticles.length === 1 ? 'story' : 'stories'} to explore.</p>
         </div>
-        
-        {remainingArticles.length > 0 ? (
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {remainingArticles.map((art) => (
-              <ArticleCard article={art} />
-            ))}
-          </div>
-        ) : (
-          <div class="p-12 text-center bg-parchment border border-editorial">
-            <p class="font-serif text-xl text-ink-deep mb-2">More chapters in curation</p>
-            <p class="text-xs text-ink-light">Our studio is actively documenting new spaces for this chapter.</p>
-          </div>
-        )}
+        <div class="category-card-grid">
+          {remainingArticles.map((art, idx) => (
+            category.isSpecialty
+              ? <SpecialtyCard article={art} index={idx} />
+              : <ArticleCard article={art} />
+          ))}
+        </div>
       </section>
     )}
 
-    <!-- Editorial Doctrine & Designer Guidance Section -->
-    <section class="my-16 p-8 sm:p-12 bg-parchment/60 border border-editorial max-w-editorial mx-auto shadow-xs">
-      <div class="flex items-center gap-2 text-xs uppercase tracking-[0.16em] text-olive font-semibold mb-3">
-        <span class="w-6 h-[1px] bg-olive"></span>
-        <span>The Editorial Philosophy for {category.name}</span>
+    <section class="category-philosophy">
+      <div>
+        <span>The House Chapter approach</span>
+        <h2>Beauty that supports the way you live.</h2>
       </div>
-      <h2 class="font-serif text-2xl sm:text-3xl font-semibold text-ink-deep mb-4">
-        Designing with Intent: Spatial Truths
-      </h2>
-      <div class="text-sm sm:text-base text-ink-light leading-relaxed space-y-4 font-normal max-w-3xl">
-        <p>
-          At <em>The House Chapter</em>, we view {category.name.toLowerCase()} as an ongoing conversation between architecture and daily rituals. We avoid the hollow chase of seasonal micro-trends, focusing instead on honest proportions, natural daylight, and materials that grow more alluring with use.
-        </p>
-        <p>
-          Whether navigating an awkward floorplan, tight rental limitations, or a grand renovation, grounding the space in warm neutrals, layered light, and functional concealment unlocks a lasting sense of calm.
-        </p>
+      <div>
+        <p>We see {category.name.toLowerCase()} as a conversation between architecture and daily ritual—not a chase for passing trends.</p>
+        <p>Honest proportions, natural daylight, warm materials, and functional details create rooms that feel calmer now and grow richer with use.</p>
       </div>
     </section>
 
-    <!-- Newsletter -->
     <NewsletterSignup variant="boxed" />
-
   </div>
 </BaseLayout>
+
+<style>
+  .category-shell { width: min(100% - 2rem, 1360px); margin-inline: auto; }
+  .category-topics { border-bottom: 1px solid rgba(35,32,29,.08); background: #faf7f2; }
+  .category-topics .category-shell { display: flex; align-items: center; gap: 2rem; padding-block: 1rem; }
+  .category-topics p { flex: 0 0 auto; margin: 0; color: #8a6e5e; font-size: .65rem; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; }
+  .category-topics__rail { display: flex; gap: .65rem; overflow-x: auto; padding: .2rem 0 .55rem; scrollbar-width: thin; scrollbar-color: #737a63 #e7ded1; }
+  .category-topics__rail a { flex: 0 0 auto; padding: .55rem .85rem; border: 1px solid rgba(35,32,29,.1); background: #f3ece1; color: #3d3732; font-size: .72rem; transition: background .2s ease, color .2s ease; }
+  .category-topics__rail a:hover { background: #3b4734; color: #faf7f2; }
+  .category-content { padding-block: clamp(3.5rem, 7vw, 7rem); }
+  .category-section + .category-section { margin-top: clamp(4.5rem, 8vw, 8rem); }
+  .category-heading { display: flex; align-items: end; justify-content: space-between; gap: 2rem; margin-bottom: 2rem; border-bottom: 1px solid rgba(35,32,29,.12); padding-bottom: 1rem; }
+  .category-heading span, .category-philosophy span { color: #8a6e5e; font-size: .66rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
+  .category-heading h2, .category-philosophy h2 { margin: .35rem 0 0; color: #191614; font-family: var(--font-serif); font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 500; line-height: 1; }
+  .category-heading > p { max-width: 24rem; margin: 0; color: #664e40; font-family: var(--font-serif); font-size: 1.05rem; font-style: italic; text-align: right; }
+  .category-heading--stacked { display: block; max-width: 50rem; border: 0; }
+  .category-heading--stacked p { max-width: 42rem; margin-top: 1rem; font-family: var(--font-sans); font-size: .95rem; font-style: normal; line-height: 1.7; text-align: left; }
+  .category-card-grid, .topic-card-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; }
+  .topic-card { display: grid; grid-template-columns: auto 1fr auto; min-height: 8.5rem; align-items: end; gap: 1rem; padding: 1.25rem; border: 1px solid rgba(35,32,29,.09); background: #f3ece1; transition: transform .25s ease, background .25s ease, color .25s ease; }
+  .topic-card span { color: #b66348; font-size: .65rem; font-weight: 700; }
+  .topic-card strong { font-family: var(--font-serif); font-size: 1.45rem; font-weight: 600; }
+  .topic-card i { color: #8a6e5e; font-style: normal; }
+  .topic-card:hover { transform: translateY(-3px); background: #3b4734; color: #faf7f2; }
+  .category-philosophy { display: grid; grid-template-columns: .85fr 1.15fr; gap: clamp(2rem, 6vw, 7rem); margin-block: clamp(5rem, 9vw, 9rem); padding: clamp(2.5rem, 6vw, 6rem); background: #303929; color: #faf7f2; }
+  .category-philosophy span { color: #decfc0; }
+  .category-philosophy h2 { max-width: 12ch; color: #faf7f2; }
+  .category-philosophy p { max-width: 42rem; margin: 0; color: rgba(250,247,242,.82); font-size: .98rem; line-height: 1.8; }
+  .category-philosophy p + p { margin-top: 1.25rem; }
+  @media (max-width: 900px) {
+    .category-card-grid, .topic-card-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .category-philosophy { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 640px) {
+    .category-topics .category-shell { display: block; }
+    .category-topics p { margin-bottom: .75rem; }
+    .category-heading { display: block; }
+    .category-heading > p { margin-top: .65rem; text-align: left; }
+    .category-card-grid, .topic-card-grid { grid-template-columns: 1fr; }
+    .topic-card { min-height: 6.5rem; }
+  }
+</style>

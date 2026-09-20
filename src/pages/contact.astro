@@ -1,32 +1,24 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Breadcrumbs from '../components/editorial/Breadcrumbs.astro';
+import EditorialMasthead from '../components/editorial/EditorialMasthead.astro';
 import { siteConfig } from '../config/site';
 
-const breadcrumbs = [
-  { label: 'Contact' },
-];
 ---
 
 <BaseLayout
   title={`Contact & Editorial Submissions — ${siteConfig.siteName}`}
   description="Get in touch with The House Chapter editorial team for inquiries, home submissions, photography credits, and partnerships."
 >
-  <div class="max-w-wide mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
-    
-    <Breadcrumbs items={breadcrumbs} />
+  <EditorialMasthead
+    eyebrow="Get in touch"
+    title="Contact & Editorial"
+    description="We welcome thoughtful editorial feedback, home project submissions, photography questions, and reader correspondence."
+    image="/images/home/footer-console-v2.webp"
+    imageAlt="Warm oak console styled with a lamp and leafy branches"
+    compact={true}
+  />
 
-    <header class="max-w-reading mx-auto pt-6 pb-10 text-center sm:text-left">
-      <span class="text-xs uppercase tracking-[0.16em] text-warmBrown-light font-semibold block mb-2">
-        Get In Touch
-      </span>
-      <h1 class="font-serif text-3xl sm:text-5xl font-semibold text-ink-deep tracking-tight mb-4">
-        Contact & Editorial
-      </h1>
-      <p class="text-base sm:text-lg text-ink-light leading-relaxed font-normal">
-        We welcome thoughtful editorial feedback, home project submissions, photography questions, and reader correspondence.
-      </p>
-    </header>
+  <div class="max-w-wide mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
 
     <div class="max-w-reading mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 py-4">
       

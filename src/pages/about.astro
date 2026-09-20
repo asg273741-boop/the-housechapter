@@ -1,33 +1,24 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Breadcrumbs from '../components/editorial/Breadcrumbs.astro';
+import EditorialMasthead from '../components/editorial/EditorialMasthead.astro';
 import NewsletterSignup from '../components/editorial/NewsletterSignup.astro';
 import { siteConfig } from '../config/site';
 
-const breadcrumbs = [
-  { label: 'About' },
-];
 ---
 
 <BaseLayout
   title={`About Us — ${siteConfig.siteName}`}
   description="The House Chapter is an independent home-decor and interiors publication for people who want a home that feels beautiful, practical, personal, and lived in."
 >
-  <div class="max-w-wide mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
-    
-    <Breadcrumbs items={breadcrumbs} />
+  <EditorialMasthead
+    eyebrow="Our Editorial Story"
+    title="Ideas for a home well lived."
+    description="The House Chapter is a home inspiration publication for people who want a home that feels beautiful, practical, personal, and lived in."
+    image="/images/home/bedroom-editorial.webp"
+    imageAlt="Warm, layered bedroom with natural linen and wood"
+  />
 
-    <header class="max-w-reading mx-auto pt-6 pb-12 text-center sm:text-left">
-      <span class="text-xs uppercase tracking-[0.16em] text-warmBrown-light font-semibold block mb-3">
-        Our Editorial Story
-      </span>
-      <h1 class="font-serif text-3xl sm:text-5xl lg:text-6xl font-semibold text-ink-deep tracking-tight mb-6">
-        Ideas for a home well lived.
-      </h1>
-      <p class="font-serif italic text-xl sm:text-2xl text-warmBrown leading-relaxed">
-        The House Chapter is a home inspiration publication for people who want a home that feels beautiful, practical, personal, and lived in.
-      </p>
-    </header>
+  <div class="max-w-wide mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
 
     <!-- Editorial Essay -->
     <div class="max-w-reading mx-auto space-y-8 text-base sm:text-lg text-ink-light leading-relaxed font-normal">

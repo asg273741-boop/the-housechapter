@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import EditorialMasthead from '../components/editorial/EditorialMasthead.astro';
 import { siteConfig } from '../config/site';
 ---
 
@@ -8,67 +9,27 @@ import { siteConfig } from '../config/site';
   description="We could not find the page you were looking for. Let's find another corner of home."
   noindex={true}
 >
-  <div class="max-w-wide mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28 text-center">
-    <div class="max-w-xl mx-auto space-y-6">
-      <!-- Botanical/Arch emblem -->
-      <div class="flex justify-center mb-2">
-        <svg class="w-14 h-14 text-olive" viewBox="0 0 64 64" fill="none">
-          <path d="M14 52V26C14 16.0589 22.0589 8 32 8C41.9411 8 50 16.0589 50 26V52" stroke="#444F3C" stroke-width="2.5" stroke-linecap="round"/>
-          <path d="M19 52V27C19 19.8203 24.8203 14 32 14C39.1797 14 45 19.8203 45 27V52" stroke="#DECFC0" stroke-width="1.5" stroke-linecap="round"/>
-          <path d="M10 52H54" stroke="#444F3C" stroke-width="2.5" stroke-linecap="round"/>
-          <circle cx="32" cy="18" r="3" fill="#B89358"/>
-        </svg>
-      </div>
-
-      <span class="text-xs uppercase tracking-[0.2em] font-semibold text-warmBrown-light block">
-        Error 404
-      </span>
-
-      <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-semibold text-ink-deep tracking-tight">
-        This chapter isn't here.
-      </h1>
-
-      <p class="font-serif italic text-lg sm:text-xl text-warmBrown">
-        "Let's find another corner of home."
-      </p>
-
-      <p class="text-sm text-ink-light leading-relaxed max-w-md mx-auto">
-        The story or page you were seeking may have moved or been renamed. Explore our main chapters below to rediscover fresh inspiration.
-      </p>
-
-      <!-- Recovery Navigation Links -->
-      <div class="pt-8 border-t border-editorial flex flex-wrap justify-center gap-3">
-        <a
-          href="/"
-          class="px-5 py-2.5 bg-olive hover:bg-olive-dark text-ivory text-xs uppercase tracking-widest font-semibold transition-colors shadow-sm"
-        >
-          Return Home
-        </a>
-        <a
-          href="/entryways-hallways/"
-          class="px-5 py-2.5 bg-parchment hover:bg-parchment-hover text-ink-deep text-xs uppercase tracking-widest font-semibold border border-editorial transition-colors"
-        >
-          Entryways & Hallways
-        </a>
-        <a
-          href="/small-space-living/"
-          class="px-5 py-2.5 bg-parchment hover:bg-parchment-hover text-ink-deep text-xs uppercase tracking-widest font-semibold border border-editorial transition-colors"
-        >
-          Small Spaces
-        </a>
-        <a
-          href="/rooms/"
-          class="px-5 py-2.5 bg-parchment hover:bg-parchment-hover text-ink-deep text-xs uppercase tracking-widest font-semibold border border-editorial transition-colors"
-        >
-          Rooms
-        </a>
-        <a
-          href="/home-decor/"
-          class="px-5 py-2.5 bg-parchment hover:bg-parchment-hover text-ink-deep text-xs uppercase tracking-widest font-semibold border border-editorial transition-colors"
-        >
-          Home Decor
-        </a>
-      </div>
+  <EditorialMasthead
+    eyebrow="Error 404"
+    title="This chapter isn't here."
+    description="The story may have moved or been renamed. Let's find another corner of home."
+    image="/images/home/entryway.jpg"
+    imageAlt="A welcoming entryway leading into the home"
+    compact={true}
+  >
+    <div class="editorial-masthead__actions">
+      <a class="editorial-masthead__action" href="/">Return home →</a>
+      <a class="editorial-masthead__action" href="/search/">Search the journal</a>
     </div>
-  </div>
+  </EditorialMasthead>
+
+  <section class="max-w-wide mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20 text-center">
+    <p class="font-serif italic text-xl text-warmBrown mb-7">Continue with one of our most-read chapters.</p>
+    <div class="flex flex-wrap justify-center gap-3">
+      <a href="/entryways-hallways/" class="px-5 py-3 bg-parchment hover:bg-olive hover:text-ivory text-ink-deep text-xs uppercase tracking-widest font-semibold border border-editorial transition-colors">Entryways & Hallways</a>
+      <a href="/small-space-living/" class="px-5 py-3 bg-parchment hover:bg-olive hover:text-ivory text-ink-deep text-xs uppercase tracking-widest font-semibold border border-editorial transition-colors">Small Spaces</a>
+      <a href="/rooms/" class="px-5 py-3 bg-parchment hover:bg-olive hover:text-ivory text-ink-deep text-xs uppercase tracking-widest font-semibold border border-editorial transition-colors">Rooms</a>
+      <a href="/home-decor/" class="px-5 py-3 bg-parchment hover:bg-olive hover:text-ivory text-ink-deep text-xs uppercase tracking-widest font-semibold border border-editorial transition-colors">Home Decor</a>
+    </div>
+  </section>
 </BaseLayout>

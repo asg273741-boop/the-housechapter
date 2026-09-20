@@ -1,6 +1,6 @@
 ---
 import BaseLayout from './BaseLayout.astro';
-import Breadcrumbs from '../components/editorial/Breadcrumbs.astro';
+import EditorialMasthead from '../components/editorial/EditorialMasthead.astro';
 import SocialShare from '../components/editorial/SocialShare.astro';
 import FaqAccordion from '../components/editorial/FaqAccordion.astro';
 import TipBox from '../components/editorial/TipBox.astro';
@@ -97,77 +97,21 @@ const formattedPublishDate = new Date(publishedAt).toLocaleDateString('en-US', {
   author={author}
   structuredData={structuredData}
 >
+  <EditorialMasthead
+    eyebrow={`${categoryInfo.name} • ${subcategory}${specialty ? ' • Signature story' : ''}`}
+    title={title}
+    description={description}
+    image={heroImage}
+    imageAlt={heroImageAlt}
+  >
+    <div class="article-masthead-meta">
+      <span class="article-masthead-avatar">{author.charAt(0)}</span>
+      <span><strong>{author}</strong><small>{authorRole}</small></span>
+      <span class="article-masthead-date"><time datetime={publishedAt}>{formattedPublishDate}</time> · {readingTime}</span>
+    </div>
+  </EditorialMasthead>
+
   <article class="max-w-wide mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-14">
-    
-    <!-- Breadcrumb Navigation -->
-    <div class="max-w-reading mx-auto">
-      <Breadcrumbs items={breadcrumbs} />
-    </div>
-
-    <!-- Article Header -->
-    <header class="max-w-reading mx-auto pt-6 pb-8 text-center sm:text-left">
-      
-      <!-- Issue & Category Kicker -->
-      <div class="flex items-center justify-center sm:justify-start gap-2.5 text-xs uppercase tracking-[0.16em] text-warmBrown font-semibold mb-4">
-        <a href={`/${category}/`} class="text-olive hover:text-ink-deep hover:underline underline-offset-4">
-          {categoryInfo.name}
-        </a>
-        <span class="text-beige-dark">&bull;</span>
-        <span class="text-warmBrown-light">{subcategory}</span>
-        {specialty && (
-          <span class="ml-2 px-2.5 py-0.5 rounded-none bg-brass/20 text-warmBrown-dark border border-brass/40 text-[0.625rem] font-medium tracking-wider uppercase">
-            Specialty Pillar
-          </span>
-        )}
-      </div>
-
-      <!-- H1 -->
-      <h1 class="font-serif text-3xl sm:text-5xl lg:text-5xl font-semibold text-ink-deep leading-[1.12] tracking-tight mb-6 text-balance">
-        {title}
-      </h1>
-
-      <!-- Deck / Standfirst in warm editorial serif -->
-      <p class="font-serif italic text-xl sm:text-2xl text-warmBrown leading-relaxed mb-8 text-pretty border-l-2 border-brass/50 pl-4 sm:pl-5">
-        "{description}"
-      </p>
-
-      <!-- Editorial Metadata & Byline -->
-      <div class="pt-5 border-t border-editorial flex flex-wrap items-center justify-between gap-4 text-xs text-warmBrown-light">
-        <div class="flex items-center gap-3.5">
-          <div class="w-10 h-10 rounded-full bg-parchment border border-editorial flex items-center justify-center font-serif text-ink-deep font-semibold text-base shadow-xs">
-            {author.charAt(0)}
-          </div>
-          <div>
-            <span class="font-medium text-ink-deep block text-sm">{author}</span>
-            <span class="text-[0.6875rem] text-warmBrown">{authorRole} &bull; The House Chapter</span>
-          </div>
-        </div>
-
-        <div class="flex items-center gap-3 text-xs">
-          <time datetime={publishedAt}>Published {formattedPublishDate}</time>
-          <span class="text-beige-dark">&bull;</span>
-          <span>{readingTime}</span>
-        </div>
-      </div>
-
-    </header>
-
-    <!-- Hero Photographic Plate (Wider than reading column for print magazine rhythm) -->
-    <div class="max-w-editorial mx-auto my-8 overflow-hidden bg-parchment p-2 sm:p-3 border border-editorial shadow-xs">
-      <div class="aspect-[16/10] sm:aspect-[21/10] w-full overflow-hidden bg-parchment">
-        <img
-          src={heroImage}
-          alt={heroImageAlt}
-          loading="eager"
-          decoding="sync"
-          class="w-full h-full object-cover object-center"
-        />
-      </div>
-      <div class="mt-2.5 px-3 py-1 flex flex-col sm:flex-row items-start sm:items-center justify-between text-[0.6875rem] text-warmBrown-light gap-1">
-        <span class="font-serif italic">{heroImageAlt}</span>
-        <span class="uppercase tracking-widest text-olive font-medium shrink-0">Archival Plate</span>
-      </div>
-    </div>
 
     <!-- Ad Slot (After Hero / Intro) -->
     <AdSlot slotId="after-intro" format="banner" />
@@ -313,3 +257,16 @@ const formattedPublishDate = new Date(publishedAt).toLocaleDateString('en-US', {
 
   </article>
 </BaseLayout>
+
+<style>
+  .article-masthead-meta { display: flex; align-items: center; gap: .75rem; max-width: 38rem; margin-top: 1.5rem; padding-top: 1.15rem; border-top: 1px solid rgba(250,247,242,.2); color: rgba(250,247,242,.8); font-size: .7rem; }
+  .article-masthead-avatar { display: inline-flex; width: 2.35rem; height: 2.35rem; flex: 0 0 auto; align-items: center; justify-content: center; border: 1px solid rgba(250,247,242,.32); border-radius: 50%; color: #faf7f2; font-family: var(--font-serif); font-size: 1rem; }
+  .article-masthead-meta strong, .article-masthead-meta small { display: block; }
+  .article-masthead-meta strong { color: #faf7f2; font-size: .75rem; }
+  .article-masthead-meta small { margin-top: .15rem; color: rgba(250,247,242,.62); }
+  .article-masthead-date { margin-left: auto; text-align: right; }
+  @media (max-width: 520px) {
+    .article-masthead-meta { align-items: flex-start; flex-wrap: wrap; }
+    .article-masthead-date { width: 100%; margin: .35rem 0 0 3.1rem; text-align: left; }
+  }
+</style>

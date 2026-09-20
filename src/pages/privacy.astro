@@ -1,24 +1,25 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Breadcrumbs from '../components/editorial/Breadcrumbs.astro';
+import EditorialMasthead from '../components/editorial/EditorialMasthead.astro';
 import { siteConfig } from '../config/site';
 
-const breadcrumbs = [
-  { label: 'Privacy Policy' },
-];
 ---
 
 <BaseLayout
   title={`Privacy Policy — ${siteConfig.siteName}`}
   description="Privacy Policy and data practices for The House Chapter publication."
 >
-  <div class="max-w-wide mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
-    <Breadcrumbs items={breadcrumbs} />
+  <EditorialMasthead
+    eyebrow="The fine print, plainly stated"
+    title="Privacy Policy"
+    description="A straightforward, privacy-conscious account of how The House Chapter handles reader information."
+    image="/images/home/bathroom.jpg"
+    imageAlt="Quiet, light-filled interior with natural materials"
+    compact={true}
+  />
 
-    <article class="max-w-reading mx-auto pt-6 pb-12 prose prose-lg prose-ink">
-      <h1 class="font-serif text-3xl sm:text-4xl font-semibold text-ink-deep mb-4">
-        Privacy Policy
-      </h1>
+  <div class="max-w-wide mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
+    <article class="max-w-reading mx-auto prose prose-lg prose-ink">
       <p class="text-xs uppercase tracking-wider text-warmBrown-light font-medium">
         Last Updated: September 2026
       </p>

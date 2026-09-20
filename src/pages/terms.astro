@@ -1,24 +1,25 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Breadcrumbs from '../components/editorial/Breadcrumbs.astro';
+import EditorialMasthead from '../components/editorial/EditorialMasthead.astro';
 import { siteConfig } from '../config/site';
 
-const breadcrumbs = [
-  { label: 'Terms of Use & Disclaimer' },
-];
 ---
 
 <BaseLayout
   title={`Terms & Editorial Disclaimer — ${siteConfig.siteName}`}
   description="Terms of Use and editorial disclosure for The House Chapter publication."
 >
-  <div class="max-w-wide mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
-    <Breadcrumbs items={breadcrumbs} />
+  <EditorialMasthead
+    eyebrow="Editorial standards"
+    title="Terms & Disclaimer"
+    description="The practical terms that protect our independent editorial work and help readers use it thoughtfully."
+    image="/images/home/kitchen.jpg"
+    imageAlt="Warm kitchen interior with timeless natural finishes"
+    compact={true}
+  />
 
-    <article class="max-w-reading mx-auto pt-6 pb-12 prose prose-lg prose-ink">
-      <h1 class="font-serif text-3xl sm:text-4xl font-semibold text-ink-deep mb-4">
-        Terms of Use & Editorial Disclaimer
-      </h1>
+  <div class="max-w-wide mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
+    <article class="max-w-reading mx-auto prose prose-lg prose-ink">
       <p class="text-xs uppercase tracking-wider text-warmBrown-light font-medium">
         Last Updated: September 2026
       </p>
