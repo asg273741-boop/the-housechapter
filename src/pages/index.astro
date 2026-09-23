@@ -10,11 +10,8 @@ const sortedArticles = [...allArticles].sort(
 
 const journalArticles = sortedArticles.slice(0, 3);
 
-const journalImageBySlug: Record<string, string> = {
-  'apartment-entryway-ideas': '/images/home/apartment.jpg',
-  'small-living-room-ideas': '/images/home/hero-living-room.jpg',
-  'entryway-storage-ideas': '/images/home/storage.jpg',
-};
+const journalImageBySlug: Record<string, string> = {};
+
 
 const roomCards = [
   { label: 'Entryways', href: '/entryways-hallways/', image: '/images/home/entryway.jpg' },
