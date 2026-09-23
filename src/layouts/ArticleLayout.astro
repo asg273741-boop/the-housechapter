@@ -38,7 +38,7 @@ const {
   specialty,
 } = article.data;
 
-const currentUrl = `${siteConfig.siteUrl}/${article.slug}/`;
+const currentUrl = `${siteConfig.siteUrl}/${category}/${article.slug}/`;
 const categoryInfo = siteConfig.categories[category] || {
   name: category.replace('-', ' '),
   slug: category,
@@ -257,6 +257,52 @@ const formattedPublishDate = new Date(publishedAt).toLocaleDateString('en-US', {
 
   </article>
 </BaseLayout>
+
+<script>
+  function setupPinterestImageButtons() {
+    const prose = document.querySelector('.editorial-dropcap');
+    if (!prose) return;
+    const images = prose.querySelectorAll('img');
+    images.forEach((img) => {
+      if (img.dataset.pinReady) return;
+      img.dataset.pinReady = 'true';
+
+      const parent = img.parentElement;
+      if (!parent) return;
+
+      const wrapper = document.createElement('div');
+      wrapper.className = 'pinterest-image-wrapper relative group my-8 overflow-hidden rounded-sm border border-editorial';
+
+      parent.insertBefore(wrapper, img);
+      wrapper.appendChild(img);
+
+      const pinBtn = document.createElement('a');
+      pinBtn.className = 'pinterest-pin-btn absolute top-3 left-3 z-10 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#E60023] hover:bg-[#b8001c] text-white text-xs font-semibold shadow-md transition-all duration-200 opacity-90 sm:opacity-0 group-hover:opacity-100 hover:scale-105';
+      pinBtn.target = '_blank';
+      pinBtn.rel = 'noopener noreferrer';
+      pinBtn.setAttribute('aria-label', 'Save to Pinterest');
+
+      const pageUrl = window.location.href;
+      const mediaUrl = new URL(img.getAttribute('src') || '', window.location.origin).href;
+      const altText = img.getAttribute('alt') || document.title;
+      pinBtn.href = `https://pinterest.com/pin/create/button/?url=${encodeURIComponent(pageUrl)}&media=${encodeURIComponent(mediaUrl)}&description=${encodeURIComponent(altText)}`;
+
+      pinBtn.innerHTML = `
+        <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 0C5.373 0 0 5.372 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738.098.119.112.224.083.345-.09.375-.291 1.199-.334 1.357-.053.225-.174.271-.401.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.354-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.546.535 6.627 0 12-5.373 12-12 0-6.628-5.373-12-12-12z"/>
+        </svg>
+        <span>Save</span>
+      `;
+
+      wrapper.appendChild(pinBtn);
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', setupPinterestImageButtons);
+  if (document.readyState !== 'loading') {
+    setupPinterestImageButtons();
+  }
+</script>
 
 <style>
   .article-masthead-meta { display: flex; align-items: center; gap: .75rem; max-width: 38rem; margin-top: 1.5rem; padding-top: 1.15rem; border-top: 1px solid rgba(250,247,242,.2); color: rgba(250,247,242,.8); font-size: .7rem; }

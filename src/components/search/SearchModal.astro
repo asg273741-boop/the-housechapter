@@ -141,7 +141,7 @@
 
     results.forEach((item) => {
       const card = document.createElement('a');
-      card.href = `/${item.slug}/`;
+      card.href = `/${item.category}/${item.slug}/`;
       card.className = 'search-result-card flex items-center gap-4 p-3 bg-ivory hover:bg-parchment border border-editorial transition-colors group block';
       card.innerHTML = `
         <div class="w-16 h-16 sm:w-20 sm:h-20 shrink-0 bg-parchment overflow-hidden">

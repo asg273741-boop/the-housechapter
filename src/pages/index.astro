@@ -8,10 +8,7 @@ const sortedArticles = [...allArticles].sort(
   (a, b) => new Date(b.data.publishedAt).getTime() - new Date(a.data.publishedAt).getTime()
 );
 
-const articleOrder = ['apartment-entryway-ideas', 'small-living-room-ideas', 'entryway-storage-ideas'];
-const journalArticles = articleOrder
-  .map((slug) => sortedArticles.find((article) => article.slug === slug))
-  .filter(Boolean);
+const journalArticles = sortedArticles.slice(0, 3);
 
 const journalImageBySlug: Record<string, string> = {
   'apartment-entryway-ideas': '/images/home/apartment.jpg',
@@ -87,11 +84,11 @@ const philosophyPoints = [
       <div class="journal-grid">
         {journalArticles.map((article) => article && (
           <article class="journal-card">
-            <a href={`/${article.slug}/`} class="journal-card__image">
+            <a href={`/${article.data.category}/${article.slug}/`} class="journal-card__image">
               <img src={journalImageBySlug[article.slug] || article.data.heroImage} alt={article.data.heroImageAlt} loading="lazy" />
               <span>{article.data.subcategory}</span>
             </a>
-            <h3><a href={`/${article.slug}/`}>{article.data.title}</a></h3>
+            <h3><a href={`/${article.data.category}/${article.slug}/`}>{article.data.title}</a></h3>
             <p>{article.data.description}</p>
             <div>
               <time datetime={article.data.publishedAt}>{new Date(article.data.publishedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</time>

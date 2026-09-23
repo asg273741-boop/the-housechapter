@@ -11,7 +11,7 @@ export const GET: APIRoute = async () => {
   const rssItems = sorted
     .map((article) => {
       const pubDate = new Date(article.data.publishedAt).toUTCString();
-      const link = `${siteConfig.siteUrl}/${article.slug}/`;
+      const link = `${siteConfig.siteUrl}/${article.data.category}/${article.slug}/`;
 
       return `
     <item>

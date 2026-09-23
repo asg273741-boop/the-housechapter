@@ -28,7 +28,7 @@ const formattedDate = new Date(publishedAt).toLocaleDateString('en-US', {
   
   <!-- Photographic Plate with Border Padding -->
   <a
-    href={`/${article.slug}/`}
+    href={`/${category}/${article.slug}/`}
     class="block relative overflow-hidden bg-parchment focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-olive"
     tabindex="-1"
     aria-hidden="true"
@@ -66,7 +66,7 @@ const formattedDate = new Date(publishedAt).toLocaleDateString('en-US', {
     </div>
 
     <h3 class="font-serif text-xl sm:text-2xl font-semibold text-ink-deep leading-snug group-hover:text-olive transition-colors mb-2.5">
-      <a href={`/${article.slug}/`} class="focus-visible:outline-none focus-visible:underline">
+      <a href={`/${category}/${article.slug}/`} class="focus-visible:outline-none focus-visible:underline">
         {title}
       </a>
     </h3>

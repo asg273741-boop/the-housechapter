@@ -45,7 +45,7 @@ const collectionPageSchema = {
   hasPart: sortedArticles.map((art) => ({
     '@type': 'BlogPosting',
     headline: art.data.title,
-    url: `${siteConfig.siteUrl}/${art.slug}/`,
+    url: `${siteConfig.siteUrl}/${art.data.category}/${art.slug}/`,
   })),
 };
 ---

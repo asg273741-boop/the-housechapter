@@ -7,7 +7,7 @@ interface Props {
 }
 
 const { article, index } = Astro.props;
-const { title, description, subcategory, heroImage, heroImageAlt, readingTime } = article.data;
+const { title, description, category, subcategory, heroImage, heroImageAlt, readingTime } = article.data;
 ---
 
 <article class="group relative flex flex-col bg-ivory border border-brass/40 p-3.5 sm:p-4 transition-all duration-300 hover:shadow-editorial hover:border-brass">
@@ -21,7 +21,7 @@ const { title, description, subcategory, heroImage, heroImageAlt, readingTime } 
   <!-- Image Plate -->
   <div class="relative aspect-[4/3] overflow-hidden bg-parchment">
     <a
-      href={`/${article.slug}/`}
+      href={`/${category}/${article.slug}/`}
       class="block w-full h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-olive"
       tabindex="-1"
       aria-hidden="true"
@@ -51,7 +51,7 @@ const { title, description, subcategory, heroImage, heroImageAlt, readingTime } 
     </div>
 
     <h3 class="font-serif text-xl sm:text-2xl font-semibold text-ink-deep leading-snug group-hover:text-olive transition-colors mb-2.5">
-      <a href={`/${article.slug}/`} class="focus-visible:outline-none focus-visible:underline">
+      <a href={`/${category}/${article.slug}/`} class="focus-visible:outline-none focus-visible:underline">
         {title}
       </a>
     </h3>
@@ -65,7 +65,7 @@ const { title, description, subcategory, heroImage, heroImageAlt, readingTime } 
         The House Chapter Authority
       </span>
       <a
-        href={`/${article.slug}/`}
+        href={`/${category}/${article.slug}/`}
         class="text-[0.6875rem] uppercase tracking-[0.14em] text-olive font-semibold group-hover:text-ink-deep transition-colors inline-flex items-center gap-1"
       >
         <span>Examine Blueprint</span>

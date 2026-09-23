@@ -122,7 +122,7 @@ import { siteConfig } from '../config/site';
       const card = document.createElement('article');
       card.className = 'flex flex-col bg-ivory border border-editorial overflow-hidden group hover:border-brass/50 transition-colors shadow-sm';
       card.innerHTML = `
-        <a href="/${art.slug}/" class="block aspect-[16/10] overflow-hidden bg-parchment">
+        <a href="/${art.category}/${art.slug}/" class="block aspect-[16/10] overflow-hidden bg-parchment">
           <img src="${art.heroImage}" alt="${art.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
         </a>
         <div class="p-5 flex flex-col flex-grow">
@@ -132,7 +132,7 @@ import { siteConfig } from '../config/site';
             <span>${art.readingTime}</span>
           </div>
           <h3 class="font-serif text-lg font-semibold text-ink-deep leading-snug group-hover:text-olive transition-colors mb-2">
-            <a href="/${art.slug}/">${art.title}</a>
+            <a href="/${art.category}/${art.slug}/">${art.title}</a>
           </h3>
           <p class="text-xs text-ink-light leading-relaxed line-clamp-2 mt-auto">
             ${art.description}
