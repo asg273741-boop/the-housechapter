@@ -135,7 +135,7 @@ export const siteConfig: SiteConfig = {
       name: 'Organization & Storage',
       shortDescription: 'Orderly systems, functional storage, and calm decluttering.',
       editorialDeck: 'Real life requires real storage. We share clever closet systems, shoe organization, hidden storage, and decluttering methods that keep daily clutter out of sight.',
-      subcategories: ['Home Organization', 'Closet Storage', 'Shoe Storage', 'Functional Storage', 'Decluttering Systems', 'Pantry & Cabinet'],
+      subcategories: ['Home Organization', 'Apartment Organization', 'Closet Storage', 'Shoe Storage', 'Functional Storage', 'Decluttering Systems', 'Pantry & Cabinet'],
       featuredOrder: 4,
     },
     'small-space-living': {
