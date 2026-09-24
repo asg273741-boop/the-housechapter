@@ -479,30 +479,8 @@ The less unrelated household storage your bedroom carries, the easier it becomes
 - **Using only overhead lighting:** Harsh central fixtures destroy cozy evening atmosphere.
 - **Letting laundry become permanent decor:** Keep a slim, dedicated hamper out of direct sightlines.
 
----
-
-## Frequently Asked Questions
-
-### How do you make a small bedroom look bigger?
-Use appropriately scaled furniture, keep walking paths clear, make use of vertical storage, choose a cohesive neutral color palette, mount floating nightstands, and use mirrors strategically to bounce natural daylight.
-
-### What bed size is best for a small bedroom?
-Choose the largest bed that still leaves at least 24 to 30 inches of walking clearance around the active sides. In many compact bedrooms, a Queen or full double provides ample sleeping comfort while preserving essential wardrobe access.
-
-### Where should I put storage in a small bedroom?
-Start by maximizing internal closet space with double rods and modular bins. Next, utilize under-bed storage containers, tall narrow wardrobes that draw the eye upward, and floating bedside shelves.
-
-### How do you decorate a small bedroom without making it feel cluttered?
-Focus on rich textures rather than excess objects. Soft linen bedding, a wool rug, warm wooden accents, and floor-length curtains create depth and warmth without consuming valuable surface space.
-
-### Are dark colors bad for small bedrooms?
-Not necessarily. Muted moody tones (deep charcoal, forest green, warm taupe) can create an intimate, cocoon-like retreat when paired with warm layered lighting and crisp contrasting bedding.
-
-### Should a small bedroom have a bench at the end of the bed?
-Only if the bench provides necessary storage or seating and leaves at least 24 inches of clearance between the bench and opposite wall. Otherwise, open floor space is far more beneficial.
 
 ---
-
 ## Final Thought
 
 A small bedroom doesn't need to feel like a scaled-down version of a large master suite. It can have its own calm, cozy rhythm.

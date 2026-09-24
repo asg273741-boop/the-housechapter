@@ -480,30 +480,8 @@ Layering materials often creates far more visual interest and comfort than addin
 - **Relying on one overhead light:** Layered lighting gives a small room more depth and flexibility.
 - **Filling every corner:** Empty space isn't wasted space. It helps the room feel calmer.
 
----
-
-## Frequently Asked Questions
-
-### How do you make a small living room look bigger?
-Use appropriately scaled furniture, maintain clear walking paths, keep the palette cohesive, use mirrors strategically, and avoid filling every available surface.
-
-### What sofa is best for a small living room?
-Look for a sofa with proportions that fit your room rather than focusing only on its overall width. Compact sofas and smaller sectionals can work particularly well.
-
-### Should a small living room have a coffee table?
-Not necessarily. An ottoman, nesting tables, or small side tables can sometimes provide the same function while taking up less permanent space.
-
-### Where should a sofa go in a small living room?
-That depends on the room's doors, windows, focal points, and circulation. Start with the most important viewing or conversation direction, then make sure the sofa doesn't interfere with movement.
-
-### Are sectionals good for small living rooms?
-They can be. A compact sectional can sometimes use a corner more efficiently than a sofa and separate chairs, particularly in a rectangular or open-plan room.
-
-### How do you add storage to a small living room?
-Use furniture with built-in storage, shallow media consoles, floating shelves, closed cabinets, baskets, and carefully chosen vertical storage.
 
 ---
-
 ## Final Thought
 
 A small living room doesn't need to imitate a large one.

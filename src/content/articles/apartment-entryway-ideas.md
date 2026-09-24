@@ -398,17 +398,49 @@ A rental entryway should feel curated and welcoming without risking your securit
 
 Sometimes the smartest design decision is to use zero floor furniture.
 
-When an entrance is simply too tight for even an 8-inch console, shift the entire functional program onto the walls:
+<div class="my-8 p-6 sm:p-8 bg-parchment/70 border border-editorial rounded-sm not-prose shadow-xs">
+  <div class="flex items-center gap-2.5 text-xs uppercase tracking-[0.16em] text-olive font-semibold mb-5">
+    <svg class="w-4 h-4 text-brass" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+    </svg>
+    <span>Spatial Architecture: The Zero-Footprint Wall Stack</span>
+  </div>
 
-```
-[ Eye-Level Mirror ]
-         |
-[ Floating Oak Shelf (5" deep) ]  --> Holds keys, mail & small candle
-         |
-[ Row of Sturdy Brass Hooks ]    --> Holds daily jacket & tote bag
-         |
-[ Low Boot Tray on Floor ]       --> Holds 2 pairs of active shoes
-```
+  <div class="relative pl-6 sm:pl-8 border-l-2 border-dashed border-brass/50 space-y-5 my-4">
+    <!-- Tier 1 -->
+    <div class="relative">
+      <span class="absolute -left-[31px] sm:-left-[39px] top-0.5 w-4 h-4 rounded-full bg-olive text-ivory text-[10px] flex items-center justify-center font-serif font-bold">1</span>
+      <h4 class="font-serif font-semibold text-base text-ink-deep leading-snug">Eye-Level Mirror</h4>
+      <p class="text-xs text-ink-light mt-0.5">Hung at 60" center to reflect ambient daylight and provide a convenient departure check.</p>
+    </div>
+
+    <!-- Tier 2 -->
+    <div class="relative">
+      <span class="absolute -left-[31px] sm:-left-[39px] top-0.5 w-4 h-4 rounded-full bg-olive text-ivory text-[10px] flex items-center justify-center font-serif font-bold">2</span>
+      <h4 class="font-serif font-semibold text-base text-ink-deep leading-snug">Floating Shallow Shelf (4"–6" Deep)</h4>
+      <p class="text-xs text-ink-light mt-0.5">Mounted at waist height to hold a ceramic key dish, daily mail, and a small votive.</p>
+    </div>
+
+    <!-- Tier 3 -->
+    <div class="relative">
+      <span class="absolute -left-[31px] sm:-left-[39px] top-0.5 w-4 h-4 rounded-full bg-olive text-ivory text-[10px] flex items-center justify-center font-serif font-bold">3</span>
+      <h4 class="font-serif font-semibold text-base text-ink-deep leading-snug">Row of Sturdy Wall Pegs</h4>
+      <p class="text-xs text-ink-light mt-0.5">Spaced 6" apart to support jackets, umbrellas, and everyday canvas bags without bulk.</p>
+    </div>
+
+    <!-- Tier 4 -->
+    <div class="relative">
+      <span class="absolute -left-[31px] sm:-left-[39px] top-0.5 w-4 h-4 rounded-full bg-olive text-ivory text-[10px] flex items-center justify-center font-serif font-bold">4</span>
+      <h4 class="font-serif font-semibold text-base text-ink-deep leading-snug">Low Boot Tray at Floor Level</h4>
+      <p class="text-xs text-ink-light mt-0.5">Tucked flush against the baseboard, providing a strict perimeter for 2 active pairs of shoes.</p>
+    </div>
+  </div>
+
+  <div class="mt-4 pt-3 border-t border-editorial-subtle flex items-center justify-between text-xs text-warmBrown-light">
+    <span class="font-medium">Total Floor Clearance Preserved: 100%</span>
+    <span class="italic font-serif text-olive">Zero circulation obstruction</span>
+  </div>
+</div>
 
 This arrangement keeps the floor line 100% open, making the threshold feel airy and completely unobstructed while providing all the essential landing capabilities.
 
@@ -472,35 +504,7 @@ A successful entryway should be effortless to maintain. Incorporate this 5-minut
 
 If these five steps take less than two minutes, your entryway layout is working in harmony with your daily life.
 
----
 
-## Frequently Asked Questions
-
-### How can I create an entryway in a small apartment?
-Use visual cues rather than physical walls. A slim console table, an eye-level mirror, a runner rug, wall hooks, a compact bench, or a tilt-out shoe cabinet can establish a dedicated arrival zone even when the architecture does not provide a separate foyer.
-
-### What furniture is best for an apartment entryway?
-The best furniture depends on your available floor footprint. Ultra-slim consoles (8 to 11 inches deep), storage benches with bottom shelves, shallow shoe cabinets, and narrow vertical cupboards provide maximum utility while preserving walking clearance.
-
-### How do I decorate an apartment entrance?
-Start with functional necessities, then introduce one or two strong decorative elements such as a sculptural mirror, an oversized framed art print, a patterned runner, or a warm ceramic table lamp. Avoid cluttering surfaces with excessive small decor.
-
-### How do I organize shoes in a small apartment entryway?
-Give everyday footwear a defined storage zone using a closed shoe cabinet, low bench, ventilated shelf, woven baskets, or a boot tray. Store seasonal, formal, and occasional footwear in bedroom closets or under-bed storage.
-
-### What can renters do to improve an apartment entryway?
-Freestanding narrow furniture, heavy-duty damage-free hooks, leaning full-length mirrors, durable runner rugs, woven baskets, rechargeable wireless lamps, and removable artwork solutions create a stylish, finished look without causing wall damage or forfeiting security deposits.
-
-### How do I make a narrow apartment hallway feel better?
-Keep the walking path clear of obstacles, use shallow wall-mounted shelving or shallow cabinets only where strictly necessary, install a continuous runner rug to guide the eye, and visually connect the hallway to adjoining rooms by repeating materials and color tones.
-
-### Should an apartment entryway have a mirror?
-Yes. A mirror is one of the highest-value additions to an apartment entrance. It combines practical function for last-minute checks with decorative light reflection, making compact thresholds feel brighter and more open.
-
-### How much furniture should a small entryway have?
-Only as much as the square footage and your routine require. A very small entrance often performs better with just a floating shelf, a few wall hooks, and a mirror rather than an arrangement of heavy freestanding pieces.
-
----
 
 ## Final Thought
 
