@@ -127,7 +127,7 @@ export const siteConfig: SiteConfig = {
       name: 'Furniture & Styling',
       shortDescription: 'Selecting, placing, and styling core furniture pieces.',
       editorialDeck: 'Thoughtfully chosen furniture anchors a room. Learn how to place console tables, balance seating, arrange coffee tables, and select pieces that offer both utility and sculptural elegance.',
-      subcategories: ['Console Tables', 'Benches', 'Shelving & Bookcases', 'Coffee & Side Tables', 'Multifunctional Furniture', 'Placement Guides'],
+      subcategories: ['Console Tables', 'Benches', 'Shelving & Bookcases', 'Coffee & Side Tables', 'Multifunctional Furniture', 'Small-Space Furniture', 'Placement Guides'],
       featuredOrder: 3,
     },
     'organization-storage': {
