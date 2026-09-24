@@ -398,51 +398,18 @@ A rental entryway should feel curated and welcoming without risking your securit
 
 Sometimes the smartest design decision is to use zero floor furniture.
 
-<div class="my-8 p-6 sm:p-8 bg-parchment/70 border border-editorial rounded-sm not-prose shadow-xs">
-  <div class="flex items-center gap-2.5 text-xs uppercase tracking-[0.16em] text-olive font-semibold mb-5">
-    <svg class="w-4 h-4 text-brass" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-    </svg>
-    <span>Spatial Architecture: The Zero-Footprint Wall Stack</span>
-  </div>
+A tiny entrance may work better with a disciplined vertical arrangement:
 
-  <div class="relative pl-6 sm:pl-8 border-l-2 border-dashed border-brass/50 space-y-5 my-4">
-    <!-- Tier 1 -->
-    <div class="relative">
-      <span class="absolute -left-[31px] sm:-left-[39px] top-0.5 w-4 h-4 rounded-full bg-olive text-ivory text-[10px] flex items-center justify-center font-serif font-bold">1</span>
-      <h4 class="font-serif font-semibold text-base text-ink-deep leading-snug">Eye-Level Mirror</h4>
-      <p class="text-xs text-ink-light mt-0.5">Hung at 60" center to reflect ambient daylight and provide a convenient departure check.</p>
-    </div>
+> **Wall Hooks + Floating Shelf + Mirror + Small Tray**
 
-    <!-- Tier 2 -->
-    <div class="relative">
-      <span class="absolute -left-[31px] sm:-left-[39px] top-0.5 w-4 h-4 rounded-full bg-olive text-ivory text-[10px] flex items-center justify-center font-serif font-bold">2</span>
-      <h4 class="font-serif font-semibold text-base text-ink-deep leading-snug">Floating Shallow Shelf (4"–6" Deep)</h4>
-      <p class="text-xs text-ink-light mt-0.5">Mounted at waist height to hold a ceramic key dish, daily mail, and a small votive.</p>
-    </div>
+This keeps the floor line completely open and makes a tight space much easier to navigate:
 
-    <!-- Tier 3 -->
-    <div class="relative">
-      <span class="absolute -left-[31px] sm:-left-[39px] top-0.5 w-4 h-4 rounded-full bg-olive text-ivory text-[10px] flex items-center justify-center font-serif font-bold">3</span>
-      <h4 class="font-serif font-semibold text-base text-ink-deep leading-snug">Row of Sturdy Wall Pegs</h4>
-      <p class="text-xs text-ink-light mt-0.5">Spaced 6" apart to support jackets, umbrellas, and everyday canvas bags without bulk.</p>
-    </div>
+- **Eye-level mirror:** Provides a convenient final glance before leaving while reflecting natural light into darker apartment hallways.
+- **Floating shallow shelf (4 to 6 inches deep):** Establishes an intentional landing zone for keys, sunglasses, and mail without intruding on the walking path.
+- **Row of sturdy wall pegs:** Holds everyday jackets, work totes, and umbrellas securely without the bulk of a standalone wardrobe.
+- **Small catchall dish:** Keeps pocket change, transit cards, and small essentials gathered in one designated place.
 
-    <!-- Tier 4 -->
-    <div class="relative">
-      <span class="absolute -left-[31px] sm:-left-[39px] top-0.5 w-4 h-4 rounded-full bg-olive text-ivory text-[10px] flex items-center justify-center font-serif font-bold">4</span>
-      <h4 class="font-serif font-semibold text-base text-ink-deep leading-snug">Low Boot Tray at Floor Level</h4>
-      <p class="text-xs text-ink-light mt-0.5">Tucked flush against the baseboard, providing a strict perimeter for 2 active pairs of shoes.</p>
-    </div>
-  </div>
-
-  <div class="mt-4 pt-3 border-t border-editorial-subtle flex items-center justify-between text-xs text-warmBrown-light">
-    <span class="font-medium">Total Floor Clearance Preserved: 100%</span>
-    <span class="italic font-serif text-olive">Zero circulation obstruction</span>
-  </div>
-</div>
-
-This arrangement keeps the floor line 100% open, making the threshold feel airy and completely unobstructed while providing all the essential landing capabilities.
+That wall-mounted combination is often all a compact entrance needs to feel complete and functional without sacrificing an inch of floor footprint.
 
 ---
 
